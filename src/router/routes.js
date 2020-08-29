@@ -23,6 +23,28 @@ const routes = [
     ]
   },
 
+  {
+    path: "/Barber",
+    component: () => import("layouts/Barber.vue"),
+    children: [
+      {
+        path: "startpage",
+        name: "startpage",
+        component: () => import("pages/barber/startpage.vue")
+      },
+      {
+        path: "login",
+        name: "loginbarber",
+        component: () => import("pages/barber/login.vue")
+      },
+      {
+        path: "otp",
+        name: "otpbarber",
+        component: () => import("pages/barber/otp.vue")
+      }
+    ]
+  },
+
   // Always leave this as last one,
   // but you can also remove it
   {
