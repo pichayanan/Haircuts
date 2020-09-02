@@ -38,9 +38,9 @@ const routes = [
         component: () => import("pages/barber/login.vue")
       },
       {
-        path: "otp",
-        name: "otpbarber",
-        component: () => import("pages/barber/otp.vue")
+        path: "main",
+        name: "mainbarber",
+        component: () => import("pages/barber/main.vue")
       }
     ]
   },

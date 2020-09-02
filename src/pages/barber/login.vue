@@ -5,39 +5,84 @@
 
       <div class="tag">START WORKING WITH US</div>
 
-      <q-tabs v-model="tab" no-caps class="bg-black text-white shadow-2">
-        <q-tab name="number" label="MOBILE NUMBER" />
-        <q-tab name="otp" label="OTP" />
-      </q-tabs>
-    </div>
-
-    <div class="mobile justify-center text-center">
-      <q-input
-        clearable
-        filled
-        color="black"
-        bg-color="white"
-        v-model="telno"
-        label="ex. 061178XXXX"
-        :rules="[val => !!val || 'Please put your mobile number']"
-      ></q-input>
-
-      <!-- ----------------------------------AJ KORN-------------------------------------- -->
-      <div class="requestoptbutton col-4 text-center q-mt-sm">
-        <q-btn
-          class="full-width"
+      <q-card>
+        <q-tabs
+          v-model="tab"
+          dense
+          class="bg-black text-grey"
           color="black"
-          @click="requestotp"
-          icon=""
-          label="request OTP"
-        />
-      </div>
-      <!-- <div class="col-4 text-center q-mt-sm">
-        <div id="recaptcha-container" class="text-center"></div>
-      </div> -->
-      <!-- ----------------------------------AJ KORN-------------------------------------- -->
+          active-color="white"
+          indicator-color="white"
+          align="justify"
+          narrow-indicator
+        >
+          <q-tab name="mobile" label="MOBILE NUMBER"></q-tab>
+          <q-tab name="otp" label="OTP"></q-tab>
+        </q-tabs>
 
+        <q-separator></q-separator>
 
+        <q-tab-panels v-model="tab" animated>
+          <q-tab-panel name="mobile">
+            <div class="text-h8">Please put your phone number</div>
+            <!-- ----------------------------------input phone number-------------------------------------- -->
+            <div class="mobile justify-center text-center">
+              <q-input
+                clearable
+                filled
+                color="black"
+                bg-color="white"
+                v-model="telno"
+                label="ex. 061178XXXX"
+                :rules="[val => !!val || 'Please put your mobile number']"
+              ></q-input>
+
+              <div class="requestoptbutton col-4 text-center q-mt-sm">
+                
+                <q-btn 
+                flat rounded 
+                style="color:#bda13c" 
+                @click="requestotp"
+                label="Resquest OTP">
+                </q-btn>
+              </div>
+              <!-- <div class="col-4 text-center q-mt-sm">
+              <div id="recaptcha-container" class="text-center"></div>
+              </div>-->
+            </div>
+            <!-- ----------------------------------input phone number-------------------------------------- -->
+          </q-tab-panel>
+
+          <q-tab-panel name="otp">
+            <div class="text-h8">Please put your OTP</div>
+            <!-- ----------------------------------input OTP-------------------------------------- -->
+            <div class="mobile justify-center text-center">
+              <q-input
+                clearable
+                filled
+                color="black"
+                bg-color="white"
+                label="ex. xxx-xxx"
+                :rules="[val => !!val || 'Please put your OTP']"
+              ></q-input>
+
+              <div class="confirmbutton col-4 text-center q-mt-sm">
+                <q-btn 
+                    rounded 
+                    class="full-width" 
+                    color="black" 
+                    @click="confirm" 
+                    icon label="CONFIRM" 
+                />
+              </div>
+              <!-- <div class="col-4 text-center q-mt-sm">
+              <div id="recaptcha-container" class="text-center"></div>
+              </div>-->
+            </div>
+            <!-- ----------------------------------input OTP-------------------------------------- -->
+          </q-tab-panel>
+        </q-tab-panels>
+      </q-card>
     </div>
   </q-page>
 </template>
@@ -47,13 +92,16 @@ export default {
   data() {
     return {
       logo: "",
-      tab: "number",
+      tab: "mobile",
+      telno: "",
     };
   },
   methods: {
-     requestotp() {
-      console.log("click");
-      this.$router.push({ name: "requestotp" });
+    requestotp() {
+      this.tab = "otp";
+    },
+    confirm() {
+      // this.tab = "otp";
     },
     getlogo() {
       console.log("logo");
@@ -73,45 +121,15 @@ export default {
   mounted() {
     this.getlogo();
   },
-
-  // ----------------------------------AJ KORN--------------------------------------
-
-  // sendVerifyCode() {
-  //     console.log("sendVerifyCode");
-  //     this.submitPhoneNumberAuth();
-  //   },
-  //   submitPhoneNumberAuth() {
-  //     var phoneNumber = "+66" + this.telno;
-  //     var appVerifier = window.recaptchaVerifier;
-  //     this.$firebase
-  //       .auth()
-  //       .signInWithPhoneNumber(phoneNumber, appVerifier)
-  //       .then(confirmationResult => {
-  //         this.capchaVerified = true;
-  //         window.confirmationResult = confirmationResult;
-  //         this.$router.push({
-  //           name: "confirmcode",
-  //           params: { nextUrl: this.$route.params.nextUrl }
-  //         });
-  //       })
-  //       .catch(function(error) {
-  //         console.log(error);
-  //       });
-  //   }
-  // }
-
-  // ----------------------------------AJ KORN--------------------------------------
-
-
 };
 </script>
 
 <style>
 .logoHaircuts {
   position: absolute;
-  bottom: 550px;
-  left: 110px;
-  width: 270px;
+  bottom: 530px;
+  left: 100px;
+  width: 325px;
 }
 
 .tag {
@@ -125,8 +143,7 @@ export default {
   padding-top: 10%;
 }
 
-.requestoptbutton{
+.requestoptbutton {
   text-align: center;
-
 }
 </style>
