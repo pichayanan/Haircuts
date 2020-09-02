@@ -1,9 +1,12 @@
 <template>
   <q-page class="bg-dark">
-    <q-img class="fixed-center" :src="logo" :ratio="1" />
-
+    <div class="col-3"></div>
+    <div class="col-6">
+      <q-img class="firstpage" :src="logo" :ratio="1" />
+    </div>
+    <div class="col-3"></div>
     <!-- Hello logo -->
-    <div class="login">
+    <!-- <div class="login">
       <q-btn
         class="absolute-bottom"
         rounded
@@ -12,10 +15,10 @@
         label="Log-in"
         @click="login"
       />
-    </div>
-    <div class="positionsignin">
-      <h class="signin">Don't have an account ? Sign-in</h>
-    </div>
+    </div> -->
+    <!-- <div class="positionsignin">
+      <h class="signin">Don't have an account ? Sign-up</h>
+    </div> -->
   </q-page>
 </template>
 
@@ -29,9 +32,8 @@ export default {
   methods: {
     // login() {
     //   console.log("click");
-    //   this.$router.push({ name: "login", params: { name: "palm" } });
-
-    // }
+    //   this.$router.push({ name: "logincustomer",  });
+    // },
     getlogo() {
       console.log("logo");
       this.$firestore
@@ -41,12 +43,16 @@ export default {
         .then(querySnapshot => {
           querySnapshot.forEach(doc => {
             // doc.data() is never undefined for query doc snapshots
-            console.log(doc.id, " => ", doc.data().logo);
+           console.log(doc.id, " => ", doc.data().logo);
             this.logo = doc.data().logo;
           });
+        })
+        .catch(error => {
+          console.log("Error getting documents: ", error);
         });
     }
   },
+
   mounted() {
     this.getlogo();
   }
@@ -54,26 +60,24 @@ export default {
 </script>
 
 <style>
-
-div.login {
+/* div.login {
   position: absolute;
-  bottom: 190px;
-  left: 90px;
-  width: 100px;
-}
-.absolute-bottom {
+  width: 350px;
+  left: 150px;
+  
+} */
+/* .absolute-bottom {
   width: 200px;
 }
 
 .signin {
   color: white;
   font-size: 100%;
-}
+}*/
 
-.positionsignin{
- position:absolute;
-  bottom: 155px;
-  left: 95px;
-  width: 200px;
+.firstpage {
+  position: absolute;
+  bottom: 20%;
+  width: 100%;
 }
 </style>

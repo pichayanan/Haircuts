@@ -3,22 +3,28 @@ const routes = [
     path: "/",
     component: () => import("layouts/MainLayout.vue"),
     children: [
-      { path: "", component: () => import("pages/logo.vue") }
-      // {
-      //   path: "login",
-      //   name: "login",
-      //   component: () => import("pages/login.vue")
-      // }
+      { path: "", component: () => import("pages/customer/logo.vue") }
     ]
   },
   {
-    path: "/login",
+    path: "/customer",
     component: () => import("layouts/MainAll.vue"),
     children: [
       {
         path: "",
-        name: "login",
-        component: () => import("pages/login.vue")
+        name: "logincustomer",
+        component: () => import("pages/customer/login.vue")
+      }
+    ]
+  },
+  {
+    path: "/Main",
+    component: () => import("layouts/MainAll.vue"),
+    children: [
+      {
+        path: "/customer/Main",
+        name: "Maincustomer",
+        component: () => import("pages/customer/Main.vue")
       }
     ]
   },
