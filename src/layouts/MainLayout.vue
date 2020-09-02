@@ -15,8 +15,8 @@ export default {
   },
   mounted() {
     setTimeout(() => {
-      this.$router.push({ name: "login" });
-    }, 6000);
+      this.$router.push({ name: "logincustomer" });
+    }, 5000);
   }
 };
 </script>
