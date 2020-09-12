@@ -43,70 +43,46 @@
       <q-tab-panels v-model="tab" animated>
         <q-tab-panel name="Male">
           <!-- ----------------------------------men haircuts-------------------------------------- -->
-          <div class="row items-center" v-for="n in 3" :key="n">
-            <div class="col"  > 
-              
-              <q-card class="my-card">
-                <q-img src="../../images/buzzcut.jpg"> </q-img>
+          <div class="q-pa-lg row items-start q-gutter-xl">
+            <q-card class="my-card" v-for="(men, index) in testM" :key="index">
+              <q-img class="sizeimg" :src="men.picM"></q-img>
 
-                <q-card-actions class="row justify-center">
-                  <q-btn flat>BUZZ</q-btn>
-                </q-card-actions>
-              </q-card>
-            </div>
-            <div class="col">
-              <q-card class="my-card">
-                <q-img src="../../images/undercut.jpg"> </q-img>
-
-                <q-card-actions class="row justify-center">
-                  <q-btn flat>UNDERCUT</q-btn>
-                </q-card-actions>
-              </q-card>
-            </div>
-            <div class="col">
-              <q-card class="my-card">
-                <q-img src="../../images/buzzcut.jpg"> </q-img>
-
-                <q-card-actions class="row justify-center">
-                  <q-btn flat>Action 1</q-btn>
-                </q-card-actions>
-              </q-card>
-            </div>
+              <q-card-actions class="row justify-center">
+                <q-btn
+                  class="text-white"
+                  flat
+                  @click="Mainbtn(men.titleM, men.id)"
+                  >{{ men.titleM }}</q-btn
+                >
+              </q-card-actions>
+            </q-card>
           </div>
 
           <!-- ------------------------------------------------------------------------------------ -->
         </q-tab-panel>
         <q-tab-panel name="Female">
           <!-- ----------------------------------female haircuts-------------------------------------- -->
- <div class="row items-center" v-for="n in 2" :key="n">
-            <div class="col"  > 
-              
-              <q-card class="my-card">
-                <q-img src="../../images/buzzcut.jpg"> </q-img>
+          <div class="q-pa-lg row items-start q-gutter-xl">
+            <!-- <q-card class="my-card" v-for="(women, index) in picW" :key="index"> -->
+            <q-card class="my-card" v-for="(women, index) in testW" :key="index">
+              <!-- <q-img class="sizeimg" :src="picW[index]"> </q-img> -->
+              <q-img class="sizeimg" :src="women.picW"> </q-img>
 
-                <q-card-actions class="row justify-center">
-                  <q-btn flat>BUZZ</q-btn>
-                </q-card-actions>
-              </q-card>
-            </div>
-            <div class="col">
-              <q-card class="my-card">
-                <q-img src="../../images/undercut.jpg"> </q-img>
-
-                <q-card-actions class="row justify-center">
-                  <q-btn flat>UNDERCUT</q-btn>
-                </q-card-actions>
-              </q-card>
-            </div>
-            <div class="col">
-              <q-card class="my-card">
-                <q-img src="../../images/buzzcut.jpg"> </q-img>
-
-                <q-card-actions class="row justify-center">
-                  <q-btn flat>Action 1</q-btn>
-                </q-card-actions>
-              </q-card>
-            </div>
+              <q-card-actions class="row justify-center">
+                <q-btn
+                  class="text-white"
+                  flat
+                  @click="Mainbtn(women.titleW, women.id)"
+                  >{{ women.titleW }}</q-btn
+                >
+                <!-- <q-btn
+                  class="text-white"
+                  flat
+                  @click="Mainbtn(titleW[index])"
+                  >{{ titleW[index] }}</q-btn
+                > -->
+              </q-card-actions>
+            </q-card>
           </div>
 
           <!-- ----------------------------------input OTP-------------------------------------- -->
@@ -130,13 +106,84 @@ export default {
     return {
       slide: 1,
       autoplay: true,
-      tab: "Male"
+      tab: "Male",
+      testW: [],
+      testM: []
     };
+  },
+  methods: {
+    getmen() {
+      console.log("Menstyle");
+      this.$firestore
+        .collection("Menstyle")
+        .get()
+        .then(querySnapshot => {
+          querySnapshot.forEach(doc => {
+            // doc.data() is never undefined for query doc snapshots
+            // console.log(doc.id, " => ", doc.data());
+            // this.picM.push(doc.data().url);
+            // this.titleM.push(doc.data().name);
+            let objMen = {
+              picM: doc.data().url,
+              titleM: doc.data().name,
+              id: doc.id
+            };
+            this.testM.push(objMen);
+            // console.log(this.pic)
+            // console.log(doc.id, " => ", doc.data().name);
+          });
+        });
+    },
+    getwomen() {
+      console.log("Womenstyle");
+      this.$firestore
+        .collection("Womenstyle")
+        .get()
+        .then(querySnapshot => {
+          querySnapshot.forEach(doc => {
+            // doc.data() is never undefined for query doc snapshots
+            // console.log(doc.id, " => ", doc.data());
+            // this.picW.push(doc.data().url);
+            // this.titleW.push(doc.data().name);
+
+            let objWomen = {
+              picW: doc.data().url,
+              titleW: doc.data().name,
+              id: doc.id
+            };
+            this.testW.push(objWomen);
+            // console.log(this.testW);
+
+            // console.log(this.pic)
+            // console.log(doc.id, " => ", doc.data().name);
+          });
+        });
+    },
+    Mainbtn(title, id) {
+      console.log(title, id);
+      this.$router.push({
+        name: "findHaircut",
+        params: {
+          title: title
+        }
+      });
+    }
+  },
+  mounted() {
+    this.getmen();
+    this.getwomen();
   }
 };
 </script>
 
 <style>
-.my-card{
-  margin:5%
-}</style>
+.my-card {
+  margin-left: 9%;
+  width: 40%;
+  background-color: black;
+}
+.sizeimg {
+  width: 137px;
+  height: 163px;
+}
+</style>
