@@ -72,7 +72,6 @@
         </div>
       </div>
     </q-card>
-
     <div class="haircut row">
       <div class="text-h6 col-5 text-center">
         <br />HAIRCUTS
@@ -84,21 +83,14 @@
           <div class="absolute-bottom text-subtitle2 text-center">Undercut</div>
         </q-img>
       </q-card>
-
       <q-card class="photos my-card col-4">
         <q-img src="https://cdn.quasar.dev/img/avatar2.jpg" basic>
           <div class="absolute-bottom text-subtitle2 text-center">Undercut</div>
         </q-img>
       </q-card>
-
       <div class="photos col-3 addbutton">
         <q-icon size="80px" name="add_circle_outline" />
       </div>
-
-      
-      
-
-
     </div>
   </q-page>
 </template>
@@ -107,10 +99,9 @@
 export default {
   data() {
     return {
-      date: "2020/09/04"
+      date: "2020/09/04",
     };
-  }
-  
+  },
 };
 </script>
 
