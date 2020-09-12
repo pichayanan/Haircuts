@@ -97,6 +97,16 @@
       <q-btn color="dark" label="Second" icon="visibility"></q-btn>
     </q-btn-group>
   </div> -->
+  <q-page-sticky  position="bottom-right" :offset="[18, 18]">
+            <q-fab
+              icon="add"
+              direction="up"
+              color="dark"
+            >
+              <q-fab-action @click="onClickedit" color="warning" icon="person_add"></q-fab-action>
+              <q-fab-action @click="onClicktime" color="warning" icon="calendar_today"></q-fab-action>
+            </q-fab>
+          </q-page-sticky>
   </q-page>
 </template>
 
@@ -112,6 +122,12 @@ export default {
     };
   },
   methods: {
+    onClickedit () {
+      // console.log('Clicked on a fab action')
+    },
+    onClicktime() {
+
+    },
     getmen() {
       console.log("Menstyle");
       this.$firestore
@@ -178,12 +194,13 @@ export default {
 
 <style>
 .my-card {
-  margin-left: 9%;
+  margin-left: 10%;
+  
   width: 40%;
   background-color: black;
 }
 .sizeimg {
-  width: 137px;
+  width: 100%;
   height: 163px;
 }
 </style>
