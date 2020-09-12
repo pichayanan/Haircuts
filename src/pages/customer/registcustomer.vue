@@ -13,7 +13,6 @@
         <q-avatar class="profilepic row">
           <img :src="URL" />
         </q-avatar>
-        <u class="row changeprofile" caption>Change Picture</u>
       </q-item-section>
     </div>
     <div class="username">{{ fullName }}</div>
@@ -27,6 +26,7 @@
     <div class="textfix">
       Phuket, Thailand
     </div>
+
     <div class="q-pa-md row justify-center birthday" style="max-width: 300px ">
       <q-input dark v-model="date" mask="date" :rules="['date']">
         <template v-slot:append>
@@ -45,7 +45,11 @@
           </q-icon>
         </template>
       </q-input>
+      <div class="row justify-center text-white Bday">
+        Birthday
+      </div>
     </div>
+
     <div class="row justify-center">
       <q-btn
         outline
@@ -71,6 +75,24 @@ export default {
     saveData() {
       console.log("saveData");
       console.log(this.shape);
+      this.$firestore
+        .collection("customer")
+        .add({
+          gender: this.shape,
+          CName: this.fullName,
+          URL: this.$firebase.auth().currentUser.photoURL,
+          CBirthday: this.date,
+          CMail: this.$firebase.auth().currentUser.email
+        })
+        .then(docRef => {
+          console.log("Document written with ID: ", docRef.id);
+          this.$router.push({
+            name: "Maincustomer"
+          });
+        })
+        .catch(error => {
+          console.error("Error adding document: ", error);
+        });
     }
   },
   mounted() {
@@ -119,5 +141,9 @@ export default {
 }
 .birthday {
   margin-left: 9%;
+}
+.Bday {
+  margin-top: 9%;
+  margin-left: 6%;
 }
 </style>
