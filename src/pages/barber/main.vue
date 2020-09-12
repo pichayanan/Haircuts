@@ -44,7 +44,7 @@
       <div class="reserve row justify-center">
         <div class="q-pa-md q-gutter-sm">
           <u class="text">MORNING</u>
-          <br />
+          <!-- <br /> -->
           <br />
           <div class="row">
             <q-btn class="reserve" outline style="color: white;" label="  9 AM" />
