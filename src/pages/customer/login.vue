@@ -68,9 +68,9 @@ export default {
         var token = result.credential.accessToken;
         var user = result.user;
         const email = this.$firebase.auth().currentUser.email;
-
+console.log(this.$firebase.auth().currentUser);
         this.$router.push({
-          name: "Maincustomer",
+          name: "registercustomer",
           params: {
             authEmail: email,
           }

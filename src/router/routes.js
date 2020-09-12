@@ -5,26 +5,52 @@ const routes = [
     children: [
       { path: "", component: () => import("pages/customer/logo.vue") }
     ]
-  },
-  {
+  },{
     path: "/customer",
     component: () => import("layouts/MainAll.vue"),
     children: [
       {
-        path: "",
+        path: "logincustomer",
         name: "logincustomer",
         component: () => import("pages/customer/login.vue")
-      }
-    ]
-  },
-  {
-    path: "/Main",
-    component: () => import("layouts/MainAll.vue"),
-    children: [
+      },
       {
-        path: "/customer/Main",
+        path: "registercustomer",
+        name: "registercustomer",
+        component: () => import("pages/customer/registcustomer.vue")
+      },
+      {
+        path: "Maincustomer",
         name: "Maincustomer",
         component: () => import("pages/customer/Main.vue")
+      },
+      {
+        path: "findHaircut",
+        name: "findHaircut",
+        component: () => import("pages/customer/findHaircut.vue")
+      },
+     
+    ]
+  },
+
+  {
+    path: "/Barber",
+    component: () => import("layouts/barber.vue"),
+    children: [
+      {
+        path: "startpage",
+        name: "startpage",
+        component: () => import("pages/barber/startpage.vue")
+      },
+      {
+        path: "login",
+        name: "loginbarber",
+        component: () => import("pages/barber/login.vue")
+      },
+      {
+        path: "main",
+        name: "mainbarber",
+        component: () => import("pages/barber/main.vue")
       }
     ]
   },
