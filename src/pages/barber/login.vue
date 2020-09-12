@@ -38,17 +38,17 @@
               ></q-input>
 
               <div class="requestoptbutton col-4 text-center q-mt-sm">
-                
-                <q-btn 
-                flat rounded 
-                style="color:#bda13c" 
-                @click="requestotp"
-                label="Resquest OTP">
-                </q-btn>
+                <q-btn
+                  flat
+                  rounded
+                  style="color:#bda13c"
+                  @click="sendVerifyCode"
+                  label="Resquest OTP"
+                ></q-btn>
               </div>
-              <!-- <div class="col-4 text-center q-mt-sm">
-              <div id="recaptcha-container" class="text-center"></div>
-              </div>-->
+              <div class="col-4 text-center q-mt-sm">
+                <div id="recaptcha-container" class="text-center"></div>
+              </div>
             </div>
             <!-- ----------------------------------input phone number-------------------------------------- -->
           </q-tab-panel>
@@ -66,18 +66,16 @@
                 :rules="[val => !!val || 'Please put your OTP']"
               ></q-input>
 
-              <div class="confirmbutton col-4 text-center q-mt-sm">
-                <q-btn 
-                    rounded 
-                    class="full-width" 
-                    color="black" 
-                    @click="confirm" 
-                    icon label="CONFIRM" 
+              <div class="col-4 text-center q-mt-sm">
+                <q-btn
+                  rounded
+                  class="full-width"
+                  color="black"
+                  @click="signInWithAuthCode"
+                  icon
+                  label="CONFIRM"
                 />
               </div>
-              <!-- <div class="col-4 text-center q-mt-sm">
-              <div id="recaptcha-container" class="text-center"></div>
-              </div>-->
             </div>
             <!-- ----------------------------------input OTP-------------------------------------- -->
           </q-tab-panel>
@@ -97,9 +95,6 @@ export default {
     };
   },
   methods: {
-    requestotp() {
-      this.tab = "otp";
-    },
     confirm() {
       // this.tab = "otp";
     },
@@ -114,6 +109,68 @@ export default {
             // doc.data() is never undefined for query doc snapshots
             console.log(doc.id, " => ", doc.data().logoblack);
             this.logo = doc.data().logo;
+          });
+        });
+    },
+    // -----------------------------Recapt-----------------------------
+    sendVerifyCode() {
+      console.log("sendVerifyCode");
+      // this.$firebase.auth().useDeviceLanguage();
+      this.submitPhoneNumberAuth();
+      this.tab = "otp";
+    },
+    submitPhoneNumberAuth() {
+      this.$firebase.auth().useDeviceLanguage();
+
+      window.recaptchaVerifier = new this.$firebase.auth.RecaptchaVerifier(
+        "recaptcha-container",
+        {
+          size: "invisible",
+          callback: (response) => {
+            console.log("submitPhoneNumberAuth");
+          },
+        }
+      );
+
+      var phoneNumber = "+66" + this.telno;
+      console.log();
+      var appVerifier = window.recaptchaVerifier;
+      this.$firebase
+        .auth()
+        .signInWithPhoneNumber(phoneNumber, appVerifier)
+        .then((confirmationResult) => {
+          this.capchaVerified = true;
+          window.confirmationResult = confirmationResult;
+          this.$router.push({
+            name: "confirmcode",
+            params: { nextUrl: this.$route.params.nextUrl },
+          });
+          //console.log(hello);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    signInWithAuthCode() {
+      var code = this.confirmCode;
+      window.confirmationResult
+        .confirm(code)
+        .then((result) => {
+          let user = result.user;
+          this.$router.push({ path: this.$route.params.nextUrl });
+        })
+        .catch((error) => {
+          let errorMessage = error.message;
+          if (error.code == "auth/invalid-verification-code") {
+            this.confirmCode = "";
+            this.$refs.code.focus();
+            errorMessage = "รหัสผ่านจาก SMS ไม่ถูกต้องกรุณาลองใหม่อีกครั้ง";
+          }
+          this.$q.notify({
+            color: "warning",
+            position: "bottom",
+            message: errorMessage,
+            icon: "fas fa-check-circle",
           });
         });
     },

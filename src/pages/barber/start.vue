@@ -1,8 +1,8 @@
 <template>
-  <q-page class="bg-dark">
-    <q-img class="fixed-center" :src="logo" :ratio="1" />
+  <q-page class="bg-dark row">
+    <q-img class="fixed-center row" :src="logo" :ratio="1" />
     <!-- Hello logo -->
-    <div class="login">
+    <div class="login row">
       <q-btn
         class="absolute-bottom"
         rounded
@@ -12,7 +12,7 @@
         @click="login"
       />
     </div>
-    <div class="tag">
+    <div class="tag row">
       <h class="text">Start working with us</h>
     </div>
   </q-page>
@@ -53,7 +53,7 @@ export default {
 .login {
   position: absolute;
   bottom: 30%;
-  left: 20%;
+  left: 40%;
   width: 100px;
 }
 .absolute-bottom {
@@ -62,11 +62,11 @@ export default {
 .text {
   color: white;
   font-size: 100%;
-  text-align: center;
+  /* text-align: center; */
   
 }
 .tag{
- position:absolute;
+  position: absolute;
   bottom: 20%;
   left: 30%;
   width: 200px;

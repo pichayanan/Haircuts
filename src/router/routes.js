@@ -36,7 +36,7 @@ const routes = [
       {
         path: "startpage",
         name: "startpage",
-        component: () => import("pages/barber/startpage.vue")
+        component: () => import("pages/barber/start.vue")
       },
       {
         path: "login",
@@ -47,6 +47,11 @@ const routes = [
         path: "main",
         name: "mainbarber",
         component: () => import("pages/barber/main.vue")
+      } ,
+      {
+        path: "profile",
+        name: "profilebarber",
+        component: () => import("pages/barber/profile.vue")
       }
     ]
   },
