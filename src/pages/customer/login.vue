@@ -70,7 +70,7 @@ export default {
         const email = this.$firebase.auth().currentUser.email;
 console.log(this.$firebase.auth().currentUser);
         this.$router.push({
-          name: "registercustomer",
+          name: "registcustomer",
           params: {
             authEmail: email,
           }
