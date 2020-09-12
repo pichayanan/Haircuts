@@ -43,7 +43,7 @@
       <!-- <q-card class="bg-dark"> -->
       <div class="reserve row justify-center">
         <div class="q-pa-md q-gutter-sm">
-          <u class="text">MARNING</u>
+          <u class="text">MORNING</u>
           <br />
           <br />
           <div class="row">
@@ -79,7 +79,7 @@
       </div>
     </div>
     <div class="row portfolio">
-      <!-- <q-card class="photos my-card col-4">
+      <q-card class="photos my-card col-4">
         <q-img src="https://cdn.quasar.dev/img/avatar2.jpg" basic>
           <div class="absolute-bottom text-subtitle2 text-center">Undercut</div>
         </q-img>
@@ -93,7 +93,8 @@
 
       <div class="photos col-3 addbutton">
         <q-icon size="80px" name="add_circle_outline" />
-      </div>-->
+      </div>
+
       
       
 
@@ -106,9 +107,10 @@
 export default {
   data() {
     return {
-      date: "2020/09/04",
+      date: "2020/09/04"
     };
-  },
+  }
+  
 };
 </script>
 

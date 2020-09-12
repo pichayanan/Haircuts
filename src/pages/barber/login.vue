@@ -1,11 +1,11 @@
 <template>
   <q-page class="bg-white">
-    <div class="justify-center">
+    <div class="row justify-center">
       <q-img class="logoHaircuts" :src="logo" :ratio="1" />
 
       <div class="tag">START WORKING WITH US</div>
 
-      <q-card>
+      <q-card class="full-width" >
         <q-tabs
           v-model="tab"
           dense
@@ -56,7 +56,7 @@
           <q-tab-panel name="otp">
             <div class="text-h8">Please put your OTP</div>
             <!-- ----------------------------------input OTP-------------------------------------- -->
-            <div class="mobile justify-center text-center">
+            <div class="mobile text-center">
               <q-input
                 clearable
                 filled
@@ -64,9 +64,10 @@
                 bg-color="white"
                 label="ex. xxx-xxx"
                 :rules="[val => !!val || 'Please put your OTP']"
+                class="row"
               ></q-input>
 
-              <div class="col-4 text-center q-mt-sm">
+              <div class="row justify-center text-center q-mt-sm confirmbutton">
                 <q-btn
                   rounded
                   class="full-width"
@@ -201,6 +202,9 @@ export default {
 }
 
 .requestoptbutton {
+  text-align: center;
+}
+.confirmbutton{
   text-align: center;
 }
 </style>

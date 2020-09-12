@@ -29,6 +29,7 @@ const routes = [
         name: "findHaircut",
         component: () => import("pages/customer/findHaircut.vue")
       },
+      
      
     ]
   },
@@ -56,6 +57,11 @@ const routes = [
         path: "profile",
         name: "profilebarber",
         component: () => import("pages/barber/profile.vue")
+      },
+      {
+        path: "portfolio",
+        name: "portfoliobarber",
+        component: () => import("pages/barber/portfolio.vue")
       }
     ]
   },
