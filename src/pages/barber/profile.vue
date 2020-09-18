@@ -78,7 +78,7 @@ export default {
         .then((docRef) => {
           console.log("Document written with ID: ", docRef.id);
           this.$router.push({
-            name: "mainbarber",
+            name: "profilebarber",
            
           });
         })
@@ -88,15 +88,22 @@ export default {
     },
 
     logoutbutton() {
-    //   firebase
-    //     .auth()
-    //     .signOut()
-    //     .then(function () {
-    //       // Sign-out successful.
-    //     })
-    //     .catch(function (error) {
-    //       // An error happened.
-    //     });
+      this.$firebase
+        .auth()
+        .signOut()
+        .then(function () {
+          // Sign-out successful.
+          console.log("Sign-out successful");
+          this.$router.push({
+            name: "loginbarber",
+           
+          });
+
+        })
+        .catch(function (error) {
+          // An error happened.
+          console.log("Error");
+        });
     },
   },
   mounted() {
