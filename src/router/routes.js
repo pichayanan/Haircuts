@@ -29,6 +29,11 @@ const routes = [
         name: "findHaircut",
         component: () => import("pages/customer/findHaircut.vue")
       },
+      {
+        path: "EditprofileCustomer",
+        name: "EditprofileCustomer",
+        component: () => import("pages/customer/editprofileCustomer.vue")
+      },
       
      
     ]
