@@ -5,7 +5,7 @@
 
       <div class="tag">START WORKING WITH US</div>
 
-      <q-card class="full-width" >
+      <q-card class="full-width">
         <q-tabs
           v-model="tab"
           dense
@@ -46,9 +46,6 @@
                   label="Resquest OTP"
                 ></q-btn>
               </div>
-              <div class="col-4 text-center q-mt-sm">
-                <div id="recaptcha-container" class="text-center"></div>
-              </div>
             </div>
             <!-- ----------------------------------input phone number-------------------------------------- -->
           </q-tab-panel>
@@ -58,6 +55,7 @@
             <!-- ----------------------------------input OTP-------------------------------------- -->
             <div class="mobile text-center">
               <q-input
+                v-model="confirmCode"
                 clearable
                 filled
                 color="black"
@@ -77,29 +75,32 @@
                   label="CONFIRM"
                 />
               </div>
-              
             </div>
             <!-- ----------------------------------input OTP-------------------------------------- -->
           </q-tab-panel>
         </q-tab-panels>
       </q-card>
+      <div class="row">
+        <div id="recaptcha-container" class="text-center"></div>
+      </div>
     </div>
   </q-page>
 </template>
 
 <script>
+// import { getUserById, addNewUser } from "../api/api";
 export default {
   data() {
     return {
       logo: "",
       tab: "mobile",
       telno: "",
+      capchaVerified: false,
+      confirmCode: ""
+
     };
   },
   methods: {
-    confirm() {
-      // this.tab = "otp";
-    },
     getlogo() {
       console.log("logo");
       this.$firestore
@@ -114,25 +115,13 @@ export default {
           });
         });
     },
-    // -----------------------------Recapt-----------------------------
     sendVerifyCode() {
       console.log("sendVerifyCode");
       // this.$firebase.auth().useDeviceLanguage();
       this.submitPhoneNumberAuth();
-      this.tab = "otp";
     },
     submitPhoneNumberAuth() {
       this.$firebase.auth().useDeviceLanguage();
-
-      window.recaptchaVerifier = new this.$firebase.auth.RecaptchaVerifier(
-        "recaptcha-container",
-        {
-          size: "invisible",
-          callback: (response) => {
-            console.log("submitPhoneNumberAuth");
-          },
-        }
-      );
 
       var phoneNumber = "+66" + this.telno;
       console.log();
@@ -143,11 +132,8 @@ export default {
         .then((confirmationResult) => {
           this.capchaVerified = true;
           window.confirmationResult = confirmationResult;
-          this.$router.push({
-            name: "confirmcode",
-            params: { nextUrl: this.$route.params.nextUrl },
-          });
-          //console.log(hello);
+          this.tab = "otp";
+
         })
         .catch((error) => {
           console.log(error);
@@ -159,14 +145,14 @@ export default {
         .confirm(code)
         .then((result) => {
           let user = result.user;
-          this.$router.push({ path: this.$route.params.nextUrl });
+          this.$router.push({ name: "registerbarber" });
         })
         .catch((error) => {
           let errorMessage = error.message;
           if (error.code == "auth/invalid-verification-code") {
-            this.confirmCode = "";
+            this.loginbarber = "";
             this.$refs.code.focus();
-            errorMessage = "รหัสผ่านจาก SMS ไม่ถูกต้องกรุณาลองใหม่อีกครั้ง";
+            errorMessage = "Incorrect OTP code, please try again";
           }
           this.$q.notify({
             color: "warning",
@@ -179,6 +165,16 @@ export default {
   },
   mounted() {
     this.getlogo();
+
+    window.recaptchaVerifier = new this.$firebase.auth.RecaptchaVerifier(
+      "recaptcha-container",
+      {
+        size: "invisible",
+        callback: (response) => {
+          console.log("submitPhoneNumberAuth");
+        },
+      }
+    );
   },
 };
 </script>
@@ -205,7 +201,7 @@ export default {
 .requestoptbutton {
   text-align: center;
 }
-.confirmbutton{
+.confirmbutton {
   text-align: center;
 }
 </style>

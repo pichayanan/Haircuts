@@ -68,6 +68,13 @@ const routes = [
         name: "portfoliobarber",
         component: () => import("pages/barber/portfolio.vue")
       }
+      ,
+      {
+        path: "register",
+        name: "registerbarber",
+        component: () => import("pages/barber/register.vue")
+      }
+      
     ]
   },
 
