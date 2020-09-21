@@ -26,6 +26,7 @@
           <q-tab-panel name="mobile">
             <div class="text-h8">Please put your phone number</div>
             <!-- ----------------------------------input phone number-------------------------------------- -->
+            <!-- test -->
             <div class="mobile justify-center text-center">
               <q-input
                 clearable
