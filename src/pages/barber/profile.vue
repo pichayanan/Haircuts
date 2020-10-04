@@ -1,5 +1,19 @@
 <template>
   <q-page class="bg-dark">
+
+     <q-toolbar class="bg-black text-white">
+      <q-btn flat round dense icon="keyboard_backspace" @click="back">
+        <!-- <q-badge floating color="red">2</q-badge> -->
+      </q-btn>
+      <q-toolbar-title>
+        PROFILE
+      </q-toolbar-title>
+
+    </q-toolbar>
+
+
+
+
     <div class="row justify-center headbox">
       <q-item-section avatar class>
         <q-avatar class="profilepic row text-center">
@@ -38,26 +52,31 @@ export default {
       location: "",
       readonly: true,
       disable: true,
+      id:"",
     };
   },
   methods: {
      getdata() {
+      console.log(this.$firebase.auth().currentUser.phoneNumber);
       this.$firestore
         .collection("barber")
+        .where("telno", "==", this.$firebase.auth().currentUser.phoneNumber)
         .get()
         .then(querySnapshot => {
           querySnapshot.forEach(doc => {
             // doc.data() is never undefined for query doc snapshots
-            console.log(doc.id, " => ", doc.data().firstname);
-            this.firstname = doc.data().firstname;
-            console.log(doc.id, " => ", doc.data().profilepic);
+            // console.log(doc.id, " => ", doc.data().firstname);
+            // console.log(doc.id, " => ", doc.data().lastname);
+            // console.log(doc.id, " => ", doc.data().email);
+            // console.log(doc.id, " => ", doc.data().location);  
+            // console.log(doc.id)          
+            this.firstname = doc.data().firstname;        
             this.profilepic = doc.data().profilepic;
             this.lastname = doc.data().lastname;
             this.telno = doc.data().telno;
             this.email = doc.data().email;
             this.location = doc.data().location;
-
-
+            this.id = doc.id;
           });
         });
      
@@ -67,7 +86,8 @@ export default {
       console.log(this.firstname);
       this.$firestore
         .collection("barber")
-        .add({
+        .doc(this.id)
+        .update({
           firstname: this.firstname,
           lastname: this.lastname,
           telno: this.$firebase.auth().currentUser.phoneNumber,
@@ -76,37 +96,49 @@ export default {
           profilepic: this.profilepic,
         })
         .then((docRef) => {
-          console.log("Document written with ID: ", docRef.id);
-          this.$router.push({
-            name: "profilebarber",
+          // console.log("Document written with ID: ", docRef.id);
+          // this.$router.push({
+          //   name: "profilebarber",
            
-          });
+          // });
         })
         .catch((error) => {
           console.error("Error adding document: ", error);
         });
     },
-
     logoutbutton() {
-      this.$firebase
-        .auth()
-        .signOut()
-        .then(function () {
-          // Sign-out successful.
-          console.log("Sign-out successful");
-          this.$router.push({
+      // this.$firebase
+      //   .auth()
+      //   .signOut()
+      //   .then(function () {
+      //     // Sign-out successful.
+      //     console.log("Sign-out successful");
+      //     this.$router.push({
+      //       name: "loginbarber",
+           
+      //     });
+      //   })
+      //   .catch(function (error) {
+      //     // An error happened.
+      //     console.log("Error");
+      //   });
+
+      this.$router.push({
             name: "loginbarber",
            
           });
 
-        })
-        .catch(function (error) {
-          // An error happened.
-          console.log("Error");
-        });
+
     },
+    back(){
+      this.$router.push({
+            name: "mainbarber",
+           
+          });
+    }
   },
   mounted() {
+    console.log(this.$firebase.auth().currentUser.telno)
     this.getdata();
     this.profilepic = this.$firebase.auth().currentUser.profilepic;
     this.firstname = this.$firebase.auth().currentUser.firstname;
@@ -141,7 +173,7 @@ export default {
   margin-top: 50px;
   margin-bottom: 50px;
 }
-/* .logoutbutton {
 
+/* .logoutbutton {
 } */
 </style>

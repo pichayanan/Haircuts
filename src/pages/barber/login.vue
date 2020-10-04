@@ -34,7 +34,7 @@
                 color="black"
                 bg-color="white"
                 v-model="telno"
-                label="ex. 061178XXXX"
+                label="ex. 61178XXXX"
                 :rules="[val => !!val || 'Please put your mobile number']"
               ></q-input>
 
@@ -95,9 +95,10 @@ export default {
     return {
       logo: "",
       tab: "mobile",
-      telno: "",
+      telno: "", 
       capchaVerified: false,
-      confirmCode: ""
+      confirmCode: "",
+      phoneNumber: ""
 
     };
   },
@@ -124,12 +125,12 @@ export default {
     submitPhoneNumberAuth() {
       this.$firebase.auth().useDeviceLanguage();
 
-      var phoneNumber = "+66" + this.telno;
+      this.phoneNumber = "+66" + this.telno;
       console.log();
       var appVerifier = window.recaptchaVerifier;
       this.$firebase
         .auth()
-        .signInWithPhoneNumber(phoneNumber, appVerifier)
+        .signInWithPhoneNumber(this.phoneNumber, appVerifier)
         .then((confirmationResult) => {
           this.capchaVerified = true;
           window.confirmationResult = confirmationResult;
@@ -146,7 +147,9 @@ export default {
         .confirm(code)
         .then((result) => {
           let user = result.user;
-          this.$router.push({ name: "registerbarber" });
+          this.$router.push({ name: "registerbarber",
+                              params: { telno: this.phoneNumber}
+              });
         })
         .catch((error) => {
           let errorMessage = error.message;

@@ -35,7 +35,7 @@ const routes = [
   },
 
   {
-    path: "/Barber",
+    path: "/barber",
     component: () => import("layouts/barber.vue"),
     children: [
       {

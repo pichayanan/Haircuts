@@ -11,7 +11,7 @@
 
       <q-item-section class="col-7">
         <div class="col-6 text-h6 text-weight-bold username">{{ firstname}}</div>
-        <!-- <q-item-label class="row" caption>฿400</q-item-label> -->
+        <!-- <q-item-label class="row" caption>{{telno}}</q-item-label> -->
       </q-item-section>
 
       <div class="col-2 text-grey q-gutter-md edit" style="font-size: 2em">
@@ -19,7 +19,7 @@
       </div>
     </q-item>
 
-    <q-card class="bg-white blackcard">
+    <q-card class="bg-white reservecard">
       <div class="reservehead justify-center row">
         <div class="text-h6 col-5 text-center">
           <br />RESERVATION
@@ -89,7 +89,7 @@
         </q-img>
       </q-card>
       <div class="photos col-3 addbutton">
-        <q-icon size="80px" name="add_circle_outline" />
+        <q-icon size="80px" name="add_circle_outline" color="white" @click="addportfolio" />
       </div>
     </div>
   </q-page>
@@ -103,38 +103,52 @@ export default {
       firstname: "",
       lastname: "",
       profilepic:"",
+      telno: ""
     };
   },
   methods: {
     editprofile(){
-      console.log("Edit profile")
+      console.log("Go to edit profile page")
        this.$router.push({
             name: "profilebarber",
           });
     },
     getdata() {
+      console.log(this.$firebase.auth().currentUser.phoneNumber);
       this.$firestore
         .collection("barber")
+        .where("telno", "==", this.$firebase.auth().currentUser.phoneNumber)
         .get()
         .then(querySnapshot => {
           querySnapshot.forEach(doc => {
             // doc.data() is never undefined for query doc snapshots
+            console.log(doc.id, " => ", doc.data());   
+            this.$store.commit("MAIN", doc.id )
             console.log(doc.id, " => ", doc.data().firstname);
-            this.firstname = doc.data().firstname;
-            console.log(doc.id, " => ", doc.data().profilepic);
+            this.firstname = doc.data().firstname;        
             this.profilepic = doc.data().profilepic;
-            // this.lastname = doc.data().lastname;
+            this.id = doc.id;
+ 
 
           });
         });
      
     },
+    addportfolio(){
+      console.log("Add portfolio page page")
+       this.$router.push({
+            name: "portfoliobarber",
+          });
+    }
   },
 
   mounted() {
      this.getdata();
-     this.firstname = this.$firebase.auth().currentUser.firstname;
-     this.profilepic = this.$firebase.auth().currentUser.profilepic;
+    //  this.firstname = this.$store.state.example.firstname;
+    //  this.profilepic = this.$store.state.example.profilepic;
+    this.profilepic = this.$firebase.auth().currentUser.profilepic;
+    this.firstname = this.$firebase.auth().currentUser.firstname;
+     this.telno = this.$store.state.example.telno;
 
   },
 };
@@ -142,6 +156,7 @@ export default {
 
 <style>
 .profilepicture {
+  /* margin-top: 20px; */
   width: 70px;
   height: 70px;
 }
@@ -169,11 +184,10 @@ export default {
   margin-top: 40px;
 }
 .header {
-  padding-top: 30px;
   margin-left: 5px;
 }
-.blackcard {
-  margin-top: 30px;
+.reservecard {
+  /* margin-top: 30px; */
   margin-right: 15px;
   margin-left: 15px;
 }
