@@ -2,16 +2,6 @@
   <q-page class="bg-dark row">
     <q-img class="fixed-center row" :src="logo" :ratio="1" />
     <!-- Hello logo -->
-    <div class="login row">
-      <q-btn
-        class="absolute-bottom"
-        rounded
-        color="white"
-        text-color="dark"
-        label="Log-in"
-        @click="login"
-      />
-    </div>
     <div class="tag row">
       <h class="text">Start working with us</h>
     </div>
@@ -25,10 +15,6 @@ export default {
     };
   },
   methods: {
-    login() {
-      console.log("click");
-      this.$router.push({ name: "loginbarber" });
-    },
     getlogo() {
       console.log("logo");
       this.$firestore
