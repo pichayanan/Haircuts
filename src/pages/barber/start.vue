@@ -32,7 +32,6 @@ export default {
   },
   mounted() {
     this.getlogo();
-    this.$router.push({ name: "loginbarber" });
   }
 };
 </script>

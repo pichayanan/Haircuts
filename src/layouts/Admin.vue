@@ -9,12 +9,7 @@
 <script>
 
 export default {
-  name: "Barber",
-  // mounted() {
-  //    this.$router.push({
-  //           name: "startpage",
-  //         });
+  name: "Admin",
 
-  // },
 };
 </script>

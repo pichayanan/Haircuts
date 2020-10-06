@@ -1,16 +1,15 @@
 <template>
-  <q-page class="bg-dark">
+  <q-page class="bg-grey-2">
 
-     <q-toolbar class="bg-black text-white">
+     <q-toolbar class="bg-grey-7 text-white">
       <q-btn flat round dense icon="keyboard_backspace" @click="back">
         <!-- <q-badge floating color="red">2</q-badge> -->
       </q-btn>
-      <q-toolbar-title>
+      <q-toolbar-title style="">
         PROFILE
       </q-toolbar-title>
 
     </q-toolbar>
-
 
 
 
@@ -23,19 +22,30 @@
       </q-item-section>
     </div>
 
-    <div class="justify-center q-gutter-md form text-white" style="max-width: 300px">
-      <q-input dark v-model="firstname" label="Firstname *"></q-input>
-      <q-input dark v-model="lastname" label="Lastname *"></q-input>
-      <q-input dark :readonly="readonly" :disable="disable" v-model="telno" label="Mobile"></q-input>
-      <q-input dark v-model="email" label="Email (optional)"></q-input>
-      <q-input dark v-model="location" label="Location"></q-input>
+    <div class="justify-center q-gutter-md form text-black" style="max-width: 300px">
+      <q-input  v-model="firstname" label="Firstname *"></q-input>
+      <q-input  v-model="lastname" label="Lastname *"></q-input>
+      <q-input  :readonly="readonly" :disable="disable" v-model="telno" label="Mobile"></q-input>
+      <q-input  v-model="email" label="Email (optional)"></q-input>
+      <q-input  v-model="location" label="Location"></q-input>
     </div>
 
     <div class="row justify-center savebutton">
-      <q-btn outline color="white" class @click="editprofile" label="SAVE" />
+      <q-btn color="black" text-color="white" class @click="editprofile" label="SAVE" />
+
+      <!-- -------------popup------------ -->
+      <!-- <q-dialog v-model="editprofile">
+      <q-card>
+        <q-card-section class="row items-center q-gutter-sm">
+          <q-btn no-caps label="FINSIH!" color="primary" v-close-popup></q-btn>
+        </q-card-section>
+      </q-card>
+      </q-dialog> -->
+
+
     </div>
     <div class="row justify-center logout">
-      <q-btn outline color="red" class @click="logoutbutton" label="LOGOUT" />
+      <q-btn color="red" text-color="white" class @click="logoutbutton" label="LOGOUT" />
     </div>
   </q-page>
 </template>
@@ -53,6 +63,7 @@ export default {
       readonly: true,
       disable: true,
       id:"",
+      // editprofile: false, //popup
     };
   },
   methods: {
@@ -107,21 +118,21 @@ export default {
         });
     },
     logoutbutton() {
-      // this.$firebase
-      //   .auth()
-      //   .signOut()
-      //   .then(function () {
-      //     // Sign-out successful.
-      //     console.log("Sign-out successful");
-      //     this.$router.push({
-      //       name: "loginbarber",
+      this.$firebase
+        .auth()
+        .signOut()
+        .then(function () {
+          // Sign-out successful.
+          console.log("Sign-out successful");
+          this.$router.push({
+            name: "loginbarber",
            
-      //     });
-      //   })
-      //   .catch(function (error) {
-      //     // An error happened.
-      //     console.log("Error");
-      //   });
+          });
+        })
+        .catch(function (error) {
+          // An error happened.
+          console.log("Error");
+        });
 
       this.$router.push({
             name: "loginbarber",
@@ -135,7 +146,9 @@ export default {
             name: "mainbarber",
            
           });
-    }
+    },
+
+    
   },
   mounted() {
     console.log(this.$firebase.auth().currentUser.telno)
@@ -162,12 +175,12 @@ export default {
 .changeprofile {
   margin-left: 10%;
   font-size: 15px;
-  color: white;
+  color: black;
 }
 .form {
   padding-top: 20px;
   margin-left: 5%;
-  color: white;
+  color: black;
 }
 .savebutton {
   margin-top: 50px;

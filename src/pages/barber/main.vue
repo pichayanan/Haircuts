@@ -1,34 +1,41 @@
 <template>
-  <q-page class="bg-dark">
-    <!-- --------------Header--------------- -->
+  <q-page class="bg-white">
 
-    <q-item class="row header">
-      <q-item-section avatar class="col-3">
+    <div class="row header bg-white q-mt-md">
+
+      <div avatar class="col-3">
         <q-avatar class="profilepicture">
           <img :src="profilepic" />
         </q-avatar>
-      </q-item-section>
-
-      <q-item-section class="col-7">
-        <div class="col-6 text-h6 text-weight-bold username">{{ firstname}}</div>
-        <!-- <q-item-label class="row" caption>{{telno}}</q-item-label> -->
-      </q-item-section>
-
-      <div class="col-2 text-grey q-gutter-md edit" style="font-size: 2em">
-        <q-icon @click="editprofile" name="create" />
       </div>
-    </q-item>
 
-    <q-card class="bg-white reservecard">
-      <div class="reservehead justify-center row">
-        <div class="text-h6 col-5 text-center">
-          <br />RESERVATION
+      <div class="col-8 ">
+        <div class="row text-weight-bold username" style="font-size:1.5rem">
+           {{ firstname }} {{ lastname }} &nbsp; 
         </div>
+        <div class="row text-caption text-weight-thin ">
+          <q-icon name="location_on" />
+          {{ location }}
+        </div>
+      </div>
+      <div class="col-1">
+          <q-icon @click="editprofile" name="create" size="sm" /> 
+      </div>
+
+    </div>
+    
+
+    <div class="reservehead justify-center row">
+        <div class="text-h6 col-5 text-center"><br />RESERVATION</div>
         <div class="q-pa-md col-7" style="max-width: 300px">
           <q-input v-model="date" mask="date" :rules="['date']">
             <template v-slot:append>
-              <q-icon name="event" class="cursor-pointer">
-                <q-popup-proxy ref="qDateProxy" transition-show="scale" transition-hide="scale">
+              <q-icon name="event" class="" color="blue">
+                <q-popup-proxy
+                  ref="qDateProxy"
+                  transition-show="scale"
+                  transition-hide="scale"
+                >
                   <q-date v-model="date" class="bg-grey-10 text-white">
                     <div class="row items-center justify-end">
                       <q-btn v-close-popup label="Close" color="primary" flat />
@@ -40,58 +47,64 @@
           </q-input>
         </div>
       </div>
-      <!-- <q-card class="bg-dark"> -->
+
+
+    <q-card class="bg-grey-2 reservecard">
+
       <div class="reserve row justify-center">
         <div class="q-pa-md q-gutter-sm">
-          <u class="text">MORNING</u>
-          <!-- <br /> -->
+          <h7 class="text text-weight-bold">MORNING</h7>
           <br />
           <div class="row">
-            <q-btn class="reserve" outline style="color: black;" label="  9 AM" />
-            <q-btn class="reserve" outline style="color: black;" label="10 AM" />
-            <q-btn class="reserve" outline style="color: black;" label="11 AM" />
-            <q-btn class="reserve" outline style="color: black;" label="12 PM" />
+            <q-btn class="reserve" color="white" text-color="black" label="  9 AM" />
+            <q-btn class="reserve" color="red" text-color="white" label="10 AM" />
+            <q-btn class="reserve" color="red" text-color="white" label="11 AM" />
+            <q-btn class="reserve" color="white" text-color="black" label="12 PM" />
           </div>
           <br />
-          <u class="text">AFTERNOON</u>
-          <br />
+          <h7 class="text text-weight-bold">AFTERNOON</h7>
           <br />
           <div class="row">
-            <q-btn class="reserve" outline style="color: black;" label="  1 PM" />
-            <q-btn class="reserve" outline style="color: black;" label="  2 PM" />
-            <q-btn class="reserve" outline style="color: black;" label="  3 PM" />
-            <q-btn class="reserve" outline style="color: black;" label="  4 PM" />
+            <q-btn class="reserve" color="white" text-color="black" label="  1 PM" />
+            <q-btn class="reserve" color="white" text-color="black" label="  2 PM" />
+            <q-btn class="reserve" color="red" text-color="white" label="  3 PM" />
+            <q-btn class="reserve" color="white" text-color="black" label="  4 PM" />
           </div>
           <div class="row">
-            <q-btn class="reserve" outline style="color: black;" label="  5 PM" />
-            <q-btn class="reserve" outline style="color: black;" label="  6 PM" />
-            <q-btn class="reserve" outline style="color: black;" label="  7 PM" />
-            <q-btn class="reserve" outline style="color: black;" label="  8 PM" />
+            <q-btn class="reserve" color="white" text-color="black" label="  5 PM"/>
+            <q-btn class="reserve" color="white" text-color="black" label="  6 PM" />
+            <q-btn class="reserve" color="red" text-color="white" label="  7 PM" />
+            <q-btn class="reserve" color="white" text-color="black" label="  8 PM" />
           </div>
           <br />
         </div>
       </div>
     </q-card>
+
+
     <div class="haircut row">
-      <div class="text-h6 col-5 text-center"><h5 class="whitetext">HAIRCUTS</h5>
+      <div class="text-h6 col-5 text-center">
+        <h5 class="whitetext">HAIRCUTS</h5>
         <!-- <br />HAIRCUTS -->
       </div>
     </div>
+
     <div class="row portfolio">
       <q-card class="photos my-card col-4">
         <q-img src="https://cdn.quasar.dev/img/avatar2.jpg" basic>
           <div class="absolute-bottom text-subtitle2 text-center">Undercut</div>
         </q-img>
       </q-card>
-      <q-card class="photos my-card col-4">
-        <q-img src="https://cdn.quasar.dev/img/avatar2.jpg" basic>
-          <div class="absolute-bottom text-subtitle2 text-center">Undercut</div>
-        </q-img>
-      </q-card>
       <div class="photos col-3 addbutton">
-        <q-icon size="80px" name="add_circle_outline" color="white" @click="addportfolio" />
+        <q-icon
+          size="80px"
+          name="add_circle_outline"
+          color="black"
+          @click="addportfolio"
+        />
       </div>
     </div>
+
   </q-page>
 </template>
 
@@ -102,16 +115,18 @@ export default {
       date: "2020/09/04",
       firstname: "",
       lastname: "",
-      profilepic:"",
-      telno: ""
+      profilepic: "",
+      telno: "",
+      barberid: "",
+      location:"",
     };
   },
   methods: {
-    editprofile(){
-      console.log("Go to edit profile page")
-       this.$router.push({
-            name: "profilebarber",
-          });
+    editprofile() {
+      console.log("Go to edit profile page");
+      this.$router.push({
+        name: "profilebarber",
+      });
     },
     getdata() {
       console.log(this.$firebase.auth().currentUser.phoneNumber);
@@ -119,62 +134,72 @@ export default {
         .collection("barber")
         .where("telno", "==", this.$firebase.auth().currentUser.phoneNumber)
         .get()
-        .then(querySnapshot => {
-          querySnapshot.forEach(doc => {
+        .then((querySnapshot) => {
+          querySnapshot.forEach((doc) => {
             // doc.data() is never undefined for query doc snapshots
-            console.log(doc.id, " => ", doc.data());   
-            this.$store.commit("MAIN", doc.id )
-            console.log(doc.id, " => ", doc.data().firstname);
-            this.firstname = doc.data().firstname;        
+            // console.log(doc.id, " => ", doc.data());
+            // console.log(doc.id, " => ", doc.data().firstname);
+            this.$store.commit("MAIN", doc.id);
+            this.firstname = doc.data().firstname;
+            this.lastname = doc.data().lastname;
             this.profilepic = doc.data().profilepic;
-            this.id = doc.id;
- 
+            this.location = doc.data().location;
+            this.barberid = doc.id;
 
           });
+          this.insertid(this.barberid);
         });
-     
     },
-    addportfolio(){
-      console.log("Add portfolio page page")
-       this.$router.push({
-            name: "portfoliobarber",
-          });
-    }
+    insertid(id) {
+      console.log("INSERT BARBER ID : "+ id + " TO FIREBASE");
+      this.$firestore
+      .collection("barber")
+      .doc(this.barberid)
+      .update({
+        barberid: this.barberid,
+      })
+      .then((docRef) => {
+
+      })
+      .catch((error) => {
+        console.error("Error adding document: ", error);
+      });
+    },
+    addportfolio() {
+      console.log("Add portfolio page page");
+      this.$router.push({
+        name: "portfoliobarber",
+      });
+    },
   },
 
   mounted() {
-     this.getdata();
-    //  this.firstname = this.$store.state.example.firstname;
-    //  this.profilepic = this.$store.state.example.profilepic;
+    this.getdata();
     this.profilepic = this.$firebase.auth().currentUser.profilepic;
     this.firstname = this.$firebase.auth().currentUser.firstname;
-     this.telno = this.$store.state.example.telno;
-
+    this.telno = this.$store.state.example.telno;
   },
 };
 </script>
 
 <style>
 .profilepicture {
-  /* margin-top: 20px; */
-  width: 70px;
-  height: 70px;
+  width: 80px;
+  height: 80px;
 }
 .reserve {
-  /* padding-left: 20px; */
   margin-right: 5px;
 }
 .reservehead {
-  margin-top: 10px;
+  padding-top: 10px;
   margin-left: 20px;
   color: black;
 }
 .edit {
-  /* margin-right: 5px; */
-  margin-top: 15px;
+  padding-top: 15px;
 }
 .portfolio {
-  margin-top: 5px;
+  padding-top: 5px;
 }
 .photos {
   margin-left: 10px;
@@ -184,10 +209,15 @@ export default {
   margin-top: 40px;
 }
 .header {
-  margin-left: 5px;
+  /* padding-top: 30px;
+  margin-left: 10px; */
+  /* margin-top: 20px; */
+  margin-right: 15px;
+  margin-left: 15px;
 }
 .reservecard {
-  /* margin-top: 30px; */
+  /* margin-top: 20px; */
+  padding-top:10px;
   margin-right: 15px;
   margin-left: 15px;
 }
@@ -195,12 +225,19 @@ export default {
   color: black;
 }
 .whitetext {
-  color: white;
+  color: black;
 }
 .username {
-  /* margin-top: 5%; */
-  color: whitesmoke;
-  /* text-align: center; */
-  font-size: 150%;
+  color: black;
+  font-size: 100%;
+  /* padding-top: 10px; */
+}
+.textfix {
+  color: black;
+  font-size: 80%;
+  text-align: center;
+}
+.text-caption{
+  color: grey;
 }
 </style>

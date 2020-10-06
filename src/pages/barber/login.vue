@@ -1,7 +1,7 @@
 <template>
   <q-page class="bg-white">
     <div class="row justify-center">
-      <q-img class="logoHaircuts" :src="logo" :ratio="1" />
+      <q-img class="logoHaircuts q-mt-md" :src="logo" :ratio="1" />
 
       <div class="tag">START WORKING WITH US</div>
 
@@ -107,7 +107,7 @@ export default {
       console.log("logo");
       this.$firestore
         .collection("logo")
-        .where("name", "==", "logoblack")
+        .where("name", "==", "logo-black")
         .get()
         .then((querySnapshot) => {
           querySnapshot.forEach((doc) => {
@@ -186,9 +186,8 @@ export default {
 <style>
 .logoHaircuts {
   position: absolute;
-  bottom: 530px;
-  left: 100px;
-  width: 325px;
+  width: 120px; 
+
 }
 
 .tag {

@@ -23,7 +23,6 @@
       </div>
     </div>
     <div class="textfix">Phuket, Thailand</div>
-    <!-- <div class="textfix"> {{ this.$router.currentRoute.params.telno }}</div> -->
 
     <div class="justify-center q-gutter-md form text-white row" style="max-width: 300px">
       <q-input dark class="col-6" v-model="firstname" label="Firstname *"></q-input>
@@ -40,6 +39,7 @@
 export default {
   data() {
     return {
+      barberid: "",
       gender: "",
       firstname: "",
       lastname: "",
@@ -53,7 +53,7 @@ export default {
   methods: {
     saveData(profilepic) {
       console.log("saveData");
-      console.log(this.gender);
+      // this.barberid = doc.id;
       this.$firestore
         .collection("barber")
         .add({
@@ -65,6 +65,7 @@ export default {
           location: this.location,
           profilepic: this.profilepic,
           registed: true,
+          barberid: "",
         })
         .then((docRef) => {
           console.log("Document written with ID: ", docRef.id);
@@ -81,6 +82,7 @@ export default {
               pic: profilepic,
             },
           });
+          
         })
         .catch((error) => {
           console.error("Error adding document: ", error);
