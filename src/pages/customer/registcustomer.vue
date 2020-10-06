@@ -68,7 +68,8 @@ export default {
       shape: "",
       date: "2019/02/01",
       fullName: "",
-      URL: ""
+      URL: "",
+      registed: "",
     };
   },
   methods: {
@@ -78,6 +79,7 @@ export default {
       this.$firestore
         .collection("customer")
         .add({
+          registed: true,
           gender: this.shape,
           CName: this.fullName,
           URL: this.$firebase.auth().currentUser.photoURL,
@@ -93,9 +95,41 @@ export default {
         .catch(error => {
           console.error("Error adding document: ", error);
         });
-    }
+    },
+  //  check() {
+  //     this.$firestore
+  //       .collection("customer")
+  //       .where("CMail", "==", this.$firebase.auth().currentUser.email)
+  //       .get()
+  //       .then((querySnapshot) => {
+  //         querySnapshot.forEach((doc) => {
+  //           console.log(doc.id, " => ", doc.data());
+  //             let registdata = {
+  //               URL: doc.data().this.$firebase.auth().currentUser.photoURL,
+  //               CName:  doc.data().fullName,
+  //               CMail: doc.data().this.$firebase.auth().currentUser.email,
+  //               CBirthday: doc.data().date,
+  //               gender: doc.data().shape,
+  //               registed: true,
+
+  //         }
+  //             this.$store.commit("registdata", registdata)
+  //             if (doc.data().registed == true ){
+  //               this.$router.push({
+  //                     name: "Maincustomer",
+  //               });
+  //             }
+
+  //       });
+  // })
+  // .catch((error) => {
+  //         console.log("Error getting documents: ", error);
+  // });
+
+  //     },
   },
   mounted() {
+    // check();
     this.fullName = this.$firebase.auth().currentUser.displayName;
     this.URL = this.$firebase.auth().currentUser.photoURL;
   }

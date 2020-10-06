@@ -88,7 +88,7 @@ console.log(this.$firebase.auth().currentUser);
       console.log("logo");
       this.$firestore
         .collection("logo")
-        .where("name", "==", "logowhite1")
+        .where("name", "==", "logo-white")
         .get()
         .then(querySnapshot => {
           querySnapshot.forEach(doc => {
@@ -108,13 +108,14 @@ console.log(this.$firebase.auth().currentUser);
 <style>
 .logoH {
   position: absolute;
-  bottom: 50%;
-  left:7%;
-  width: 100%;
+  margin-top: 20%;
+  
+  width: 150px;
+  height: 150px;
 }
 .positionsignin {
   position: absolute;
-  bottom: 70%;
+  bottom: 68%;
   left: 26%;
   width: 100%;
   color: white;

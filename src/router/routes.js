@@ -5,7 +5,8 @@ const routes = [
     children: [
       { path: "", component: () => import("pages/customer/logo.vue") }
     ]
-  },{
+  },
+  {
     path: "/customer",
     component: () => import("layouts/MainAll.vue"),
     children: [
@@ -34,7 +35,21 @@ const routes = [
         name: "EditprofileCustomer",
         component: () => import("pages/customer/editprofileCustomer.vue")
       },
-      
+      {
+        path: "DetailsCustomer",
+        name: "DetailsCustomer",
+        component: () => import("pages/customer/Details.vue")
+      },
+      {
+        path: "ReserveCustomer",
+        name: "ReserveCustomer",
+        component: () => import("pages/customer/Reserve.vue")
+      },
+      {
+        path: "TimereserveCustomer",
+        name: "TimereserveCustomer",
+        component: () => import("pages/customer/timeReserve.vue")
+      },
      
     ]
   },
@@ -77,7 +92,17 @@ const routes = [
       
     ]
   },
-
+  {
+    path: "/admin",
+    component: () => import("layouts/Admin.vue"),
+    children: [
+      {
+        path: "",
+        name: "loginadmin",
+        component: () => import("pages/admin/login.vue")
+      },
+    ]
+    },
   // Always leave this as last one,
   // but you can also remove it
   {
