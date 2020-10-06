@@ -127,22 +127,22 @@ export default {
 
 
     logoutbutton() {
-      // this.$firebase
-      //   .auth()
-      //   .signOut()
-      //   .then(function () {
-      //     // Sign-out successful.
-      //     console.log("Sign-out successful");
-      //     this.$router.push({
-      //       name: "loginbarber",
+      this.$firebase
+        .auth()
+        .signOut()
+        .then(function () {
+          // Sign-out successful.
+          console.log("Sign-out successful");
+          this.$router.push({
+            name: "loginbarber",
 
-      //     });
+          });
 
-      //   })
-      //   .catch(function (error) {
-      //     // An error happened.
-      //     console.log("Error");
-      //   });
+        })
+        .catch(function (error) {
+          // An error happened.
+          console.log("Error");
+        });
     },
     back(){
       this.$router.push({
