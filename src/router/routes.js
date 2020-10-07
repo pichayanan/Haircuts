@@ -38,22 +38,27 @@ const routes = [
       {
         path: "EditprofileCustomer",
         name: "EditprofileCustomer",
-        component: () => import("pages/customer/editprofileCustomer.vue")
+        component: () => import("pages/customer/editprofileCustomer.vue"),
+        meta: { authRequired: true },
       },
       {
         path: "DetailsCustomer",
         name: "DetailsCustomer",
-        component: () => import("pages/customer/Details.vue")
+        component: () => import("pages/customer/Details.vue"),
+        meta: { authRequired: true },
       },
       {
         path: "ReserveCustomer",
         name: "ReserveCustomer",
-        component: () => import("pages/customer/Reserve.vue")
+        component: () => import("pages/customer/Reserve.vue"),
+        meta: { authRequired: true },
+
       },
       {
         path: "TimereserveCustomer",
         name: "TimereserveCustomer",
-        component: () => import("pages/customer/timeReserve.vue")
+        component: () => import("pages/customer/timeReserve.vue"),
+        meta: { authRequired: true },
       },
      
     ]

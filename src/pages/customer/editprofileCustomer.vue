@@ -134,7 +134,7 @@ export default {
           // Sign-out successful.
           console.log("Sign-out successful");
           this.$router.push({
-            name: "loginbarber",
+            name: "logincustomer",
 
           });
 

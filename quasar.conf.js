@@ -98,7 +98,7 @@ module.exports = function(/* ctx */) {
       manifest: {
         name: `HAIRCUTS`,
         short_name: `HAIRCUTS`,
-        description: ``,
+        description: `HAIRCUTS`,
         display: "standalone",
         orientation: "portrait",
         background_color: "#ffffff",
