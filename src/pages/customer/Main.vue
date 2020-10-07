@@ -36,23 +36,23 @@
         align="justify"
         narrow-indicator
       >
-        <q-tab name="Male" label="MEN'S HAIRCUTS"></q-tab>
-        <q-tab name="Female" label="WOMEN'S HAIRCUTS"></q-tab>
+        <q-tab name="Male" label="MEN'S HAIRCUTS" @click="m('<=')"></q-tab>
+        <q-tab name="Female" label="WOMEN'S HAIRCUTS" @click="f('>')"></q-tab>
       </q-tabs>
       <q-separator></q-separator>
       <q-tab-panels v-model="tab" animated>
         <q-tab-panel name="Male">
           <!-- ----------------------------------men haircuts-------------------------------------- -->
           <div class="q-pa-lg row items-start q-gutter-xl">
-            <q-card class="my-card" v-for="(men, index) in testM" :key="index">
-              <q-img class="sizeimg" :src="men.picM"></q-img>
+            <q-card class="my-card" v-for="(men, index) in show" :key="index">
+              <q-img class="sizeimg" :src="men.photo"></q-img>
 
               <q-card-actions class="row justify-center">
                 <q-btn
                   class="text-white"
                   flat
-                  @click="Mainbtn(men.titleM, men.id)"
-                  >{{ men.titleM }}</q-btn
+                  @click="Mainbtn(men.haircutname, men.haircuttype)"
+                  >{{ men.haircutname }}</q-btn
                 >
               </q-card-actions>
             </q-card>
@@ -64,16 +64,16 @@
           <!-- ----------------------------------female haircuts-------------------------------------- -->
           <div class="q-pa-lg row items-start q-gutter-xl">
             <!-- <q-card class="my-card" v-for="(women, index) in picW" :key="index"> -->
-            <q-card class="my-card" v-for="(women, index) in testW" :key="index">
+            <q-card class="my-card" v-for="(women, index) in show" :key="index">
               <!-- <q-img class="sizeimg" :src="picW[index]"> </q-img> -->
-              <q-img class="sizeimg" :src="women.picW"> </q-img>
+              <q-img class="sizeimg" :src="women.photo"> </q-img>
 
               <q-card-actions class="row justify-center">
                 <q-btn
                   class="text-white"
                   flat
-                  @click="Mainbtn(women.titleW, women.id)"
-                  >{{ women.titleW }}</q-btn
+                  @click="Mainbtn(women.haircutname, women.haircuttype)"
+                  >{{ women.haircutname }}</q-btn
                 >
                 <!-- <q-btn
                   class="text-white"
@@ -97,16 +97,20 @@
       <q-btn color="dark" label="Second" icon="visibility"></q-btn>
     </q-btn-group>
   </div> -->
-  <q-page-sticky  position="bottom-right" :offset="[18, 18]">
-            <q-fab
-              icon="add"
-              direction="up"
-              color="dark"
-            >
-              <q-fab-action @click="onClickedit" color="warning" icon="person_add"></q-fab-action>
-              <q-fab-action @click="onClicktime" color="warning" icon="calendar_today"></q-fab-action>
-            </q-fab>
-          </q-page-sticky>
+    <q-page-sticky position="bottom-right" :offset="[18, 18]">
+      <q-fab icon="add" direction="up" color="dark">
+        <q-fab-action
+          @click="onClickedit"
+          color="warning"
+          icon="person_add"
+        ></q-fab-action>
+        <q-fab-action
+          @click="onClicktime"
+          color="warning"
+          icon="calendar_today"
+        ></q-fab-action>
+      </q-fab>
+    </q-page-sticky>
   </q-page>
 </template>
 
@@ -117,77 +121,68 @@ export default {
       slide: 1,
       autoplay: true,
       tab: "Male",
-      testW: [],
-      testM: []
+      show: []
     };
   },
   methods: {
-    onClickedit () {
+    m(test) {
+      this.show = [];
+      console.log(test);
+      this.getdata(test);
+    },
+    f(test) {
+      this.show = [];
+      console.log(test);
+      this.getdata(test);
+    },
+    onClickedit() {
+      this.$router.push({
+        name: "EditprofileCustomer"
+      });
       // console.log('Clicked on a fab action')
     },
-    onClicktime() {
-
-    },
-    getmen() {
-      console.log("Menstyle");
+    onClicktime() {},
+    getdata(test) {
+      console.log("haircut");
       this.$firestore
-        .collection("Menstyle")
+        .collection("haircut")
+        .where("haircuttype", test, "010")
+        .orderBy("haircuttype", "asc")
         .get()
         .then(querySnapshot => {
           querySnapshot.forEach(doc => {
+            this.show.push(doc.data());
+            console.log(this.show);
+            // console.log(doc.data());
             // doc.data() is never undefined for query doc snapshots
             // console.log(doc.id, " => ", doc.data());
             // this.picM.push(doc.data().url);
             // this.titleM.push(doc.data().name);
-            let objMen = {
-              picM: doc.data().url,
-              titleM: doc.data().name,
-              id: doc.id
-            };
-            this.testM.push(objMen);
-            // console.log(this.pic)
+            // let objMen = {
+            //   picM: doc.data().url,
+            //   titleM: doc.data().name,
+            //   id: doc.id
+            // };
+            // this.testM.push(objMen);
+            // console.log(doc.data());
             // console.log(doc.id, " => ", doc.data().name);
           });
         });
     },
-    getwomen() {
-      console.log("Womenstyle");
-      this.$firestore
-        .collection("Womenstyle")
-        .get()
-        .then(querySnapshot => {
-          querySnapshot.forEach(doc => {
-            // doc.data() is never undefined for query doc snapshots
-            // console.log(doc.id, " => ", doc.data());
-            // this.picW.push(doc.data().url);
-            // this.titleW.push(doc.data().name);
-
-            let objWomen = {
-              picW: doc.data().url,
-              titleW: doc.data().name,
-              id: doc.id
-            };
-            this.testW.push(objWomen);
-            // console.log(this.testW);
-
-            // console.log(this.pic)
-            // console.log(doc.id, " => ", doc.data().name);
-          });
-        });
-    },
-    Mainbtn(title, id) {
-      console.log(title, id);
+    Mainbtn(haircutname, haircuttype) {
+      console.log(haircutname, haircuttype);
       this.$router.push({
         name: "findHaircut",
         params: {
-          title: title
+          title: haircutname,
+          id: haircuttype
         }
       });
     }
   },
   mounted() {
-    this.getmen();
-    this.getwomen();
+    this.m("<=");
+    // this.getwomen();
   }
 };
 </script>
@@ -195,7 +190,6 @@ export default {
 <style>
 .my-card {
   margin-left: 10%;
-  
   width: 40%;
   background-color: black;
 }
