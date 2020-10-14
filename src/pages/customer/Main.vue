@@ -134,6 +134,7 @@ export default {
       this.show = [];
       console.log(test);
       this.getdata(test);
+<<<<<<< HEAD
     },
     onClickedit() {
       this.$router.push({
@@ -141,6 +142,15 @@ export default {
       });
       // console.log('Clicked on a fab action')
     },
+=======
+    },
+    onClickedit() {
+      this.$router.push({
+        name: "EditprofileCustomer"
+      });
+      // console.log('Clicked on a fab action')
+    },
+>>>>>>> customer
     onClicktime() {},
     getdata(test) {
       console.log("haircut");
@@ -190,6 +200,10 @@ export default {
 <style>
 .my-card {
   margin-left: 10%;
+<<<<<<< HEAD
+=======
+
+>>>>>>> customer
   width: 40%;
   background-color: black;
 }

@@ -96,15 +96,27 @@ export default {
             console.log(doc.id, " => ", doc.data().profilepic);
             this.profilepic = doc.data().profilepic;
             // this.lastname = doc.data().lastname;
+<<<<<<< HEAD
+=======
+
+>>>>>>> customer
           });
         });
      
     },
   },
+<<<<<<< HEAD
+=======
+
+>>>>>>> customer
   mounted() {
      this.getdata();
      this.firstname = this.$firebase.auth().currentUser.firstname;
      this.profilepic = this.$firebase.auth().currentUser.profilepic;
+<<<<<<< HEAD
+=======
+
+>>>>>>> customer
   },
 };
 </script>
@@ -123,12 +135,21 @@ export default {
   padding-left: 20px;
   color: black;
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> customer
 .portfolio {
   padding-top: 5px;
 }
 .photos {
   margin-left: 10px;
 }
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> customer
 .blackcard {
   margin-top: 10%;
   margin-right: 15px;
@@ -142,4 +163,8 @@ export default {
 .whitetext {
   color: white;
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> customer
 </style>

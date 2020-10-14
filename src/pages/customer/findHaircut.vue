@@ -128,6 +128,10 @@ export default {
             this.photos.push(doc.data().photos[0]);
             // console.log(doc.id);
             this.id.push(doc.id);
+<<<<<<< HEAD
+=======
+
+>>>>>>> customer
             // console.log(doc.data());
             // console.log(this.show);
           });
@@ -168,6 +172,10 @@ export default {
 }
 /* .showport {
 } */
+<<<<<<< HEAD
+=======
+
+>>>>>>> customer
 .sizeimg {
   width: 100%;
   height: 100%;
@@ -175,4 +183,8 @@ export default {
 .filter {
   size: 150%;
 }
+<<<<<<< HEAD
 </style>
+=======
+</style>
+>>>>>>> customer
