@@ -1,11 +1,7 @@
 <template>
   <q-page class="bg-dark">
     <div class="row justify-center">
-      
-     
-        <q-img class="logoH" :src="logo" :ratio="1" />
-      
-    
+      <q-img class="logoH" :src="logo" :ratio="1" />
     </div>
 
     <div class="row">
@@ -35,7 +31,7 @@
       />
     </div>
 
-     <div class="loginfb">
+    <div class="loginfb">
       <q-btn
         icon="ion-logo-facebook"
         color="blue-6"
@@ -44,7 +40,6 @@
         rounded
         text-color="white"
         label="Sign in with Facebook"
-        
       />
     </div>
   </q-page>
@@ -62,27 +57,21 @@ export default {
       var provider = new this.$firebase.auth.GoogleAuthProvider();
 
       this.$firebase
-      .auth()
-      .signInWithPopup(provider)
-      .then((result) => {
-        var token = result.credential.accessToken;
-        var user = result.user;
-        const email = this.$firebase.auth().currentUser.email;
-console.log(this.$firebase.auth().currentUser);
-        this.$router.push({
-          name: "registcustomer",
-          params: {
-            authEmail: email,
-          }
+        .auth()
+        .signInWithPopup(provider)
+        .then(result => {
+          var token = result.credential.accessToken;
+          var user = result.user;
+          const email = this.$firebase.auth().currentUser.email;
+          console.log(this.$firebase.auth().currentUser);
+          this.$store.commit("clogin", email);
+        })
+        .catch(error => {
+          var errorCode = error.code;
+          var errorMessage = error.message;
+          var email = error.email;
+          var credential = error.credential;
         });
-      })
-    .catch((error) => {
-      var errorCode = error.code;
-      var errorMessage = error.message;
-      var email = error.email;
-      var credential = error.credential;
-    });
-
     },
     getlogo() {
       console.log("logo");
@@ -109,7 +98,7 @@ console.log(this.$firebase.auth().currentUser);
 .logoH {
   position: absolute;
   margin-top: 20%;
-  
+
   width: 150px;
   height: 150px;
 }
@@ -129,8 +118,6 @@ div.loginfb {
   position: absolute;
   bottom: 36%;
   left: 18%;
-  
-  
 }
 /* .linee {
   position: absolute;
@@ -138,5 +125,4 @@ div.loginfb {
   
   bottom: 490px;
 } */
-
 </style>

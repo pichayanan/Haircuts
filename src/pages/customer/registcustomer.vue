@@ -69,7 +69,7 @@ export default {
       date: "2019/02/01",
       fullName: "",
       URL: "",
-      registed: false,
+      registed: false
     };
   },
   methods: {
@@ -79,13 +79,12 @@ export default {
       this.$firestore
         .collection("customer")
         .add({
-          registed: true,
           gender: this.shape,
           CName: this.fullName,
           URL: this.$firebase.auth().currentUser.photoURL,
           CBirthday: this.date,
           CMail: this.$firebase.auth().currentUser.email,
-          registed: true,
+          registed: true
         })
         .then(docRef => {
           console.log("Document written with ID: ", docRef.id);
@@ -97,42 +96,31 @@ export default {
           console.error("Error adding document: ", error);
         });
     },
-   check() {
+    check() {
+      console.log(this.$store.state.customertest.Cmail);
+      let test1 = this.$store.state.customertest.Cmail;
       this.$firestore
         .collection("customer")
-        .where("CMail", "==", this.$firebase.auth().currentUser.email)
+        .where("CMail", "==", test1)
         .get()
-        .then((querySnapshot) => {
-          querySnapshot.forEach((doc) => {
+        .then(querySnapshot => {
+          querySnapshot.forEach(doc => {
             console.log(doc.id, " => ", doc.data());
-              let registdata = {
-                URL: doc.data().this.$firebase.auth().currentUser.photoURL,
-                CName:  doc.data().fullName,
-                CMail: doc.data().this.$firebase.auth().currentUser.email,
-                CBirthday: doc.data().date,
-                gender: doc.data().shape,
-                
-
-          }
-              this.$store.commit("registdata", registdata)
-              if (doc.data().registed == true ){
-                this.$router.push({
-                      name: "Maincustomer",
-                });
-              }
-
-        });
-  })
-  .catch((error) => {
+            this.$router.push({
+              name: "Maincustomer"
+            });
+          });
+        })
+        .catch(error => {
           console.log("Error getting documents: ", error);
-  });
-
-      },
+        });
+    }
   },
   mounted() {
-    check();
+    this.check();
     this.fullName = this.$firebase.auth().currentUser.displayName;
     this.URL = this.$firebase.auth().currentUser.photoURL;
+    
   }
 };
 </script>

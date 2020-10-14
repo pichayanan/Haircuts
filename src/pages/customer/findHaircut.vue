@@ -72,7 +72,7 @@
         v-for="(data, index) in photos"
         :key="index"
       >
-        <q-img class="sizeimg" :src="data"></q-img>
+        <q-img class="sizeimg1" :src="data"></q-img>
       </div> -->
     <!-- <div>{{index}}</div> -->
     <div class="row q-gutter-xl justify-center  ">
@@ -81,7 +81,7 @@
         v-for="(data, index) in photos"
         :key="index"
       >
-        <q-img @click="pic(id[index])" class="sizeimg" :src="data" />
+        <q-img @click="pic(id[index])" class="sizeimg1" :src="data" />
         <!-- <div>{{ id }}</div> -->
       </div>
     </div>
@@ -116,10 +116,11 @@ export default {
   },
   methods: {
     getdata() {
+      let id = this.$store.state.customertest.cid;
       console.log("portfolio");
       this.$firestore
         .collection("portfolio")
-        .where("haircuttype", "==", this.$router.currentRoute.params.id)
+        .where("haircuttype", "==", id)
         .get()
         .then(querySnapshot => {
           querySnapshot.forEach(doc => {
@@ -170,7 +171,7 @@ export default {
 /* .showport {
 } */
 
-.sizeimg {
+.sizeimg1 {
   width: 100%;
   height: 100%;
 }

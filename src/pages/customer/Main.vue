@@ -171,13 +171,14 @@ export default {
     },
     Mainbtn(haircutname, haircuttype) {
       console.log(haircutname, haircuttype);
-      this.$router.push({
-        name: "findHaircut",
-        params: {
-          title: haircutname,
-          id: haircuttype
-        }
-      });
+       this.$store.commit("cmain",haircuttype);
+      // this.$router.push({
+      //   name: "findHaircut",
+      //   params: {
+      //     title: haircutname,
+      //     id: haircuttype
+      //   }
+      // });
     }
   },
   mounted() {
@@ -194,8 +195,5 @@ export default {
   width: 40%;
   background-color: black;
 }
-.sizeimg {
-  width: 100%;
-  height: 163px;
-}
+
 </style>

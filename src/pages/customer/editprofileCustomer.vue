@@ -11,9 +11,24 @@
     <div class="row justify-center headbox">
       <q-item-section avatar class>
         <q-avatar class="profilepic row text-center">
-          <img :src="URL" />
+          <img @imageSelected="imageSelected" :src="URL" />
         </q-avatar>
-        <u class="row changeprofile" caption>Change Picture</u>
+        <!-- <q-file
+          borderless
+          label-color="orange"
+          v-model="model"
+          label="Borderless"
+          @click="imageSelected(model)"
+          bg-color="green"
+        ></q-file>
+        <q-file>
+          <u class="row changeprofile" @imageSelected="imageSelected" caption>
+            Change Picture
+          </u></q-file
+        > -->
+        <!-- <u class="row changeprofile" @click="changepic" caption
+          >Change Picture</u
+        > -->
       </q-item-section>
     </div>
 
@@ -65,28 +80,54 @@
 </template>
 
 <script>
+import { uploadProfile } from "../../API/api";
+import firebaseUploader from "components/FirebaseUploader";
+import ImageFilePicker from "components/ImageFilePicker.vue";
+
 export default {
   data() {
     return {
+      model: null,
       CName: "",
       URL: "",
       CMail: "",
       CBirthday: "",
-      gender:"",
+      gender: "",
       readonly: true,
       disable: true,
-      getID: "",
+      getID: ""
     };
   },
   methods: {
-     getdata() {
+    imageSelected(base64) {
+      this.URL = base64;
+    },
+    changepic() {
+      console.log("hjujgjft");
+      try {
+        this.$q.loading.show();
+        const image = this.URL;
+        if (image === this.URL) {
+          console.log("ใส่มาทำไหมน่ะ");
+        } else if (typeof image === "string") {
+          this.URL = image;
+        } else {
+          this.URL = uploadProfile(image);
+          console.log("ได้แล้วนะ :", this.URL);
+        }
+        this.$q.loading.hide();
+      } catch (error) {
+        console.log("catch");
+      }
+    },
+    getdata() {
       this.$firestore
         .collection("customer")
         .where("CMail", "==", this.$firebase.auth().currentUser.email)
         .get()
         .then(querySnapshot => {
           querySnapshot.forEach(doc => {
-            console.log(doc.id)
+            console.log(doc.id);
             this.getID = doc.id;
             // doc.data() is never undefined for query doc snapshots
             console.log(doc.id, " => ", doc.data().CName);
@@ -97,59 +138,54 @@ export default {
             this.CBirthday = doc.data().CBirthday;
             this.gender = doc.data().gender;
             console.log(this.CName);
-
-
-
           });
         });
     },
-     editprofile() {
-     console.log("updateData");
-     this.$firestore
+    editprofile() {
+      console.log("updateData");
+      this.$firestore
         .collection("customer")
         .doc(this.getID)
         .update({
           CName: this.CName,
-          URL:this.URL,
-
+          URL: this.URL
         })
-        .then((docRef) => {
-
+        .then(docRef => {
           this.$router.push({
-            name: "Maincustomer",
+            name: "Maincustomer"
           });
         })
-        .catch((error) => {
+        .catch(error => {
           console.error("Error adding document: ", error);
         });
     },
-    
-
 
     logoutbutton() {
       this.$firebase
         .auth()
         .signOut()
-        .then(function () {
+        .then(() => {
           // Sign-out successful.
           console.log("Sign-out successful");
           this.$router.push({
-            name: "logincustomer",
-
+            name: "logincustomer"
           });
-
         })
-        .catch(function (error) {
+        .catch(error => {
           // An error happened.
           console.log("Error");
         });
     },
-    back(){
+    back() {
       this.$router.push({
-            name: "Maincustomer",
-          });
+        name: "Maincustomer"
+      });
     }
-   },
+  },
+  components: {
+    firebaseUploader,
+    ImageFilePicker
+  },
 
   mounted() {
     this.getdata();
@@ -160,8 +196,7 @@ export default {
     this.gender = this.gender;
     console.log(this.$router.currentRoute.params.email);
     // this.check();
-
-  },
+  }
 };
 </script>
 

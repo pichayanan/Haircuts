@@ -86,7 +86,7 @@ export default {
     },
     loginadminbtn() {
         this.$router.push({
-        name: "findHaircut",
+        name: "mainadmin",
       });
     }
   },
