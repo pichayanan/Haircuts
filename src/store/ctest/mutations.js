@@ -16,3 +16,19 @@ export function cmain(state, main) {
   
 });
 }
+export function cfind(state, find) {
+  console.log(find)
+  state.id = find;
+  this.$router.push({
+  name: "DetailsCustomer",
+  
+});
+}
+export function cdetail(state, detail) {
+  console.log(detail)
+  state.bname = detail;
+  this.$router.push({
+  name: "ReserveCustomer",
+  
+});
+}

@@ -85,30 +85,21 @@
         <!-- <div>{{ id }}</div> -->
       </div>
     </div>
-    <q-page-sticky position="bottom-right" :offset="[18, 18]">
-      <q-fab icon="fas fa-cut" direction="up" color="dark">
-        <q-fab-action
-          @click="onClickedit"
-          color="warning"
-          icon="person_add"
-        ></q-fab-action>
-        <q-fab-action
-          @click="onClicktime"
-          color="warning"
-          icon="calendar_today"
-        ></q-fab-action>
-      </q-fab>
-    </q-page-sticky>
+    <tool />
   </q-page>
 </template>
 
 <script>
+import tool from "components/tool.vue";
 export default {
+  components: {
+    tool
+  },
   data() {
     return {
       search: "",
       photos: [],
-      id: [],
+      id: []
     };
   },
   mounted() {
@@ -140,20 +131,9 @@ export default {
     Search() {
       console.log(this.search);
     },
-    onClickedit() {
-      this.$router.push({
-        name: "EditprofileCustomer"
-      });
-    },
-    onClicktime() {},
     pic(id) {
       console.log(id);
-      this.$router.push({
-        name: "DetailsCustomer",
-        params: {
-          id: id
-        }
-      });
+      this.$store.commit("cfind", id)
     },
     back() {
       this.$router.push({

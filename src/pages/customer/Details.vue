@@ -17,7 +17,6 @@
         <h class="text-weight-bold ">section : </h> 60 mins
         <br />
         <h class="text-weight-bold ">Price : </h>{{ price }} Baht
-
       </div>
 
       <!-- </q-card> -->
@@ -75,29 +74,38 @@
         <!-- </q-card> -->
       </div>
     </q-card>
+
+    <!-- <div class="text-h1">{{ Fnameb }}</div> -->
     <div class="row justify-center">
-      <q-btn @click="reserve" color="dark" rounded text-color="white" label="RESERVE" />
+      <!-- <q-btn
+        @click="reserve"
+        color="dark"
+        rounded
+        text-color="white"
+        label="RESERVE"
+      /> -->
+
+      <q-btn
+        unelevated
+        rounded
+        color="dark"
+        text-color="white"
+        label="RESERVE"
+        @click="reserve(Fnameb)"
+      ></q-btn>
     </div>
 
-    <q-page-sticky position="bottom-right" :offset="[18, 18]">
-      <q-fab icon="fas fa-cut" direction="up" color="dark">
-        <q-fab-action
-          @click="onClickedit"
-          color="warning"
-          icon="person_add"
-        ></q-fab-action>
-        <q-fab-action
-          @click="onClicktime"
-          color="warning"
-          icon="calendar_today"
-        ></q-fab-action>
-      </q-fab>
-    </q-page-sticky>
+    <tool />
   </q-page>
 </template>
 
 <script>
+import tool from "components/tool.vue";
+
 export default {
+  components: {
+    tool
+  },
   data() {
     return {
       shape: "line",
@@ -157,23 +165,18 @@ export default {
         name: "findHaircut"
       });
     },
-    reserve() {
-      this.$router.push({
-        name: "ReserveCustomer"
-      });
+    reserve(name) {
+      // console.log("lplpl: ", oop);
+      // conlog.log(this.Fnameb);
+
+      this.$store.commit("cdetail", name);
     },
-    onClickedit() {
-      this.$router.push({
-        name: "EditprofileCustomer"
-      });
-    },
-    onClicktime() {},
     getdata() {
       let type = "";
-      console.log(this.$router.currentRoute.params.id);
+      console.log(this.$store.state.customertest.id);
       this.$firestore
         .collection("portfolio")
-        .doc(this.$router.currentRoute.params.id)
+        .doc(this.$store.state.customertest.id)
         .get()
         .then(doc => {
           if (doc.exists) {
@@ -217,6 +220,7 @@ export default {
                 // doc.data() is never undefined for query doc snapshots
                 console.log(doc.id, " => ", doc.data());
                 this.Fnameb = doc.data().firstname;
+                console.log("Fnameb:", this.Fnameb);
                 this.Lnameb = doc.data().lastname;
                 this.location = doc.data().location;
                 this.propic = doc.data().profilepic;

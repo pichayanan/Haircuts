@@ -9,20 +9,30 @@
         BACK
       </q-toolbar-title>
     </q-toolbar>
-    <q-item class="row header">
-      <q-item-section avatar class="col-3">
-        <q-avatar class="profilepicture">
-          <img src="" />
-        </q-avatar>
-      </q-item-section>
-
-      <q-item-section class="col-7">
-        <div class="col-6 text-h6 text-weight-bold username">
-          <!-- {{ firstname }} -->
+    
+     <q-card class="bg-grey-2 q-pa-sm q-ma-sm row col-11 ">
+      <div class=" col-5 start justifly-center">
+        
+          <q-img class="show" :src="propic" />
         </div>
-        <!-- <q-item-label class="row" caption>฿400</q-item-label> -->
-      </q-item-section>
-    </q-item>
+
+        <!-- <q-card class="text-h7 bg-grey-3 detailcard"> -->
+
+        <div class="col-5 q-pt-md justify-center">
+          <h class="text-weight-bold">Artist </h>
+          <br />
+          &nbsp;&nbsp;{{ Fnameb }} {{ Lnameb }}
+          <br />
+          <h class="text-weight-bold ">place </h>
+          <br />
+          &nbsp;&nbsp;{{ location }}
+        </div>
+
+        <!-- </q-card> -->
+      
+    </q-card>
+      
+
     
 
     <!-- test -->
@@ -50,13 +60,48 @@ export default {
   data() {
     return {
       model: "",
-      model1: ""
+      model1: "",
+      Name: "",
+      Fnameb: "",
+      Lnameb: "",
+      location: "",
+      propic: "",
+      
     };
   },
-  mounted() {
-    this.lastUpdate(Date.now());
-  },
+ 
   methods: {
+    getdata(){
+      let Bid = "";
+      console.log("show :",this.$store.state.customertest.bname)
+          this.$firestore
+            .collection("barber")
+            .where("firstname", "==", this.$store.state.customertest.bname)
+            .get()
+            .then(querySnapshot => {
+              querySnapshot.forEach(doc => {
+                // doc.data() is never undefined for query doc snapshots
+                console.log(doc.id, " => ", doc.data());
+                Bid = doc.data().barberid;
+                this.Fnameb = doc.data().firstname;
+                console.log(this.Fnameb);
+                this.Lnameb = doc.data().lastname;
+                console.log(this.Lnameb);
+                this.location = doc.data().location;
+                this.propic = doc.data().profilepic;
+              });
+            })
+            .then(() => {
+              this.$firestore
+              .collection("portfolio")
+              .where("barberid", "==", Bid)
+              .get()
+              .then(querySnapshot => {
+                console.log(doc.id, " => ", doc.data());
+                this.Name = doc.data().haircutname;
+              })
+            });
+    },
     lastUpdate(data) {
       console.log(data);
       moment.locale("en");
@@ -74,8 +119,17 @@ export default {
         name: "TimereserveCustomer"
       });
     }
-  }
+  },
+   mounted() {
+    this.lastUpdate(Date.now());
+    this.getdata();
+  },
 };
 </script>
 
-<style></style>
+<style>
+.show {
+  height: 100px;
+  width: 100px;
+  margin-left: 5%;
+}</style>
