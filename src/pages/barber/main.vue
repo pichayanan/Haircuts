@@ -27,7 +27,7 @@
 
     <div class="reservehead justify-center row">
         <div class="text-h6 col-5 text-center"><br />RESERVATION</div>
-        <div class="q-pa-md col-7" style="max-width: 300px">
+        <div class="q-pa-md col-7" style="max-width: 400px">
           <q-input v-model="date" mask="date" :rules="['date']">
             <template v-slot:append>
               <q-icon name="event" class="" color="blue">
@@ -53,8 +53,7 @@
 
       <div class="reserve row justify-center">
         <div class="q-pa-md q-gutter-sm">
-          <h7 class="text text-weight-bold">MORNING</h7>
-          <br />
+          <h6 class="text text-weight-bold">MORNING</h6>
           <div class="row">
             <q-btn class="reserve" color="white" text-color="black" label="  9 AM" />
             <q-btn class="reserve" color="red" text-color="white" label="10 AM" />
@@ -62,8 +61,7 @@
             <q-btn class="reserve" color="white" text-color="black" label="12 PM" />
           </div>
           <br />
-          <h7 class="text text-weight-bold">AFTERNOON</h7>
-          <br />
+          <h6 class="text text-weight-bold">AFTERNOON</h6>
           <div class="row">
             <q-btn class="reserve" color="white" text-color="black" label="  1 PM" />
             <q-btn class="reserve" color="white" text-color="black" label="  2 PM" />
@@ -109,19 +107,28 @@
 </template>
 
 <script>
+import moment from "moment";
 export default {
   data() {
     return {
-      date: "2020/09/04",
+      date: "",
       firstname: "",
       lastname: "",
       profilepic: "",
       telno: "",
       barberid: "",
       location:"",
+      photos: [],
     };
   },
   methods: {
+    lastUpdate(data) {
+      console.log(data);
+      moment.locale("en");
+      // this.model = moment(data).format("LL");
+      this.date = moment(data).format("dddd, MMM D, YYYY");
+      console.log(this.date);
+    },
     editprofile() {
       console.log("Go to edit profile page");
       this.$router.push({
@@ -150,6 +157,28 @@ export default {
           this.insertid(this.barberid);
         });
     },
+    // gettimetable() {
+    //   console.log("getting timetable");
+    //   this.$firestore
+    //     .collection("timetable")
+    //     .where("telno", "==", this.$firebase.auth().currentUser.phoneNumber)
+    //     .get()
+    //     .then((querySnapshot) => {
+    //       querySnapshot.forEach((doc) => {
+    //         // doc.data() is never undefined for query doc snapshots
+    //         console.log(doc.id, " => ", doc.data());
+    //         // console.log(doc.id, " => ", doc.data().firstname);
+    //         // this.$store.commit("MAIN", doc.id);
+    //         // this.firstname = doc.data().firstname;
+    //         // this.lastname = doc.data().lastname;
+    //         // this.profilepic = doc.data().profilepic;
+    //         // this.location = doc.data().location;
+    //         // this.barberid = doc.id;
+
+    //       });
+    //       // this.insertid(this.barberid);
+    //     });
+    // },
     insertid(id) {
       console.log("INSERT BARBER ID : "+ id + " TO FIREBASE");
       this.$firestore
@@ -165,6 +194,23 @@ export default {
         console.error("Error adding document: ", error);
       });
     },
+    getportfolio() {
+      console.log("portfolio");
+      this.$firestore
+        .collection("portfolio")
+        .where("barberid", "==", this.barberid)
+        .get()
+        .then(querySnapshot => {
+          querySnapshot.forEach(doc => {
+            
+            this.photos.push(doc.data().photos[0]);
+           
+            this.id.push(doc.id);
+            
+          });
+        });
+      console.log(this.photos);
+    },
     addportfolio() {
       console.log("Add portfolio page page");
       this.$router.push({
@@ -175,9 +221,13 @@ export default {
 
   mounted() {
     this.getdata();
+    this.getportfolio();
     this.profilepic = this.$firebase.auth().currentUser.profilepic;
     this.firstname = this.$firebase.auth().currentUser.firstname;
     this.telno = this.$store.state.example.telno;
+    this.lastUpdate(Date.now());
+    // this.gettimetable();
+
   },
 };
 </script>
@@ -211,7 +261,7 @@ export default {
 .header {
   /* padding-top: 30px;
   margin-left: 10px; */
-  /* margin-top: 20px; */
+  margin-top: 30px;
   margin-right: 15px;
   margin-left: 15px;
 }

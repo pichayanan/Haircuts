@@ -90,10 +90,6 @@ export default {
       });
     }
   },
-<<<<<<< HEAD
-=======
-
->>>>>>> customer
   mounted() {
     this.getlogo();
   }
@@ -126,9 +122,4 @@ export default {
   padding-left: 22%;
   padding-top: 8%;
 }
-<<<<<<< HEAD
 </style>
-=======
-
-</style>
->>>>>>> customer

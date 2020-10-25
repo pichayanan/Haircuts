@@ -112,10 +112,6 @@ export default {
                 CBirthday: doc.data().date,
                 gender: doc.data().shape,
                 
-<<<<<<< HEAD
-=======
-
->>>>>>> customer
           }
               this.$store.commit("registdata", registdata)
               if (doc.data().registed == true ){
@@ -123,19 +119,11 @@ export default {
                       name: "Maincustomer",
                 });
               }
-<<<<<<< HEAD
-=======
-
->>>>>>> customer
         });
   })
   .catch((error) => {
           console.log("Error getting documents: ", error);
   });
-<<<<<<< HEAD
-=======
-
->>>>>>> customer
       },
   },
   mounted() {

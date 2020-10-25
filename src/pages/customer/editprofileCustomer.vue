@@ -97,12 +97,6 @@ export default {
             this.CBirthday = doc.data().CBirthday;
             this.gender = doc.data().gender;
             console.log(this.CName);
-<<<<<<< HEAD
-=======
-
-
-
->>>>>>> customer
           });
         });
     },
@@ -114,15 +108,8 @@ export default {
         .update({
           CName: this.CName,
           URL:this.URL,
-<<<<<<< HEAD
         })
         .then((docRef) => {
-=======
-
-        })
-        .then((docRef) => {
-
->>>>>>> customer
           this.$router.push({
             name: "Maincustomer",
           });
@@ -132,11 +119,6 @@ export default {
         });
     },
     
-<<<<<<< HEAD
-=======
-
-
->>>>>>> customer
     logoutbutton() {
       this.$firebase
         .auth()
@@ -146,13 +128,7 @@ export default {
           console.log("Sign-out successful");
           this.$router.push({
             name: "logincustomer",
-<<<<<<< HEAD
           });
-=======
-
-          });
-
->>>>>>> customer
         })
         .catch(function (error) {
           // An error happened.
@@ -165,10 +141,6 @@ export default {
           });
     }
    },
-<<<<<<< HEAD
-=======
-
->>>>>>> customer
   mounted() {
     this.getdata();
     this.URL = this.URL;
@@ -178,10 +150,6 @@ export default {
     this.gender = this.gender;
     console.log(this.$router.currentRoute.params.email);
     // this.check();
-<<<<<<< HEAD
-=======
-
->>>>>>> customer
   },
 };
 </script>
@@ -209,8 +177,4 @@ export default {
   margin-top: 50px;
   margin-bottom: 50px;
 }
-<<<<<<< HEAD
 </style>
-=======
-</style>
->>>>>>> customer
