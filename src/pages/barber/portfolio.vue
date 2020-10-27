@@ -18,6 +18,7 @@
       </div>
     </div>
 
+
     <div class="justify-start q-px-md text-h6 spacing">Face Type</div>
     <div class="row">
       <div class="col-2" v-for="(test, index) in obj" :key="index">
