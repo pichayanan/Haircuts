@@ -142,7 +142,7 @@ export default {
     },
     Mainbtn(haircutname, haircuttype) {
       console.log(haircutname, haircuttype);
-      this.$store.commit("cmain", haircuttype);
+      this.$store.commit("cmain", {haircutname,haircuttype});
     }
   },
   mounted() {

@@ -91,7 +91,7 @@
         color="dark"
         text-color="white"
         label="RESERVE"
-        @click="reserve(Fnameb)"
+        @click="reserve(Fnameb,Lnameb,price,location,telno,propic)"
       ></q-btn>
     </div>
 
@@ -119,6 +119,7 @@ export default {
       location: "",
       propic: "",
       facetype: "",
+      telno: "",
       obj: [
         {
           pic:
@@ -165,11 +166,11 @@ export default {
         name: "findHaircut"
       });
     },
-    reserve(name) {
+    reserve(Fnameb,lnameb,price,location,telno,propic) {
       // console.log("lplpl: ", oop);
       // conlog.log(this.Fnameb);
 
-      this.$store.commit("cdetail", name);
+      this.$store.commit("cdetail",{Fnameb,lnameb,price,location,telno,propic} );
     },
     getdata() {
       let type = "";
@@ -224,6 +225,7 @@ export default {
                 this.Lnameb = doc.data().lastname;
                 this.location = doc.data().location;
                 this.propic = doc.data().profilepic;
+                this.telno = doc.data().telno;
               });
             });
         });

@@ -108,6 +108,7 @@ export default {
   methods: {
     getdata() {
       let id = this.$store.state.customertest.cid;
+      console.log(this.$store.state.customertest.cid)
       console.log("portfolio");
       this.$firestore
         .collection("portfolio")

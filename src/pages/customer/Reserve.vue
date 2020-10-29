@@ -49,7 +49,7 @@
       <q-date color="dark" text-color="white" v-model="model1" mask="dddd, MMM D, YYYY"></q-date>
     </div>
     <div class="row justify-center">
-    <q-btn unelevated rounded color="dark" @click="selecttime" label="Select section"></q-btn>
+    <q-btn unelevated rounded color="dark" @click="selecttime(model1)" label="Select section"></q-btn>
   </div>
   </q-page>
 </template>
@@ -86,6 +86,7 @@ export default {
                 this.Fnameb = doc.data().firstname;
                 console.log(this.Fnameb);
                 this.Lnameb = doc.data().lastname;
+              
                 console.log(this.Lnameb);
                 this.location = doc.data().location;
                 this.propic = doc.data().profilepic;
@@ -114,10 +115,8 @@ export default {
             name: "DetailsCustomer",
           });
     },
-    selecttime() {
-      this.$router.push({
-        name: "TimereserveCustomer"
-      });
+    selecttime(model1) {
+      this.$store.commit("creserve", model1);
     }
   },
    mounted() {

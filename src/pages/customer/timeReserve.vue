@@ -10,33 +10,41 @@
     </q-toolbar>
     <!-- --------------Header--------------- -->
     <q-card class="bg-white blackcard">
+      <div class="row">
+      <div class=" col-5 start justifly-center">
+        
+          <q-img class="show" :src="this.$store.state.customertest.bpic" />
+        </div>
+
+        <!-- <q-card class="text-h7 bg-grey-3 detailcard"> -->
+
+        <div class="col-5 q-pt-md justify-center">
+          <h class="text-weight-bold">Artist </h>
+          <br />
+          &nbsp;&nbsp;{{ this.$store.state.customertest.bname }} {{ this.$store.state.customertest.lname }}
+          <br />
+          <h class="text-weight-bold ">place </h>
+          <br />
+          &nbsp;&nbsp;{{ this.$store.state.customertest.location }}
+        </div>
+        </div>
       <!-- <q-card class="bg-dark"> -->
-      <div class="reserve row justify-center">
+      <div class="reserve row justify-start">
         <div class="q-pa-md q-gutter-sm">
           <u class="text">MORNING</u>
           <!-- <br /> -->
           <br />
-          <div class="row q-gutter-md  q-pt-md q-px-md justify-start">
-            <q-btn class="reserve" outline style="color: black;" label="  9 AM" />
-            <q-btn class="reserve" outline style="color: black;" label="10 AM" />
-            <q-btn class="reserve" outline style="color: black;" label="11 AM" />
-            <q-btn class="reserve" outline style="color: black;" label="12 PM" />
+          <div class="row">
+            <q-btn
+              v-for="(data, index) in times"
+              :key="index"
+              color="white"
+              text-color="black"
+              :label="data.time"
+              @click="dialog = true"
+            />
           </div>
           <br />
-          <br />
-          <u class="text">AFTERNOON</u>
-          <br />
-          
-          <div class="row q-gutter-md  q-pt-md q-pr-xs q-pl-md justify-start">
-            <q-btn class="reserve" outline style="color: black;" label="  1 PM" />
-            <q-btn class="reserve" outline style="color: black;" label="  2 PM" />
-            <q-btn class="reserve" outline style="color: black;" label="  3 PM" />
-            <q-btn class="reserve" outline style="color: black;" label="  4 PM" />
-            <q-btn class="reserve" outline style="color: black;" label="  5 PM" />
-            <q-btn class="reserve" outline style="color: black;" label="  6 PM" />
-            <q-btn class="reserve" outline style="color: black;" label="  7 PM" />
-            <q-btn class="reserve" outline style="color: black;" label="  8 PM" />
-          </div>
           <br />
         </div>
       </div>
@@ -46,19 +54,6 @@
         <!-- <br />HAIRCUTS -->
       </div>
     </div>
-    <div class="row portfolio">
-      <q-card class="photos my-card col-4">
-        <q-img src="https://cdn.quasar.dev/img/avatar2.jpg" basic>
-          <div class="absolute-bottom text-subtitle2 text-center">Undercut</div>
-        </q-img>
-      </q-card>
-      <q-card class="photos my-card col-4">
-        <q-img src="https://cdn.quasar.dev/img/avatar2.jpg" basic>
-          <div class="absolute-bottom text-subtitle2 text-center">Undercut</div>
-        </q-img>
-      </q-card>
-      
-    </div>
   </q-page>
 </template>
 
@@ -67,9 +62,8 @@ export default {
   data() {
     return {
       date: "2020/09/04",
-      firstname: "",
-      lastname: "",
-      profilepic:"",
+      times: [],
+    
     };
   },
   methods: {
@@ -85,28 +79,40 @@ export default {
           });
     },
     getdata() {
+      console.log("getting timetable");
       this.$firestore
-        .collection("barber")
+        .collection("timetable")
+        .where("telno", "==", this.$firebase.auth().currentUser.phoneNumber)
         .get()
-        .then(querySnapshot => {
-          querySnapshot.forEach(doc => {
-            // doc.data() is never undefined for query doc snapshots
-            console.log(doc.id, " => ", doc.data().firstname);
-            this.firstname = doc.data().firstname;
-            console.log(doc.id, " => ", doc.data().profilepic);
-            this.profilepic = doc.data().profilepic;
-            // this.lastname = doc.data().lastname;
-
+        .then((querySnapshot) => {
+          querySnapshot.forEach((doc) => {
+            
+            this.times = doc.data().info;
+            console.log(this.times);
+            
           });
+          // this.insertid(this.barberid);
         });
-     
+
+        // this.$firestore
+        // .collection("timetable")
+        // .where("info", test, "010")
+        // .orderBy("info", "asc")
+        // .get()
+        // .then((querySnapshot) => {
+        //   querySnapshot.forEach((doc) => {
+            
+        //     this.times = doc.data().info;
+          
+        //   });
+        // });
+
+
     },
   },
 
   mounted() {
      this.getdata();
-     this.firstname = this.$firebase.auth().currentUser.firstname;
-     this.profilepic = this.$firebase.auth().currentUser.profilepic;
 
   },
 };

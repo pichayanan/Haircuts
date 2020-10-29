@@ -4,6 +4,14 @@ export default function () {
     cid: "",
     id: "",
     bname: "",
+    lname: "",
+    price: "",
+    location: "",
+    telno: "",
+    cselect: "",
+    cname: "",
+    type: "",
+    bpic: "",
     //
   }
 }

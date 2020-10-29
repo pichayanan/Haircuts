@@ -89,7 +89,7 @@
     </div>
 
     <div class="row justify-center savebutton">
-      <q-btn outline color="white" class @click="editprofile" label="SAVE" />
+      <q-btn outline color="white" class @click="editprofile(CName)" label="SAVE" />
     </div>
     <div class="row justify-center logout">
       <q-btn outline color="red" class @click="logoutbutton" label="LOGOUT" />
@@ -163,7 +163,8 @@ export default {
           });
         });
     },
-    async editprofile() {
+    async editprofile(CName) {
+      this.$store.commit("cedit", CName);
       this.$q.loading.show();
       const image = this.url;
       this.url = await uploadProfile(image);

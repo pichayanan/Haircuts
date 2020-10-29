@@ -13,6 +13,9 @@
       </div>
       <div class="col-2"></div>
     </div>
+     <div class="inner"></div>
+  <div class="inner"></div>
+  <div class="inner"></div>
 
     <!-- <div class="row justify-center ">
       <div class="linee">_______________________________</div>
