@@ -46,10 +46,10 @@
     <q-card class="bg-grey-2 reservecard">
       <div class="reserve row justify-center">
         <div class="q-pa-md q-gutter-sm">
-          <h6 class="text text-weight-bold">MORNING</h6>
+          <h6 class="text text-weight-bold">SELECT TIME</h6>
 
-          <div class="row">
-            <q-btn
+          <div class="row justify-center">
+            <q-btn class="timebtn"
               v-for="(data, index) in times"
               :key="index"
               :color="btnColour"
@@ -96,7 +96,7 @@
         <h5 class="whitetext">HAIRCUTS</h5>
       </div>
     </div>
-
+    <!-- {{ status }} -->
     <div class="row portfolio">
       <q-card class="photos my-card col-4">
         <q-img src="https://cdn.quasar.dev/img/avatar2.jpg" basic>
@@ -141,23 +141,27 @@ export default {
       // ],
       dialog: false,
       times: [],
+      status: [],
+      // status1: true,
+      // index: "",
     };
   },
   computed: {
     btnColour() {
-      if(this.status === true) {
-        return 'red'
+      console.log("color  = "+this.status[0])
+      if (this.status[0] == true) {
+        return "red";
+
       } else {
-        return 'white'
+        return "white";
       }
-    }
+    },
   },
   methods: {
-    
     lastUpdate(data) {
       console.log(data);
       moment.locale("en");
-      // this.model = moment(data).format("LL");
+      this.model = moment(data).format("LL");
       this.date = moment(data).format("dddd, MMM D, YYYY");
       console.log(this.date);
     },
@@ -197,17 +201,16 @@ export default {
         .get()
         .then((querySnapshot) => {
           querySnapshot.forEach((doc) => {
-            
             this.times = doc.data().info;
-            console.log("This is info: "+doc.data().info);
-            
           });
-          
+          // console.log("This is info: ", this.times);
+          // console.log("This is info: ", this.times.length);
+          for (let i = 0; i < this.times.length; i++) {
+            this.status.push(this.times[i].status);
+          }
+          console.log("status is: " + this.status);
           // this.insertid(this.barberid);
         });
-
-
-
     },
     insertid(id) {
       console.log("INSERT BARBER ID : " + id + " TO FIREBASE");
@@ -253,11 +256,17 @@ export default {
     this.telno = this.$store.state.example.telno;
     this.lastUpdate(Date.now());
     this.gettimetable();
+    // this.btnColour();
   },
 };
 </script>
 
 <style>
+.timebtn{
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-bottom: 10px; 
+}
 .testColor1 {
   background-color: blue;
 }
