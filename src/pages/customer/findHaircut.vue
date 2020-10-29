@@ -72,7 +72,7 @@
         v-for="(data, index) in photos"
         :key="index"
       >
-        <q-img class="sizeimg" :src="data"></q-img>
+        <q-img class="sizeimg1" :src="data"></q-img>
       </div> -->
     <!-- <div>{{index}}</div> -->
     <div class="row q-gutter-xl justify-center  ">
@@ -81,34 +81,25 @@
         v-for="(data, index) in photos"
         :key="index"
       >
-        <q-img @click="pic(id[index])" class="sizeimg" :src="data" />
+        <q-img @click="pic(id[index])" class="sizeimg1" :src="data" />
         <!-- <div>{{ id }}</div> -->
       </div>
     </div>
-    <q-page-sticky position="bottom-right" :offset="[18, 18]">
-      <q-fab icon="fas fa-cut" direction="up" color="dark">
-        <q-fab-action
-          @click="onClickedit"
-          color="warning"
-          icon="person_add"
-        ></q-fab-action>
-        <q-fab-action
-          @click="onClicktime"
-          color="warning"
-          icon="calendar_today"
-        ></q-fab-action>
-      </q-fab>
-    </q-page-sticky>
+    <tool />
   </q-page>
 </template>
 
 <script>
+import tool from "components/tool.vue";
 export default {
+  components: {
+    tool
+  },
   data() {
     return {
       search: "",
       photos: [],
-      id: [],
+      id: []
     };
   },
   mounted() {
@@ -116,10 +107,12 @@ export default {
   },
   methods: {
     getdata() {
+      let id = this.$store.state.customertest.cid;
+      console.log(this.$store.state.customertest.cid)
       console.log("portfolio");
       this.$firestore
         .collection("portfolio")
-        .where("haircuttype", "==", this.$router.currentRoute.params.id)
+        .where("haircuttype", "==", id)
         .get()
         .then(querySnapshot => {
           querySnapshot.forEach(doc => {
@@ -138,20 +131,9 @@ export default {
     Search() {
       console.log(this.search);
     },
-    onClickedit() {
-      this.$router.push({
-        name: "EditprofileCustomer"
-      });
-    },
-    onClicktime() {},
     pic(id) {
       console.log(id);
-      this.$router.push({
-        name: "DetailsCustomer",
-        params: {
-          id: id
-        }
-      });
+      this.$store.commit("cfind", id)
     },
     back() {
       this.$router.push({
@@ -168,7 +150,8 @@ export default {
 }
 /* .showport {
 } */
-.sizeimg {
+
+.sizeimg1 {
   width: 100%;
   height: 100%;
 }

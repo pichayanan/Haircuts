@@ -8,13 +8,46 @@
         BACK
       </q-toolbar-title>
     </q-toolbar>
-    <div class="row justify-center headbox">
-      <q-item-section avatar class>
-        <q-avatar class="profilepic row text-center">
-          <img :src="URL" />
-        </q-avatar>
-        <u class="row changeprofile" caption>Change Picture</u>
-      </q-item-section>
+    <div class="row justify-center">
+      <q-avatar class="changepic">
+        <image-file-picker
+          class="profilepic"
+          :src="url"
+          @imageSelected="imageSelected"
+        />
+        <q-icon
+          class="absolute all-pointer-events"
+          size="32px"
+          name="camera_alt"
+          color="white"
+          style="bottom: 6px; right: 9px"
+        >
+          <q-tooltip>
+            Tab profile picture to change
+          </q-tooltip>
+        </q-icon>
+      </q-avatar>
+
+      <!-- <image-file-picker
+           @imageSelected="imageSelected" 
+           :src="url" /> -->
+
+      <!-- <q-file
+          borderless
+          label-color="orange"
+          v-model="model"
+          label="Borderless"
+          @click="imageSelected(model)"
+          bg-color="green"
+        ></q-file>
+        <q-file>
+          <u class="row changeprofile" @imageSelected="imageSelected" caption>
+            Change Picture
+          </u></q-file
+        > -->
+      <!-- <u class="row changeprofile" @click="changepic" caption
+          >Change Picture</u
+        > -->
     </div>
 
     <div
@@ -56,7 +89,7 @@
     </div>
 
     <div class="row justify-center savebutton">
-      <q-btn outline color="white" class @click="editprofile" label="SAVE" />
+      <q-btn outline color="white" class @click="editprofile(CName)" label="SAVE" />
     </div>
     <div class="row justify-center logout">
       <q-btn outline color="red" class @click="logoutbutton" label="LOGOUT" />
@@ -65,34 +98,64 @@
 </template>
 
 <script>
+import { uploadProfile } from "../../API/api";
+import firebaseUploader from "components/FirebaseUploader.vue";
+import ImageFilePicker from "components/ImageFilePickerC.vue";
+
 export default {
   data() {
     return {
+      model: null,
       CName: "",
-      URL: "",
+      url: "",
+      urlTest: "",
       CMail: "",
       CBirthday: "",
-      gender:"",
+      gender: "",
       readonly: true,
       disable: true,
-      getID: "",
+      getID: ""
     };
   },
   methods: {
-     getdata() {
-      this.$firestore
+    imageSelected(base64) {
+      console.log("aaaa" + base64);
+      this.url = base64;
+    },
+    // changepic() {
+    //   console.log("hjujgjft");
+    //   try {
+    //     this.$q.loading.show();
+    //     const image = this.url;
+    //     if (image === this.url) {
+    //       console.log("ใส่มาทำไหมน่ะ");
+    //     } else if (typeof image === "string") {
+    //       this.url = image;
+    //     } else {
+    //       this.url = uploadProfile(image);
+    //       console.log("ได้แล้วนะ :", this.url);
+    //     }
+    //     this.$q.loading.hide();
+    //   } catch (error) {
+    //     console.log("catch");
+    //   }
+    // },
+    async getdata() {
+      await this.$firestore
         .collection("customer")
         .where("CMail", "==", this.$firebase.auth().currentUser.email)
         .get()
         .then(querySnapshot => {
           querySnapshot.forEach(doc => {
-            console.log(doc.id)
+            console.log(doc.id);
             this.getID = doc.id;
             // doc.data() is never undefined for query doc snapshots
             console.log(doc.id, " => ", doc.data().CName);
             this.CName = doc.data().CName;
             console.log(doc.id, " => ", doc.data().URL);
-            this.URL = doc.data().URL;
+            this.url = doc.data().URL;
+            // test
+            this.urlTest = this.url;
             this.CMail = doc.data().CMail;
             this.CBirthday = doc.data().CBirthday;
             this.gender = doc.data().gender;
@@ -100,46 +163,66 @@ export default {
           });
         });
     },
-     editprofile() {
-     console.log("updateData");
-     this.$firestore
+    async editprofile(CName) {
+      this.$store.commit("cedit", CName);
+      this.$q.loading.show();
+      const image = this.url;
+      this.url = await uploadProfile(image);
+      console.log("ได้แล้วนะ :", this.url);
+
+      this.$firestore
         .collection("customer")
         .doc(this.getID)
         .update({
           CName: this.CName,
+<<<<<<< HEAD
           URL:this.URL,
         })
         .then((docRef) => {
+=======
+          URL: this.url
+        })
+        .then(docRef => {
+          this.$q.loading.hide();
+>>>>>>> customer
           this.$router.push({
-            name: "Maincustomer",
+            name: "Maincustomer"
           });
         })
-        .catch((error) => {
+        .catch(error => {
           console.error("Error adding document: ", error);
         });
     },
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> customer
     logoutbutton() {
       this.$firebase
         .auth()
         .signOut()
-        .then(function () {
+        .then(() => {
           // Sign-out successful.
           console.log("Sign-out successful");
           this.$router.push({
+<<<<<<< HEAD
             name: "logincustomer",
+=======
+            name: "logincustomer"
+>>>>>>> customer
           });
         })
-        .catch(function (error) {
+        .catch(error => {
           // An error happened.
           console.log("Error");
         });
     },
-    back(){
-      this.$router.push({
-            name: "Maincustomer",
-          });
+    back() {
+      this.$router.back();
+    
     }
+<<<<<<< HEAD
    },
   mounted() {
     this.getdata();
@@ -151,6 +234,25 @@ export default {
     console.log(this.$router.currentRoute.params.email);
     // this.check();
   },
+=======
+  },
+  components: {
+    firebaseUploader,
+    ImageFilePicker
+  },
+
+  async mounted() {
+    await this.getdata();
+    console.log("finised getdata");
+    // this.URL = this.URL;
+    // this.CName = this.CName;
+    // this.CMail = this.CMail;
+    // this.CBirthday = this.CBirthday;
+    // this.gender = this.gender;
+    // console.log(this.$router.currentRoute.params.email);
+    // this.check();
+  }
+>>>>>>> customer
 };
 </script>
 
@@ -158,8 +260,12 @@ export default {
 .headbox {
   padding-top: 5%;
 }
+.changepic {
+  width: 130px;
+  height: 130px;
+}
 .profilepic {
-  margin-bottom: 10px;
+  /* margin-bottom: 10px; */
   width: 130px;
   height: 130px;
 }

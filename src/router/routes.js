@@ -112,19 +112,19 @@ const routes = [
   {
     path: "/admin",
     component: () => import("layouts/Admin.vue"),
-    meta: { authRequired: false },
+    // meta: { authRequired: false },
     children: [
       {
         path: "",
         name: "loginadmin",
         component: () => import("pages/admin/login.vue"),
-        meta: { authRequired: false },
+        // meta: { authRequired: false },
       },
       {
         path: "main",
         name: "mainadmin",
         component: () => import("pages/admin/main.vue"),
-        meta: { authRequired: false },
+        // meta: { authRequired: false },
       }   
      
     ]

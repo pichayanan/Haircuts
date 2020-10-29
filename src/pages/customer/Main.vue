@@ -97,25 +97,16 @@
       <q-btn color="dark" label="Second" icon="visibility"></q-btn>
     </q-btn-group>
   </div> -->
-    <q-page-sticky position="bottom-right" :offset="[18, 18]">
-      <q-fab icon="add" direction="up" color="dark">
-        <q-fab-action
-          @click="onClickedit"
-          color="warning"
-          icon="person_add"
-        ></q-fab-action>
-        <q-fab-action
-          @click="onClicktime"
-          color="warning"
-          icon="calendar_today"
-        ></q-fab-action>
-      </q-fab>
-    </q-page-sticky>
+    <tool />
   </q-page>
 </template>
 
 <script>
+import tool from "components/tool.vue";
 export default {
+  components: {
+    tool
+  },
   data() {
     return {
       slide: 1,
@@ -135,13 +126,6 @@ export default {
       console.log(test);
       this.getdata(test);
     },
-    onClickedit() {
-      this.$router.push({
-        name: "EditprofileCustomer"
-      });
-      // console.log('Clicked on a fab action')
-    },
-    onClicktime() {},
     getdata(test) {
       console.log("haircut");
       this.$firestore
@@ -153,36 +137,16 @@ export default {
           querySnapshot.forEach(doc => {
             this.show.push(doc.data());
             console.log(this.show);
-            // console.log(doc.data());
-            // doc.data() is never undefined for query doc snapshots
-            // console.log(doc.id, " => ", doc.data());
-            // this.picM.push(doc.data().url);
-            // this.titleM.push(doc.data().name);
-            // let objMen = {
-            //   picM: doc.data().url,
-            //   titleM: doc.data().name,
-            //   id: doc.id
-            // };
-            // this.testM.push(objMen);
-            // console.log(doc.data());
-            // console.log(doc.id, " => ", doc.data().name);
           });
         });
     },
     Mainbtn(haircutname, haircuttype) {
       console.log(haircutname, haircuttype);
-      this.$router.push({
-        name: "findHaircut",
-        params: {
-          title: haircutname,
-          id: haircuttype
-        }
-      });
+      this.$store.commit("cmain", {haircutname,haircuttype});
     }
   },
   mounted() {
     this.m("<=");
-    // this.getwomen();
   }
 };
 </script>
@@ -192,9 +156,5 @@ export default {
   margin-left: 10%;
   width: 40%;
   background-color: black;
-}
-.sizeimg {
-  width: 100%;
-  height: 163px;
 }
 </style>
