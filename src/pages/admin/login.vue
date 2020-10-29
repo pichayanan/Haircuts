@@ -1,6 +1,7 @@
 <template>
-  <div class="stage">
-   <!-- <div class="row">
+  <q-page>
+    <!-- <div class="stage"> -->
+    <!-- <div class="row">
       <div class="col-4"></div>
       <div class="col-4 justify-center">
         <q-img class="firstpage" :src="logo" :ratio="1" />
@@ -15,17 +16,17 @@
         <q-card dark bordered class="bg-dark login q-pa-md">
           <q-card-section class="row justify-center">
             <div class="col-6">
-                <q-img class="logo" :src="logo" :ratio="1" />
+              <q-img class="logo" :src="logo" :ratio="1" />
             </div>
             <div class="col-6 input ">
               <div class="row ">
                 <div class="text-subtitle2">USERNAME :</div>
                 <q-input
-                  class=""
+                  class="inputT"
                   dark
                   standout
                   bottom-slot
-                  v-model="text"
+                  v-model="username"
                   label="Username"
                 >
                 </q-input>
@@ -39,14 +40,14 @@
                   dark
                   standout
                   bottom-slot
-                  v-model="text"
+                  v-model="password"
                   label="password"
                 >
                 </q-input>
               </div>
               <div class="loginadmin row">
                 <q-btn
-                  @click="loginadminbtn"
+                  @click="loginadmin"
                   color="white"
                   size="md"
                   class="q-px-sm"
@@ -55,11 +56,22 @@
                   label="Log-in"
                 />
               </div>
+
+              <!-- <q-dialog v-model="dialog" :position="position">
+                <q-card style="width: 350px">
+
+                  <q-card-section class="row items-center no-wrap">
+                    
+                      <div class="text-weight-bold">Please enter correct Username and Password</div>
+                  
+                  </q-card-section>
+                </q-card>
+              </q-dialog> -->
               <br />
             </div>
 
             <!-- <div class="row justify-center"> -->
-              <!-- <div class="loginadmin row">
+            <!-- <div class="loginadmin row">
                 <q-btn
                   @click="loginadminbtn"
                   color="white"
@@ -74,11 +86,13 @@
           </q-card-section>
         </q-card>
       </div>
-    </div> 
-    <div class="layer one"></div>
-    <div class="layer two"></div>
-    <div class="layer three"></div>
-  </div>
+    </div>
+    <div class="stage">
+      <div class="layer one"></div>
+      <div class="layer two"></div>
+      <div class="layer three"></div>
+    </div>
+  </q-page>
 </template>
 
 <script>
@@ -86,7 +100,8 @@ export default {
   data() {
     return {
       logo: "",
-      text: "",
+      username: "",
+      password: ""
     };
   },
   methods: {
@@ -100,38 +115,45 @@ export default {
         .collection("logo")
         .where("name", "==", "logo-text-white")
         .get()
-        .then((querySnapshot) => {
-          querySnapshot.forEach((doc) => {
+        .then(querySnapshot => {
+          querySnapshot.forEach(doc => {
             // doc.data() is never undefined for query doc snapshots
             console.log(doc.id, " => ", doc.data().logo);
             this.logo = doc.data().logo;
           });
         })
-        .catch((error) => {
+        .catch(error => {
           console.log("Error getting documents: ", error);
         });
     },
-    loginadminbtn() {
-      this.$router.push({
-        name: "mainadmin",
-      });
-    },
+    loginadmin() {
+      if (this.username == "adminza" && this.password == "658") {
+        this.$router.push({
+          name: "mainadmin"
+        });
+      } else {
+        this.$q.notify({
+          position: "top",
+          message: "Please enter correct username or password!",
+          color: "warning"
+        });
+      }
+    }
   },
   mounted() {
     this.getlogo();
-  },
+  }
 };
 </script>
 
 <style lang="scss">
-.text-subtitle2{
+.text-subtitle2 {
   padding-top: 5%;
   padding-right: 5%;
 }
-.loginadmin{
-    margin-top: 10%;
-    margin-left: 20%;
-
+.loginadmin {
+  margin-top: 10%;
+  margin-left: 20%;
 }
 .logo {
   width: 350px;
@@ -143,7 +165,6 @@ export default {
   height: 80%;
   width: 100%;
   margin-top: 20%;
-
 }
 .input {
   width: 50%;
@@ -151,9 +172,8 @@ export default {
   padding-top: 10%;
 }
 
-
 .stage {
-  // position: relative;
+  position: fixed;
   height: 100%;
   width: 100%;
   background-color: white;
@@ -209,51 +229,50 @@ div.stage div.layer.three {
 }
 @-webkit-keyframes bob1 {
   from {
-    background-position-y: calc(100% - 70px);
+    background-position-y: calc(20% - 70px);
   }
   to {
-    background-position-y: calc(100% + 50px);
+    background-position-y: calc(0% + 50px);
   }
 }
 @keyframes bob1 {
   from {
-    background-position-y: calc(100% - 70px);
+    background-position-y: calc(20% - 70px);
   }
   to {
-    background-position-y: calc(100% + 50px);
+    background-position-y: calc(0% + 50px);
   }
 }
 @-webkit-keyframes bob2 {
   from {
-    background-position-y: calc(100% - 40px);
+    background-position-y: calc(20% - 40px);
   }
   to {
-    background-position-y: calc(100% + 50px);
+    background-position-y: calc(0% + 50px);
   }
 }
 @keyframes bob2 {
   from {
-    background-position-y: calc(100% - 40px);
+    background-position-y: calc(20% - 40px);
   }
   to {
-    background-position-y: calc(100% + 50px);
+    background-position-y: calc(0% + 50px);
   }
 }
 @-webkit-keyframes bob3 {
   from {
-    background-position-y: calc(100%);
+    background-position-y: calc(20%);
   }
   to {
-    background-position-y: calc(100% + 50px);
+    background-position-y: calc(0% + 50px);
   }
 }
 @keyframes bob3 {
   from {
-    background-position-y: calc(100%);
+    background-position-y: calc(20%);
   }
   to {
-    background-position-y: calc(100% + 50px);
+    background-position-y: calc(0% + 50px);
   }
 }
 </style>
-

@@ -140,20 +140,19 @@ export default {
       //   "8 PM",
       // ],
       dialog: false,
-      times: [],
+      times: []
     };
   },
   computed: {
     btnColour() {
-      if(this.status === true) {
-        return 'red'
+      if (this.status === true) {
+        return "red";
       } else {
-        return 'white'
+        return "white";
       }
     }
   },
   methods: {
-    
     lastUpdate(data) {
       console.log(data);
       moment.locale("en");
@@ -164,7 +163,7 @@ export default {
     editprofile() {
       console.log("Go to edit profile page");
       this.$router.push({
-        name: "profilebarber",
+        name: "profilebarber"
       });
     },
     getdata() {
@@ -173,8 +172,8 @@ export default {
         .collection("barber")
         .where("telno", "==", this.$firebase.auth().currentUser.phoneNumber)
         .get()
-        .then((querySnapshot) => {
-          querySnapshot.forEach((doc) => {
+        .then(querySnapshot => {
+          querySnapshot.forEach(doc => {
             // doc.data() is never undefined for query doc snapshots
             // console.log(doc.id, " => ", doc.data());
             // console.log(doc.id, " => ", doc.data().firstname);
@@ -195,19 +194,14 @@ export default {
         .collection("timetable")
         .where("telno", "==", this.$firebase.auth().currentUser.phoneNumber)
         .get()
-        .then((querySnapshot) => {
-          querySnapshot.forEach((doc) => {
-            
+        .then(querySnapshot => {
+          querySnapshot.forEach(doc => {
             this.times = doc.data().info;
-            console.log("This is info: "+doc.data().info);
-            
+            console.log("This is info: ", this.times);
           });
-          
+
           // this.insertid(this.barberid);
         });
-
-
-
     },
     insertid(id) {
       console.log("INSERT BARBER ID : " + id + " TO FIREBASE");
@@ -215,10 +209,10 @@ export default {
         .collection("barber")
         .doc(this.barberid)
         .update({
-          barberid: this.barberid,
+          barberid: this.barberid
         })
-        .then((docRef) => {})
-        .catch((error) => {
+        .then(docRef => {})
+        .catch(error => {
           console.error("Error adding document: ", error);
         });
     },
@@ -228,8 +222,8 @@ export default {
         .collection("portfolio")
         .where("barberid", "==", this.barberid)
         .get()
-        .then((querySnapshot) => {
-          querySnapshot.forEach((doc) => {
+        .then(querySnapshot => {
+          querySnapshot.forEach(doc => {
             this.photos.push(doc.data().photos[0]);
 
             this.id.push(doc.id);
@@ -240,9 +234,9 @@ export default {
     addportfolio() {
       console.log("Add portfolio page page");
       this.$router.push({
-        name: "portfoliobarber",
+        name: "portfoliobarber"
       });
-    },
+    }
   },
 
   mounted() {
@@ -253,7 +247,7 @@ export default {
     this.telno = this.$store.state.example.telno;
     this.lastUpdate(Date.now());
     this.gettimetable();
-  },
+  }
 };
 </script>
 
