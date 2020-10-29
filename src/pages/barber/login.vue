@@ -72,7 +72,6 @@
                   class="full-width"
                   color="black"
                   @click="signInWithAuthCode"
-                  icon
                   label="CONFIRM"
                 />
               </div>

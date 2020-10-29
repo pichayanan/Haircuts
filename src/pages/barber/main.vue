@@ -46,10 +46,10 @@
     <q-card class="bg-grey-2 reservecard">
       <div class="reserve row justify-center">
         <div class="q-pa-md q-gutter-sm">
-          <h6 class="text text-weight-bold">MORNING</h6>
+          <h6 class="text text-weight-bold">SELECT TIME</h6>
 
-          <div class="row">
-            <q-btn
+          <div class="row justify-center">
+            <q-btn class="timebtn"
               v-for="(data, index) in times"
               :key="index"
               :color="btnColour"
@@ -96,7 +96,7 @@
         <h5 class="whitetext">HAIRCUTS</h5>
       </div>
     </div>
-
+    <!-- {{ status }} -->
     <div class="row portfolio">
       <q-card class="photos my-card col-4">
         <q-img src="https://cdn.quasar.dev/img/avatar2.jpg" basic>
@@ -140,23 +140,37 @@ export default {
       //   "8 PM",
       // ],
       dialog: false,
+<<<<<<< HEAD
       times: []
+=======
+      times: [],
+      status: [],
+      // status1: true,
+      // index: "",
+>>>>>>> b82ea050b653f7cf48a2681437d09d1e11d65dc6
     };
   },
   computed: {
     btnColour() {
+<<<<<<< HEAD
       if (this.status === true) {
         return "red";
+=======
+      console.log("color  = "+this.status[0])
+      if (this.status[0] == true) {
+        return "red";
+
+>>>>>>> b82ea050b653f7cf48a2681437d09d1e11d65dc6
       } else {
         return "white";
       }
-    }
+    },
   },
   methods: {
     lastUpdate(data) {
       console.log(data);
       moment.locale("en");
-      // this.model = moment(data).format("LL");
+      this.model = moment(data).format("LL");
       this.date = moment(data).format("dddd, MMM D, YYYY");
       console.log(this.date);
     },
@@ -194,12 +208,25 @@ export default {
         .collection("timetable")
         .where("telno", "==", this.$firebase.auth().currentUser.phoneNumber)
         .get()
+<<<<<<< HEAD
         .then(querySnapshot => {
           querySnapshot.forEach(doc => {
             this.times = doc.data().info;
             console.log("This is info: ", this.times);
           });
 
+=======
+        .then((querySnapshot) => {
+          querySnapshot.forEach((doc) => {
+            this.times = doc.data().info;
+          });
+          // console.log("This is info: ", this.times);
+          // console.log("This is info: ", this.times.length);
+          for (let i = 0; i < this.times.length; i++) {
+            this.status.push(this.times[i].status);
+          }
+          console.log("status is: " + this.status);
+>>>>>>> b82ea050b653f7cf48a2681437d09d1e11d65dc6
           // this.insertid(this.barberid);
         });
     },
@@ -247,11 +274,21 @@ export default {
     this.telno = this.$store.state.example.telno;
     this.lastUpdate(Date.now());
     this.gettimetable();
+<<<<<<< HEAD
   }
+=======
+    // this.btnColour();
+  },
+>>>>>>> b82ea050b653f7cf48a2681437d09d1e11d65dc6
 };
 </script>
 
 <style>
+.timebtn{
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-bottom: 10px; 
+}
 .testColor1 {
   background-color: blue;
 }
