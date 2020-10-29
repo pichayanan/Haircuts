@@ -140,27 +140,13 @@ export default {
       //   "8 PM",
       // ],
       dialog: false,
-<<<<<<< HEAD
       times: []
-=======
-      times: [],
-      status: [],
-      // status1: true,
-      // index: "",
->>>>>>> b82ea050b653f7cf48a2681437d09d1e11d65dc6
     };
   },
   computed: {
     btnColour() {
-<<<<<<< HEAD
       if (this.status === true) {
         return "red";
-=======
-      console.log("color  = "+this.status[0])
-      if (this.status[0] == true) {
-        return "red";
-
->>>>>>> b82ea050b653f7cf48a2681437d09d1e11d65dc6
       } else {
         return "white";
       }
@@ -208,25 +194,12 @@ export default {
         .collection("timetable")
         .where("telno", "==", this.$firebase.auth().currentUser.phoneNumber)
         .get()
-<<<<<<< HEAD
         .then(querySnapshot => {
           querySnapshot.forEach(doc => {
             this.times = doc.data().info;
             console.log("This is info: ", this.times);
           });
 
-=======
-        .then((querySnapshot) => {
-          querySnapshot.forEach((doc) => {
-            this.times = doc.data().info;
-          });
-          // console.log("This is info: ", this.times);
-          // console.log("This is info: ", this.times.length);
-          for (let i = 0; i < this.times.length; i++) {
-            this.status.push(this.times[i].status);
-          }
-          console.log("status is: " + this.status);
->>>>>>> b82ea050b653f7cf48a2681437d09d1e11d65dc6
           // this.insertid(this.barberid);
         });
     },
@@ -274,12 +247,7 @@ export default {
     this.telno = this.$store.state.example.telno;
     this.lastUpdate(Date.now());
     this.gettimetable();
-<<<<<<< HEAD
   }
-=======
-    // this.btnColour();
-  },
->>>>>>> b82ea050b653f7cf48a2681437d09d1e11d65dc6
 };
 </script>
 
