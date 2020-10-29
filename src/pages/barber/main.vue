@@ -52,7 +52,7 @@
             <q-btn
               v-for="(data, index) in times"
               :key="index"
-              color="white"
+              :color="btnColour"
               text-color="black"
               :label="data.time"
               @click="dialog = true"
@@ -76,7 +76,7 @@
           </q-dialog>
         </div>
         <br />
-        <h6 class="text text-weight-bold">AFTERNOON</h6>
+        <!-- <h6 class="text text-weight-bold">AFTERNOON</h6>
         <div class="row">
           <q-btn
             v-for="(time, index) in afternoon"
@@ -87,14 +87,13 @@
             :label="time"
           />
           <br />
-        </div>
+        </div> -->
       </div>
     </q-card>
 
     <div class="haircut row">
       <div class="text-h6 col-5 text-center">
         <h5 class="whitetext">HAIRCUTS</h5>
-        <!-- <br />HAIRCUTS -->
       </div>
     </div>
 
@@ -129,32 +128,32 @@ export default {
       barberid: "",
       location: "",
       photos: [],
-      morning: ["9 AM", "10 AM", "11 AM", "12 PM"],
-      afternoon: [
-        "1 PM",
-        "2 PM",
-        "3 PM",
-        "4 PM",
-        "5 PM",
-        "6 PM",
-        "7 PM",
-        "8 PM",
-      ],
+      // morning: ["9 AM", "10 AM", "11 AM", "12 PM"],
+      // afternoon: [
+      //   "1 PM",
+      //   "2 PM",
+      //   "3 PM",
+      //   "4 PM",
+      //   "5 PM",
+      //   "6 PM",
+      //   "7 PM",
+      //   "8 PM",
+      // ],
       dialog: false,
-      times: "",
+      times: [],
     };
   },
   computed: {
-    // test45454: function (index) {
-    //   console.log("kokoo: ", index);
-    //   // if (this.times[index].status == true) {
-    //   //   return "testColor1";
-    //   // } else {
-    //   //   return "testColor2";
-    //   // }
-    // },
+    btnColour() {
+      if(this.status === true) {
+        return 'red'
+      } else {
+        return 'white'
+      }
+    }
   },
   methods: {
+    
     lastUpdate(data) {
       console.log(data);
       moment.locale("en");
@@ -198,18 +197,17 @@ export default {
         .get()
         .then((querySnapshot) => {
           querySnapshot.forEach((doc) => {
-            // doc.data() is never undefined for query doc snapshots
-            // console.log(doc.id, " => 1212121", doc.data());
-            // console.log(doc.id, " => ", doc.data().firstname);
-            // this.$store.commit("MAIN", doc.id);
+            
             this.times = doc.data().info;
-            // this.lastname = doc.data().lastname;
-            // this.profilepic = doc.data().profilepic;
-            // this.location = doc.data().location;
-            // this.barberid = doc.id;
+            console.log("This is info: "+doc.data().info);
+            
           });
+          
           // this.insertid(this.barberid);
         });
+
+
+
     },
     insertid(id) {
       console.log("INSERT BARBER ID : " + id + " TO FIREBASE");
