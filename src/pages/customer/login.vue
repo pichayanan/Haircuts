@@ -1,27 +1,22 @@
 <template>
   <q-page class="bg-dark">
-    <div class="row justify-center">
+    <div class="row justify-center q-px-xl">
       <q-img class="logoH" :src="logo" :ratio="1" />
     </div>
+    <br />
 
-    <div class="row">
-      <div class="col-2"></div>
-      <div class="col-8">
-        <div class="positionsignin">
+    <div class="row positionsignin justify-center q-px-sm">
+   
           LET'S GET YOUR NEW LOOK
-        </div>
-      </div>
-      <div class="col-2"></div>
+        
     </div>
-     <div class="inner"></div>
-  <div class="inner"></div>
-  <div class="inner"></div>
+   
 
     <!-- <div class="row justify-center ">
       <div class="linee">_______________________________</div>
     </div> -->
 
-    <div class="logingg">
+    <div class="row logingg justify-center q-px-md">
       <q-btn
         icon="ion-logo-google"
         color="red-9"
@@ -34,7 +29,7 @@
       />
     </div>
 
-    <div class="loginfb">
+    <div class="row loginfb justify-center q-px-md">
       <q-btn
         icon="ion-logo-facebook"
         color="blue-6"
@@ -58,7 +53,6 @@ export default {
   methods: {
     btnGG() {
       var provider = new this.$firebase.auth.GoogleAuthProvider();
-
       this.$firebase
         .auth()
         .signInWithPopup(provider)
@@ -99,29 +93,29 @@ export default {
 
 <style>
 .logoH {
-  position: absolute;
-  margin-top: 20%;
-
-  width: 150px;
-  height: 150px;
+  margin-top: 50%;
+  width: 170px;
+  height: 170px;
 }
 .positionsignin {
-  position: absolute;
-  bottom: 68%;
-  left: 26%;
-  width: 100%;
-  color: white;
+  color: rgb(253, 253, 253);
 }
 div.logingg {
-  position: absolute;
-  bottom: 50%;
-  left: 18%;
+  margin-top: 50%;
+ 
 }
 div.loginfb {
-  position: absolute;
-  bottom: 36%;
-  left: 18%;
+  margin-top: 10%;
+  
 }
+/* .background-image {
+  /* background-image: url(../../images/login.png); 
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 200%;
+} */
+
 /* .linee {
   position: absolute;
   color: white;

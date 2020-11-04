@@ -1,14 +1,12 @@
 <template>
   <q-page class="bg-dark">
-    <q-toolbar class="bg-dark text-white">
+    <!-- <q-toolbar class="bg text-white">
       <q-btn flat round dense icon="keyboard_backspace" @click="back">
-        <!-- <q-badge floating color="red">2</q-badge> -->
+        <q-badge floating color="red">2</q-badge> 
       </q-btn>
-      <q-toolbar-title>
-        BACK
-      </q-toolbar-title>
-    </q-toolbar>
-    <div class="row justify-center">
+    </q-toolbar> -->
+    <div></div>
+    <div class="row justify-center template">
       <q-avatar class="changepic">
         <image-file-picker
           class="profilepic"
@@ -19,7 +17,7 @@
           class="absolute all-pointer-events"
           size="32px"
           name="camera_alt"
-          color="white"
+          color="grey2"
           style="bottom: 6px; right: 9px"
         >
           <q-tooltip>
@@ -89,20 +87,31 @@
     </div>
 
     <div class="row justify-center savebutton">
-      <q-btn outline color="white" class @click="editprofile(CName)" label="SAVE" />
+      <q-btn
+        outline
+        color="white"
+        class
+        @click="editprofile(CName)"
+        label="SAVE"
+      />
     </div>
     <div class="row justify-center logout">
       <q-btn outline color="red" class @click="logoutbutton" label="LOGOUT" />
     </div>
+    <tool />
   </q-page>
 </template>
 
 <script>
+import tool from "components/tool.vue";
 import { uploadProfile } from "../../API/api";
 import firebaseUploader from "components/FirebaseUploader.vue";
 import ImageFilePicker from "components/ImageFilePickerC.vue";
 
 export default {
+  components: {
+    tool
+  },
   data() {
     return {
       model: null,
@@ -187,7 +196,6 @@ export default {
           console.error("Error adding document: ", error);
         });
     },
-
     logoutbutton() {
       this.$firebase
         .auth()
@@ -206,12 +214,12 @@ export default {
     },
     back() {
       this.$router.back();
-    
     }
   },
   components: {
     firebaseUploader,
-    ImageFilePicker
+    ImageFilePicker,
+    tool
   },
 
   async mounted() {
@@ -229,6 +237,16 @@ export default {
 </script>
 
 <style>
+/* .bgimg{
+  background-image: url(../../images/edit.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 200%;
+} */
+.template {
+  padding-top: 9%;
+}
 .headbox {
   padding-top: 5%;
 }

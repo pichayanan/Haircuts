@@ -45,9 +45,7 @@ export default {
       lastname: "",
       email: "",
       location: "",
-      profilepic:
-        "https://image.freepik.com/free-vector/cute-boy-standing-position-showing-thumb_96037-450.jpg",
-      registed: false
+      profilepic: "https://image.freepik.com/free-vector/cute-boy-standing-position-showing-thumb_96037-450.jpg",
     };
   },
   methods: {

@@ -70,11 +70,10 @@ export default {
   width: 200px;
 }
 
-.signin {
+.bg {
   color: white;
   font-size: 100%;
 }*/
-
 .firstpage {
   position: absolute;
   margin-left: 15%;

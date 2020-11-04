@@ -4,9 +4,7 @@
       <q-btn flat round dense icon="keyboard_backspace" @click="back">
         <!-- <q-badge floating color="red">2</q-badge> -->
       </q-btn>
-      <q-toolbar-title>
-        BACK
-      </q-toolbar-title>
+      
     </q-toolbar>
     <!-- --------------Header--------------- -->
     <q-card class="bg-white blackcard">
@@ -31,19 +29,34 @@
       <!-- <q-card class="bg-dark"> -->
       <div class="reserve row justify-start">
         <div class="q-pa-md q-gutter-sm">
-          <u class="text">MORNING</u>
           <!-- <br /> -->
           <br />
-          <div class="row">
-            <q-btn
+          <div class="row justify-center">
+            <q-btn class="timebtn"
               v-for="(data, index) in times"
               :key="index"
-              color="white"
+              :color="btnColour"
               text-color="black"
               :label="data.time"
               @click="dialog = true"
             />
           </div>
+          <q-dialog v-model="dialog">
+            <q-card>
+              <div class="col-5 justify-start q-px-md text-h6 spacing">
+                <!-- {{time}} -->
+              </div>
+              <q-card-section class="row items-center q-gutter-sm">
+                <q-btn no-caps label="Open menu" color="primary"> </q-btn>
+                <q-btn
+                  no-caps
+                  label="Close"
+                  color="primary"
+                  v-close-popup
+                ></q-btn>
+              </q-card-section>
+            </q-card>
+          </q-dialog>
           <br />
           <br />
         </div>
@@ -54,17 +67,36 @@
         <!-- <br />HAIRCUTS -->
       </div>
     </div>
+    <tool />
   </q-page>
 </template>
 
 <script>
+import tool from "components/tool.vue";
 export default {
+  components: {
+    tool
+  },
   data() {
     return {
       date: "2020/09/04",
+     
+       dialog: false,
       times: [],
+      status: [],
     
     };
+  },
+  computed: {
+    btnColour() {
+      console.log("color  = "+this.status[0])
+      if (this.status[0] == true) {
+        return "red";
+
+      } else {
+        return "white";
+      }
+    },
   },
   methods: {
     editprofile(){
@@ -77,6 +109,20 @@ export default {
       this.$router.push({
             name: "ReserveCustomer"
           });
+    },
+    gettimetable() {
+      console.log("getting timetable");
+      this.$firestore
+        .collection("timetable")
+        .where("telno", "==", "+66123456789")
+        .get()
+        .then((querySnapshot) => {
+          querySnapshot.forEach((doc) => {
+            this.times = doc.data().info;
+          });
+          
+          
+        });
     },
     getdata() {
       console.log("getting timetable");
@@ -110,10 +156,8 @@ export default {
 
     },
   },
-
   mounted() {
      this.getdata();
-
   },
 };
 </script>
@@ -132,15 +176,12 @@ export default {
   padding-left: 20px;
   color: black;
 }
-
 .portfolio {
   padding-top: 5px;
 }
 .photos {
   margin-left: 10px;
 }
-
-
 .blackcard {
   margin-top: 10%;
   margin-right: 15px;
@@ -154,5 +195,4 @@ export default {
 .whitetext {
   color: white;
 }
-
 </style>
