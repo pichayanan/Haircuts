@@ -150,7 +150,6 @@ export default {
 }
 /* .showport {
 } */
-
 .sizeimg1 {
   width: 100%;
   height: 100%;

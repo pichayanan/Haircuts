@@ -101,7 +101,6 @@
 
 <script>
 import tool from "components/tool.vue";
-
 export default {
   components: {
     tool
@@ -169,7 +168,6 @@ export default {
     reserve(Fnameb,lnameb,price,location,telno,propic) {
       // console.log("lplpl: ", oop);
       // conlog.log(this.Fnameb);
-
       this.$store.commit("cdetail",{Fnameb,lnameb,price,location,telno,propic} );
     },
     getdata() {

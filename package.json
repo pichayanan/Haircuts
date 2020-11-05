@@ -20,6 +20,7 @@
   },
   "devDependencies": {
     "@quasar/app": "^2.0.0",
+    "@quasar/quasar-app-extension-qcalendar": "^2.5.0",
     "workbox-webpack-plugin": "^5.1.4"
   },
   "browserslist": [

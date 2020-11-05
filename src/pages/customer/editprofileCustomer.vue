@@ -101,7 +101,6 @@
 import { uploadProfile } from "../../API/api";
 import firebaseUploader from "components/FirebaseUploader.vue";
 import ImageFilePicker from "components/ImageFilePickerC.vue";
-
 export default {
   data() {
     return {
@@ -169,22 +168,15 @@ export default {
       const image = this.url;
       this.url = await uploadProfile(image);
       console.log("ได้แล้วนะ :", this.url);
-
       this.$firestore
         .collection("customer")
         .doc(this.getID)
         .update({
           CName: this.CName,
-<<<<<<< HEAD
-          URL:this.URL,
-        })
-        .then((docRef) => {
-=======
           URL: this.url
         })
         .then(docRef => {
           this.$q.loading.hide();
->>>>>>> customer
           this.$router.push({
             name: "Maincustomer"
           });
@@ -193,11 +185,6 @@ export default {
           console.error("Error adding document: ", error);
         });
     },
-<<<<<<< HEAD
-    
-=======
-
->>>>>>> customer
     logoutbutton() {
       this.$firebase
         .auth()
@@ -206,11 +193,7 @@ export default {
           // Sign-out successful.
           console.log("Sign-out successful");
           this.$router.push({
-<<<<<<< HEAD
-            name: "logincustomer",
-=======
             name: "logincustomer"
->>>>>>> customer
           });
         })
         .catch(error => {
@@ -222,25 +205,11 @@ export default {
       this.$router.back();
     
     }
-<<<<<<< HEAD
-   },
-  mounted() {
-    this.getdata();
-    this.URL = this.URL;
-    this.CName = this.CName;
-    this.CMail = this.CMail;
-    this.CBirthday = this.CBirthday;
-    this.gender = this.gender;
-    console.log(this.$router.currentRoute.params.email);
-    // this.check();
-  },
-=======
   },
   components: {
     firebaseUploader,
     ImageFilePicker
   },
-
   async mounted() {
     await this.getdata();
     console.log("finised getdata");
@@ -252,7 +221,6 @@ export default {
     // console.log(this.$router.currentRoute.params.email);
     // this.check();
   }
->>>>>>> customer
 };
 </script>
 

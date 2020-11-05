@@ -106,28 +106,6 @@ export default {
         .then(querySnapshot => {
           querySnapshot.forEach(doc => {
             console.log(doc.id, " => ", doc.data());
-<<<<<<< HEAD
-              let registdata = {
-                URL: doc.data().this.$firebase.auth().currentUser.photoURL,
-                CName:  doc.data().fullName,
-                CMail: doc.data().this.$firebase.auth().currentUser.email,
-                CBirthday: doc.data().date,
-                gender: doc.data().shape,
-                
-          }
-              this.$store.commit("registdata", registdata)
-              if (doc.data().registed == true ){
-                this.$router.push({
-                      name: "Maincustomer",
-                });
-              }
-        });
-  })
-  .catch((error) => {
-          console.log("Error getting documents: ", error);
-  });
-      },
-=======
             this.$router.push({
               name: "Maincustomer"
             });
@@ -137,7 +115,6 @@ export default {
           console.log("Error getting documents: ", error);
         });
     }
->>>>>>> customer
   },
   mounted() {
     this.check();

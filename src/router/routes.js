@@ -63,7 +63,6 @@ const routes = [
      
     ]
   },
-
   {
     path: "/barber",
     component: () => import("layouts/Barber.vue"),
@@ -104,6 +103,12 @@ const routes = [
         name: "portfoliobarber",
         component: () => import("pages/barber/portfolio.vue"),
         meta: { authRequired: true },
+      },
+      {
+        path: "test",
+        name: "testbarber",
+        component: () => import("pages/barber/test.vue"),
+        meta: { authRequired: false },
       }
     
       

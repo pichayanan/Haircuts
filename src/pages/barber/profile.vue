@@ -1,15 +1,14 @@
 <template>
   <q-page class="bg-grey-2">
 
-     <q-toolbar class="bg-grey-7 text-white">
+     <!-- <q-toolbar class="bg-grey-7 text-white">
       <q-btn flat round dense icon="keyboard_backspace" @click="back">
-        <!-- <q-badge floating color="red">2</q-badge> -->
       </q-btn>
       <q-toolbar-title style="">
         PROFILE
       </q-toolbar-title>
 
-    </q-toolbar>
+    </q-toolbar> -->
 
 
 
@@ -47,11 +46,16 @@
     <div class="row justify-center logout">
       <q-btn color="red" text-color="white" class @click="logoutbutton" label="LOGOUT" />
     </div>
+    <BarberNavbar/>
   </q-page>
 </template>
 
 <script>
+import BarberNavbar from "components/BarberNavbar.vue";
 export default {
+  components: {
+    BarberNavbar,
+  },
   data() {
     return {
       profilepic:"",

@@ -1,13 +1,13 @@
 <template>
   <q-page class="bg-white">
-    <div class="row header bg-white q-mt-md">
-      <div avatar class="col-3">
+    <q-card class="bg-grey-2 row header bg-white q-mt-md">
+      <div avatar class="col-3 q-mt-md q-mb-md q-mr-md q-ml-md">
         <q-avatar class="profilepicture">
           <img :src="profilepic" />
         </q-avatar>
       </div>
 
-      <div class="col-8">
+      <div class="col-6 q-mt-md q-mr-md q-ml-md">
         <div class="row text-weight-bold username" style="font-size: 1.5rem">
           {{ firstname }} {{ lastname }} &nbsp;
         </div>
@@ -16,78 +16,49 @@
           {{ location }}
         </div>
       </div>
-      <div class="col-1">
-        <q-icon @click="editprofile" name="create" size="sm" />
-      </div>
-    </div>
-    <div class="reservehead justify-center row">
-      <div class="text-h6 col-5 text-center"><br />RESERVATION</div>
-      <div class="q-pa-md col-7" style="max-width: 400px">
-        <q-input v-model="date" mask="date" :rules="['date']">
-          <template v-slot:append>
-            <q-icon name="event" class="" color="blue">
-              <q-popup-proxy
-                ref="qDateProxy"
-                transition-show="scale"
-                transition-hide="scale"
-              >
-                <q-date v-model="date" class="bg-grey-10 text-white">
-                  <div class="row items-center justify-end">
-                    <q-btn v-close-popup label="Close" color="primary" flat />
-                  </div>
-                </q-date>
-              </q-popup-proxy>
-            </q-icon>
-          </template>
-        </q-input>
-      </div>
-    </div>
+    </q-card>
 
-    <q-card class="bg-grey-2 reservecard">
-      <div class="reserve row justify-center">
-        <div class="q-pa-md q-gutter-sm">
-          <h6 class="text text-weight-bold">SELECT TIME</h6>
-
-          <div class="row justify-center">
-            <q-btn class="timebtn"
-              v-for="(data, index) in times"
-              :key="index"
-              :color="btnColour"
-              text-color="black"
-              :label="data.time"
-              @click="dialog = true"
-            />
-          </div>
-          <q-dialog v-model="dialog">
-            <q-card>
-              <div class="col-5 justify-start q-px-md text-h6 spacing">
-                <!-- {{time}} -->
-              </div>
-              <q-card-section class="row items-center q-gutter-sm">
-                <q-btn no-caps label="Open menu" color="primary"> </q-btn>
-                <q-btn
-                  no-caps
-                  label="Close"
-                  color="primary"
-                  v-close-popup
-                ></q-btn>
-              </q-card-section>
-            </q-card>
-          </q-dialog>
-        </div>
-        <br />
-        <!-- <h6 class="text text-weight-bold">AFTERNOON</h6>
-        <div class="row">
-          <q-btn
-            v-for="(time, index) in afternoon"
-            :key="index"
-            class="reserve"
-            color="white"
-            text-color="black"
-            :label="time"
-          />
-          <br />
-        </div> -->
+    <q-card class="bg-grey-2 reservecard q-mt-xl">
+      <div class="text row">Select Your Operation Day</div>
+      <q-input v-model="startdate" filled type="date" hint="Start date" />
+      <q-input v-model="enddate" filled type="date" hint="End date" />
+      <q-card>
+        <q-card-section class="row items-center">
+          <q-checkbox v-model="sunday" label="sunday" />
+          <q-checkbox v-model="monday" label="monday" />
+          <q-checkbox v-model="tuesday" label="tuesday" />
+          <q-checkbox v-model="wednesday" label="wednesday" />
+          <q-checkbox v-model="thursday" label="thursday" />
+          <q-checkbox v-model="friday" label="friday" />
+          <q-checkbox v-model="saturday" label="saturday" />
+        </q-card-section>
+      </q-card>
+      <div class="text row">Select Your Operation Time</div>
+      <q-card>
+        <q-card-section class="row items-center">
+          <q-checkbox v-model="AM9" label="9AM" />
+          <q-checkbox v-model="AM10" label="10AM" />
+          <q-checkbox v-model="AM11" label="11AM" />
+          <q-checkbox v-model="PM12" label="12PM" />
+          <q-checkbox v-model="PM1" label="1PM" />
+          <q-checkbox v-model="PM2" label="2PM" />
+          <q-checkbox v-model="PM3" label="3PM" />
+          <q-checkbox v-model="PM4" label="4PM" />
+          <q-checkbox v-model="PM5" label="5PM" />
+          <q-checkbox v-model="PM6" label="6PM" />
+          <q-checkbox v-model="PM7" label="7PM" />
+          <q-checkbox v-model="PM8" label="8PM" />
+          <q-checkbox v-model="PM9" label="9PM" />
+        </q-card-section>
+      </q-card>
+      <div class="row justify-center">
+        <q-btn
+          flat
+          label="Save"
+          color="primary"
+          v-close-popup
+          @click="saveoperation"
+        />
       </div>
     </q-card>
 
@@ -97,10 +68,11 @@
       </div>
     </div>
     <!-- {{ status }} -->
-    <div class="row portfolio">
-      <q-card class="photos my-card col-4">
-        <q-img src="https://cdn.quasar.dev/img/avatar2.jpg" basic>
-          <div class="absolute-bottom text-subtitle2 text-center">Undercut</div>
+    <div class="row portfolio ">
+      <q-card class="photos my-card col-4" v-for="(data, index) in photos" :key="index">
+        <!-- <q-img src="https://cdn.quasar.dev/img/avatar2.jpg" basic> -->
+        <q-img :src="data" basic>
+          <!-- <div class="absolute-bottom text-subtitle2 text-center">{{data.haircuttype}}</div> -->
         </q-img>
       </q-card>
       <div class="photos col-3 addbutton">
@@ -112,46 +84,72 @@
         />
       </div>
     </div>
+    <!-- <div class="row no-wrap q-gutter-x-sm" style="overflow-x: auto; overflow-y: visible;">
+      <q-img
+        v-for="(data, index) in photos" :key="index"
+        ref="refThumb"
+        class="cursor-pointer"
+        :class="index === indexZoomed ? 'fixed-top q-mt-md q-mx-auto z-top' : void 0"
+        style="border-radius: 3%/5%; flex: 0 0 10vw"
+        :style="index === indexZoomed ? 'width: 1800px;' : void 0"
+        :src="data"
+        @click="zoomImage(index)"
+      >
+      <div class="absolute-bottom text-subtitle2 text-center">Undercut</div>
+      </q-img>
+    </div> -->
+    <BarberNavbar />
   </q-page>
 </template>
 
 <script>
 import moment from "moment";
+import BarberNavbar from "components/BarberNavbar.vue";
+
 export default {
+  components: {
+    BarberNavbar,
+  },
   data() {
     return {
-      date: "",
+      startdate: "",
+      enddate: "",
       firstname: "",
       lastname: "",
       profilepic: "",
       telno: "",
       barberid: "",
       location: "",
+ 
+      sunday: false,
+      monday: false,
+      tuesday: false,
+      wednesday: false,
+      thursday: false,
+      friday: false,
+      saturday: false,
+      AM9: false,
+      AM10: false,
+      AM11: false,
+      PM12: false,
+      PM1: false,
+      PM2: false,
+      PM3: false,
+      PM4: false,
+      PM5: false,
+      PM6: false,
+      PM7: false,
+      PM8: false,
+      PM9: false,
+      operationperiod: [],
+      operationtime: [],
+      operationday: [],
+      haircuttype: "",
       photos: [],
-      // morning: ["9 AM", "10 AM", "11 AM", "12 PM"],
-      // afternoon: [
-      //   "1 PM",
-      //   "2 PM",
-      //   "3 PM",
-      //   "4 PM",
-      //   "5 PM",
-      //   "6 PM",
-      //   "7 PM",
-      //   "8 PM",
-      // ],
-      dialog: false,
-      times: []
+      // indexZoomed: void 0,
     };
   },
-  computed: {
-    btnColour() {
-      if (this.status === true) {
-        return "red";
-      } else {
-        return "white";
-      }
-    },
-  },
+  computed: {},
   methods: {
     lastUpdate(data) {
       console.log(data);
@@ -163,7 +161,7 @@ export default {
     editprofile() {
       console.log("Go to edit profile page");
       this.$router.push({
-        name: "profilebarber"
+        name: "profilebarber",
       });
     },
     getdata() {
@@ -172,71 +170,172 @@ export default {
         .collection("barber")
         .where("telno", "==", this.$firebase.auth().currentUser.phoneNumber)
         .get()
-        .then(querySnapshot => {
-          querySnapshot.forEach(doc => {
-            // doc.data() is never undefined for query doc snapshots
-            // console.log(doc.id, " => ", doc.data());
-            // console.log(doc.id, " => ", doc.data().firstname);
+        .then((querySnapshot) => {
+          querySnapshot.forEach((doc) => {
             this.$store.commit("MAIN", doc.id);
             this.firstname = doc.data().firstname;
             this.lastname = doc.data().lastname;
             this.profilepic = doc.data().profilepic;
             this.location = doc.data().location;
             this.barberid = doc.id;
+            this.sunday = doc.data().operationday[0];
+            this.monday = doc.data().operationday[1];
+            this.tuesday = doc.data().operationday[2];
+            this.wednesday = doc.data().operationday[3];
+            this.thursday = doc.data().operationday[4];
+            this.friday = doc.data().operationday[5];
+            this.saturday = doc.data().operationday[6];
+            this.AM9 = doc.data().operationtime[0];
+            this.AM10 = doc.data().operationtime[1];
+            this.AM11 = doc.data().operationtime[2];
+            this.AM12 = doc.data().operationtime[3];
+            this.PM1 = doc.data().operationtime[4];
+            this.PM2 = doc.data().operationtime[5];
+            this.PM3 = doc.data().operationtime[6];
+            this.PM4 = doc.data().operationtime[7];
+            this.PM5 = doc.data().operationtime[8];
+            this.PM6 = doc.data().operationtime[9];
+            this.PM7 = doc.data().operationtime[10];
+            this.PM8 = doc.data().operationtime[11];
+            this.PM9 = doc.data().operationtime[12];
+            this.startdate = doc.data().operationperiod[0];
+            this.enddate = doc.data().operationperiod[1];
           });
+          console.log(" getting portfolio");
+          this.$firestore
+            .collection("portfolio")
+            .where("barberid", "==", this.barberid)
+            .get()
+            .then((querySnapshot) => {
+              querySnapshot.forEach((doc) => {
+                this.photos.push(doc.data().photos[0]);
+                console.log("photo url: ", this.photos);
+                this.haircuttype = doc.data().haircuttype;
+                console.log("Haircut type: ", this.haircuttype);
+              });
+            });
           this.insertid(this.barberid);
         });
     },
 
-    gettimetable() {
-      console.log("getting timetable");
-      this.$firestore
-        .collection("timetable")
-        .where("telno", "==", this.$firebase.auth().currentUser.phoneNumber)
-        .get()
-        .then(querySnapshot => {
-          querySnapshot.forEach(doc => {
-            this.times = doc.data().info;
-            console.log("This is info: ", this.times);
-          });
-
-          // this.insertid(this.barberid);
-        });
-    },
     insertid(id) {
       console.log("INSERT BARBER ID : " + id + " TO FIREBASE");
       this.$firestore
         .collection("barber")
         .doc(this.barberid)
         .update({
-          barberid: this.barberid
+          barberid: this.barberid,
         })
-        .then(docRef => {})
-        .catch(error => {
+        .then((docRef) => {})
+        .catch((error) => {
           console.error("Error adding document: ", error);
         });
     },
-    getportfolio() {
-      console.log("portfolio");
-      this.$firestore
-        .collection("portfolio")
-        .where("barberid", "==", this.barberid)
-        .get()
-        .then(querySnapshot => {
-          querySnapshot.forEach(doc => {
-            this.photos.push(doc.data().photos[0]);
-
-            this.id.push(doc.id);
-          });
-        });
-      console.log(this.photos);
-    },
+    getportfolio() {},
     addportfolio() {
       console.log("Add portfolio page page");
       this.$router.push({
-        name: "portfoliobarber"
+        name: "portfoliobarber",
       });
-    }
+    },
+    saveoperation() {
+      console.log("save operation day");
+      console.log(
+        this.sunday,
+        this.monday,
+        this.tuesday,
+        this.wednesday,
+        this.thursday,
+        this.friday,
+        this.saturday
+      );
+      console.log("save operation time");
+      console.log(
+        this.AM9,
+        this.AM10,
+        this.AM11,
+        this.AM12,
+        this.PM1,
+        this.PM2,
+        this.PM3,
+        this.PM4,
+        this.PM5,
+        this.PM6,
+        this.PM7,
+        this.PM8,
+        this.PM9
+      );
+      console.log("Operation period:", this.startdate, "until", this.enddate);
+      this.operationday = [];
+      this.operationday.push(
+        this.sunday,
+        this.monday,
+        this.tuesday,
+        this.wednesday,
+        this.thursday,
+        this.friday,
+        this.saturday
+      );
+      this.operationtime = [];
+      this.operationtime.push(
+        this.AM9,
+        this.AM10,
+        this.AM11,
+        this.PM12,
+        this.PM1,
+        this.PM2,
+        this.PM3,
+        this.PM4,
+        this.PM5,
+        this.PM6,
+        this.PM7,
+        this.PM8,
+        this.PM9
+      );
+      this.operationperiod = [];
+      this.operationperiod.push(this.startdate, this.enddate);
+      this.$firestore.collection("barber").doc(this.barberid).update({
+        operationday: this.operationday,
+        operationtime: this.operationtime,
+        operationperiod: this.operationperiod,
+      });
+    },
+    // zoomImage (index) {
+    //   const { indexZoomed } = this
+
+    //   this.indexZoomed = void 0
+
+    //   if (index !== void 0 && index !== indexZoomed) {
+    //     this.cancel = morph({
+    //       from: this.$refs.refThumb[index].$el,
+    //       onToggle: () => {
+    //         this.indexZoomed = index
+    //       },
+    //       duration: 500,
+    //       style: 'z-index: 1',
+    //       onEnd: end => {
+    //         if (end === 'from' && this.indexZoomed === index) {
+    //           this.indexZoomed = void 0
+    //         }
+    //       }
+    //     })
+    //   }
+
+    //   if (
+    //     indexZoomed !== void 0 &&
+    //     (this.cancel === void 0 || this.cancel() === false)
+    //   ) {
+    //     morph({
+    //       from: this.$refs.refThumb[indexZoomed].$el,
+    //       waitFor: 100,
+    //       duration: 300,
+    //       style: 'z-index: 1'
+    //     })
+    //   }
+    // }
+  
+
+    
   },
 
   mounted() {
@@ -245,24 +344,11 @@ export default {
     this.profilepic = this.$firebase.auth().currentUser.profilepic;
     this.firstname = this.$firebase.auth().currentUser.firstname;
     this.telno = this.$store.state.example.telno;
-    this.lastUpdate(Date.now());
-    this.gettimetable();
-  }
+  },
 };
 </script>
 
 <style>
-.timebtn{
-  margin-left: 10px;
-  margin-right: 10px;
-  margin-bottom: 10px; 
-}
-.testColor1 {
-  background-color: blue;
-}
-.testColor2 {
-  background-color: white;
-}
 .profilepicture {
   width: 80px;
   height: 80px;
@@ -303,9 +389,14 @@ export default {
 }
 .text {
   color: black;
+  padding-left: 15px;
+  padding-bottom: 5px;
 }
 .whitetext {
   color: black;
+}
+.bluetext {
+  color: blue;
 }
 .username {
   color: black;

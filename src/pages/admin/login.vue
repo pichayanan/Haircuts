@@ -129,7 +129,6 @@ export default {
     loginadmin() {
       if (this.username == "adminza" && this.password == "658") {
         this.$router.push({
-<<<<<<< HEAD
           name: "mainadmin"
         });
       } else {
@@ -139,10 +138,6 @@ export default {
           color: "warning"
         });
       }
-=======
-        name: "mainadmin",
-      });
->>>>>>> customer
     }
   },
   mounted() {

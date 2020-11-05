@@ -1,14 +1,13 @@
 <template>
   <q-page class="bg-grey-2">
-    <q-toolbar class="bg-grey-7 text-white">
+    <!-- <q-toolbar class="bg-grey-7 text-white">
       <q-btn flat round dense icon="keyboard_backspace" @click="back()">
-        <!-- <q-badge floating color="red">2</q-badge> -->
       </q-btn>
       <q-toolbar-title> PORTFOLIO </q-toolbar-title>
-    </q-toolbar>
+    </q-toolbar> -->
 
     <!-- test -->
-    <div class="col-12 justify-center row q-mt-md q-gutter-md">
+    <div class="col-12 justify-center row q-pt-md q-gutter-md">
       <div class="col-5 col-md" v-for="n in 4" :key="n">
         <image-file-picker
           :src="photoURL[0].photo"
@@ -54,15 +53,21 @@
         <q-input standout="bg-teal text-white" v-model="tag" label="" />
       </div>
     </div>
+  <BarberNavbar/>
   </q-page>
 </template>
 
 <script>
+import BarberNavbar from "components/BarberNavbar.vue";
 import { uploadImage } from "../../API/api";
 import firebaseUploader from "components/FirebaseUploader";
 import ImageFilePicker from "components/ImageFilePicker.vue";
 
+
 export default {
+  components: {
+    BarberNavbar,
+  },
   data() {
     return {
       photoURL: [
@@ -163,20 +168,13 @@ export default {
 .addphoto {
   height: 160px;
   width: 120px;
-  margin-top: 20px;
+  /* margin-top: 20px; */
   margin-left: 15px;
   margin-right: 15px;
-}
-.coverphoto {
-  height: 160px;
-  width: 120px;
-}
-.selecting {
-  /* margin-left: 35px; */
-  margin-top: 20px;
 }
 .spacing {
   padding-top: 20px;
   padding-bottom: 20px;
+  padding-right: 20px;
 }
 </style>

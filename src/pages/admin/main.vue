@@ -1,11 +1,12 @@
 <template>
   <q-page class="bg-dark">
-    <div class="row justify-center">
-      <div class="col-3"></div>
-      <div class="col-6">
+    <div class="row justify-center q-pa-sm">
+      
         <q-img class="logoHaircuts" :src="logo" />
-      </div>
-      <div class="col-3"></div>
+        <div class="logout fixed-right q-pr-xl" @click="logout">LOGOUT</div>
+
+        
+      
     </div>
 
     <div class="q-xs">
@@ -66,7 +67,7 @@
                   <h class="text-weight-bold">Number :</h>&nbsp;&nbsp;{{ barbertelno }}
                 </div>
                 <div>
-                  <q-btn rounded class="approvebtn" color="black" label="Approve" />
+                  <q-btn rounded class="approvebtn" color="black" label="Edit" />
                 </div>
                  <div>
                   <q-btn rounded class="approvebtn" color="red" label="Delete" />
@@ -100,7 +101,7 @@
                 <br />
                 &nbsp;&nbsp;{{ customeremail }}
                 <div>
-                  <q-btn rounded class="approvebtn" color="black" label="Approve" />
+                  <q-btn rounded class="approvebtn" color="black" label="Edit" />
                 </div>
                  <div>
                   <q-btn rounded class="approvebtn" color="red" label="Delete" />
@@ -179,6 +180,12 @@ export default {
           });
         });
     },
+    logout(){
+      console.log("Logout");
+      this.$router.push({
+        name: "loginadmin",
+      });
+    }
   },
   mounted() {
     this.getlogo();
@@ -198,5 +205,11 @@ export default {
 .approvebtn {
   margin-top: 10%;
   width: 40%;
+}
+.logout{
+  color: white;
+  padding-top: 33px;
+  text-decoration: underline;
+
 }
 </style>

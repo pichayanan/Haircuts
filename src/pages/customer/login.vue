@@ -74,16 +74,6 @@ export default {
           var email = error.email;
           var credential = error.credential;
         });
-<<<<<<< HEAD
-      })
-    .catch((error) => {
-      var errorCode = error.code;
-      var errorMessage = error.message;
-      var email = error.email;
-      var credential = error.credential;
-    });
-=======
->>>>>>> customer
     },
     getlogo() {
       console.log("logo");
@@ -110,7 +100,6 @@ export default {
 .logoH {
   position: absolute;
   margin-top: 20%;
-
   width: 150px;
   height: 150px;
 }
@@ -137,8 +126,4 @@ div.loginfb {
   
   bottom: 490px;
 } */
-<<<<<<< HEAD
 </style>
-=======
-</style>
->>>>>>> customer

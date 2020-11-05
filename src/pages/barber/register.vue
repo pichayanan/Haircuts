@@ -64,6 +64,10 @@ export default {
           profilepic: this.profilepic,
           registed: true,
           barberid: "",
+          operationday: [false,false,false,false,false,false,false],
+          operationtime: [false,false,false,false,false,false,false,false,false,false,false,false,false],
+          startdate: "",
+          enddate: "",
         })
         .then((docRef) => {
           console.log("Document written with ID: ", docRef.id);

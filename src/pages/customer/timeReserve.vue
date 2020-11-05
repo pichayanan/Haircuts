@@ -84,27 +84,15 @@ export default {
         .collection("timetable")
         .where("telno", "==", this.$firebase.auth().currentUser.phoneNumber)
         .get()
-<<<<<<< HEAD
-        .then(querySnapshot => {
-          querySnapshot.forEach(doc => {
-            // doc.data() is never undefined for query doc snapshots
-            console.log(doc.id, " => ", doc.data().firstname);
-            this.firstname = doc.data().firstname;
-            console.log(doc.id, " => ", doc.data().profilepic);
-            this.profilepic = doc.data().profilepic;
-            // this.lastname = doc.data().lastname;
-=======
         .then((querySnapshot) => {
           querySnapshot.forEach((doc) => {
             
             this.times = doc.data().info;
             console.log(this.times);
             
->>>>>>> customer
           });
           // this.insertid(this.barberid);
         });
-
         // this.$firestore
         // .collection("timetable")
         // .where("info", test, "010")
@@ -117,18 +105,10 @@ export default {
           
         //   });
         // });
-
-
     },
   },
   mounted() {
      this.getdata();
-<<<<<<< HEAD
-     this.firstname = this.$firebase.auth().currentUser.firstname;
-     this.profilepic = this.$firebase.auth().currentUser.profilepic;
-=======
-
->>>>>>> customer
   },
 };
 </script>

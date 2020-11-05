@@ -52,7 +52,6 @@ export default {
         });
     }
   },
-
   mounted() {
     this.getlogo();
   }
@@ -69,12 +68,10 @@ export default {
 /* .absolute-bottom {
   width: 200px;
 }
-
 .signin {
   color: white;
   font-size: 100%;
 }*/
-
 .firstpage {
   position: absolute;
   margin-left: 15%;
