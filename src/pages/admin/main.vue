@@ -49,17 +49,14 @@
         <q-tab-panel name="barber">
           <div class="text-h8">Barber Request</div>
           <!-- ------------------------------------------------------------------------ -->
-          <q-card class="bg-grey-2 q-ma-md barbercard">
-            <!-- v-for="(barber, index) in show" :key="index" -->
+          <!-- <q-card class="bg-grey-2 q-ma-md barbercard" v-for="(data, index) in barberdata" :key="index">
             <div class="row start justifly-center">
               <div class="col-6 q-pa-lg">
-                <q-img class="show" :src="barberprofilepic" />
+                <q-img class="show" :src="data" />
               </div>
 
-              <!-- <q-card class="text-h7 bg-grey-3 detailcard"> -->
 
               <div class="col-6 q-pt-lg justify-center">
-                <!-- <div class="row"> -->
                 <div>
                   <h class="text-weight-bold">Name :</h>&nbsp;&nbsp;{{ barberfirstname }} {{ barberlastname }} <br />
                 </div>
@@ -74,12 +71,10 @@
                 </div>
                 
 
-                <!-- </div> -->
               </div>
 
-              <!-- </q-card> -->
             </div>
-          </q-card>
+          </q-card> -->
           <!-- ------------------------------------------------------------------------ -->
         </q-tab-panel>
 
@@ -127,14 +122,15 @@ export default {
       slide: 1,
       autoplay: true,
       logo: "",
-      barberfirstname: "",
-      barberlastname: "",
-      barbertelno: "",
-      barberprofilepic: "",
+      barberfirstname: [],
+      barberlastname: [],
+      barbertelno: [],
+      barberprofilepic: [],
       barberid: "",
       customerprofilepic: "",
       customername: "",
       customeremail: "",
+      barberdata: {barberprofilepic:[], barberfirstname: [],barberlastname: [],barbertelno: []},
     };
   },
   methods: {
@@ -158,11 +154,17 @@ export default {
         .get()
         .then((querySnapshot) => {
           querySnapshot.forEach((doc) => {
-            this.barberfirstname = doc.data().firstname;
-            this.barberlastname = doc.data().lastname;
-            this.barberprofilepic = doc.data().profilepic;
-            this.barbertelno = doc.data().telno;
+            this.barberfirstname.push(doc.data().firstname);
+            this.barberlastname.push(doc.data().lastname);
+            this.barberprofilepic.push(doc.data().profilepic);
+            this.barbertelno.push(doc.data().telno);
+
+            this.barberdata.barberprofilepic.push(this.barberprofilepic);
+            this.barberdata.barberfirstname.push(this.barberfirstname);
+            this.barberdata.barberlastname.push(this.barberlastname);
+            this.barberdata.barbertelno.push(this.barbertelno);
             this.barberid = doc.id;
+            console.log(this.barberdata);
           });
         });
     },
