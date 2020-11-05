@@ -1,30 +1,42 @@
 <template>
-  <q-page-sticky position="bottom-right" :offset="[18, 18]">
-    <q-fab icon="fas fa-cut" direction="up" color="dark">
-      <q-fab-action
-        @click="onClickedit"
-        color="warning"
-        icon="person_add"
-      ></q-fab-action>
-      <q-fab-action
-        @click="onClicktime"
-        color="warning"
-        icon="calendar_today"
-      ></q-fab-action>
-    </q-fab>
-  </q-page-sticky>
+  <q-footer bordered class="bg-dark text-white">
+    <q-tabs
+      no-caps
+      active-color="white"
+      indicator-color="transparent"
+      v-model="tab"
+    >
+      <q-tab name="home" icon="home" @click="home"> </q-tab>
+      <q-tab name="calendar" icon="calendar_today" @click="calendar"></q-tab>
+      <q-tab
+        name="notification"
+        icon="notifications_active"
+        @click="notification"
+      ></q-tab>
+      <q-tab name="setting" icon="person_add" @click="edit"> </q-tab>
+    </q-tabs>
+  </q-footer>
 </template>
 
 <script>
 export default {
-  name: "tool",
+  data() {
+    return {
+      tab: "setting"
+    };
+  },
   methods: {
-    onClickedit() {
+    edit() {
       this.$router.push({
         name: "EditprofileCustomer"
       });
     },
-    onClicktime() {}
+    home() {
+      this.$router.push({
+        name: "Maincustomer"
+      });
+    },
+    
   }
 };
 </script>

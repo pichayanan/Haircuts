@@ -68,7 +68,8 @@ export default {
 /* .absolute-bottom {
   width: 200px;
 }
-.signin {
+
+.bg {
   color: white;
   font-size: 100%;
 }*/

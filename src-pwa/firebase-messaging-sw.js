@@ -1,4 +1,3 @@
-
  importScripts('https://www.gstatic.com/firebasejs/7.24.0/firebase-app.js');
  importScripts('https://www.gstatic.com/firebasejs/7.24.0/firebase-messaging.js');
  
@@ -16,6 +15,7 @@
  // messages.
  const messaging = firebase.messaging();
  // [END initialize_firebase_in_sw]
+
 
 
 // If you would like to customize notifications that are received in the

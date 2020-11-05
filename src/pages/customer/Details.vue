@@ -24,13 +24,13 @@
 
     <div class=" row feature justifly-center q-pa-md q-gutter-xl">
       <div class="col-2 port">
-        <q-img class="sizeimg" :src="photo[1]" />
+        <q-img class="sizeimg2" :src="photo[1]" />
       </div>
       <div class="col-2 port ">
-        <q-img class="sizeimg" :src="photo[2]" />
+        <q-img class="sizeimg2" :src="photo[2]" />
       </div>
       <div class="col-2 port">
-        <q-img class="sizeimg" :src="photo[3]" />
+        <q-img class="sizeimg2" :src="photo[3]" />
       </div>
       <!-- <div>{{index}}</div> -->
     </div>
@@ -187,6 +187,7 @@ export default {
             this.tag = doc.data().tag;
             this.barberid = doc.data().barberid;
             this.facetype = doc.data().facetype;
+            console.log("facetype : ",this.facetype)
             this.checkTrue(this.facetype);
           } else {
             // doc.data() will be undefined in this case
@@ -255,7 +256,7 @@ export default {
   background-size: contain;
   background-repeat: no-repeat;
 }
-.sizeimg {
+.sizeimg2 {
   height: 210px;
   width: 110px;
   margin-left: 4px;

@@ -79,7 +79,7 @@ module.exports = function(/* ctx */) {
       importStrategy: "auto",
 
       // Quasar plugins
-      plugins: ["Notify", "Loading"]
+      plugins: ["Notify","Loading"]
     },
 
     // animations: 'all', // --- includes all animations
@@ -107,6 +107,11 @@ module.exports = function(/* ctx */) {
           // {
           //   src: 'images/icons/pwa-192x192.png',
           //   sizes: '192x192',
+          //   type: 'image/png'
+          // },
+          // {
+          //   src: 'images/icons/pwa-512x512.png',
+          //   sizes: '512x1512',
           //   type: 'image/png'
           // },
           {

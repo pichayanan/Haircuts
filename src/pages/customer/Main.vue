@@ -44,15 +44,17 @@
         <q-tab-panel name="Male">
           <!-- ----------------------------------men haircuts-------------------------------------- -->
           <div class="q-pa-lg row items-start q-gutter-xl">
-            <q-card class="my-card" v-for="(men, index) in show" :key="index">
-              <q-img class="sizeimg" :src="men.photo"></q-img>
+            <q-card class="my-card" v-for="(men, index) in show" :key="index"  @click="Mainbtn(men.haircutname, men.haircuttype)"
+                  >
+              
+                <q-img class="sizeimg" :src="men.photo"></q-img>
+              
 
               <q-card-actions class="row justify-center">
                 <q-btn
                   class="text-white"
                   flat
-                  @click="Mainbtn(men.haircutname, men.haircuttype)"
-                  >{{ men.haircutname }}</q-btn
+                 >{{ men.haircutname }}</q-btn
                 >
               </q-card-actions>
             </q-card>
@@ -64,7 +66,7 @@
           <!-- ----------------------------------female haircuts-------------------------------------- -->
           <div class="q-pa-lg row items-start q-gutter-xl">
             <!-- <q-card class="my-card" v-for="(women, index) in picW" :key="index"> -->
-            <q-card class="my-card" v-for="(women, index) in show" :key="index">
+            <q-card class="my-card" v-for="(women, index) in show" :key="index" @click="Mainbtn(women.haircutname, women.haircuttype)">
               <!-- <q-img class="sizeimg" :src="picW[index]"> </q-img> -->
               <q-img class="sizeimg" :src="women.photo"> </q-img>
 
@@ -72,7 +74,7 @@
                 <q-btn
                   class="text-white"
                   flat
-                  @click="Mainbtn(women.haircutname, women.haircuttype)"
+                  
                   >{{ women.haircutname }}</q-btn
                 >
                 <!-- <q-btn
@@ -140,9 +142,10 @@ export default {
           });
         });
     },
+  
     Mainbtn(haircutname, haircuttype) {
       console.log(haircutname, haircuttype);
-      this.$store.commit("cmain", {haircutname,haircuttype});
+      this.$store.commit("cmain", { haircutname, haircuttype });
     }
   },
   mounted() {
