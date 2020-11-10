@@ -1,13 +1,6 @@
 <template>
   <q-page class="bg-dark">
-    <div class="row justify-center q-pa-sm">
-      
-        <q-img class="logoHaircuts" :src="logo" />
-        <div class="logout fixed-right q-pr-xl" @click="logout">LOGOUT</div>
-
-        
-      
-    </div>
+    <AdminHeader/>
 
     <div class="q-xs">
       <q-carousel
@@ -23,10 +16,9 @@
           :name="1"
           img-src="https://images.unsplash.com/photo-1500964757637-c85e8a162699?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max"
         ></q-carousel-slide>
-        <!-- <q-carousel-slide :name="2" img-src="../../images/118557135_352851419062852_2334318054354633568_n.jpg" ></q-carousel-slide>
-        <q-carousel-slide :name="3" img-src="../../images/101680803_1187923214888786_46992950877487104_n.jpg" ></q-carousel-slide> -->
       </q-carousel>
-    </div>
+    </div> 
+    
 
     <q-card class="full-width">
       <q-tabs
@@ -48,65 +40,169 @@
       <q-tab-panels v-model="tab" animated>
         <q-tab-panel name="barber">
           <div class="text-h8">Barber Request</div>
-          <!-- ------------------------------------------------------------------------ -->
-          <!-- <q-card class="bg-grey-2 q-ma-md barbercard" v-for="(data, index) in barberdata" :key="index">
-            <div class="row start justifly-center">
-              <div class="col-6 q-pa-lg">
-                <q-img class="show" :src="data" />
+          <div class="row justify-center">
+            <!-- ------------------------------------------------------------------------ -->
+            <q-card
+              class="bg-grey-2 q-ma-md barbercard col-5"
+              v-for="(data, index) in barberprofilepic"
+              :key="index"
+            >
+              <div class="row start justifly-center">
+                <div class="col-6 q-pa-lg">
+                  <q-img class="show" :src="data" />
+                </div>
+
+                <div class="col-6 q-pt-lg justify-center">
+                  <div>
+                    <h class="text-weight-bold">Name :</h>&nbsp;&nbsp;{{
+                      barberfirstname[index]
+                    }}
+                    {{ barberlastname[index] }} <br />
+                  </div>
+                  <div>
+                    <h class="text-weight-bold">Number :</h>&nbsp;&nbsp;{{
+                      barbertelno[index]
+                    }}
+                  </div>
+                   <div>
+                    <h class="text-weight-bold">ID :</h>&nbsp;&nbsp;{{
+                      barberid[index]
+                    }}
+                  </div>
+                  <div>
+                    <q-btn
+                      rounded
+                      class="approvebtn"
+                      color="black"
+                      label="Edit"
+                      @click="editbarber(barbertelno[index])"
+                    />
+                  </div>
+                  <div>
+                    <q-btn
+                      rounded
+                      class="approvebtn"
+                      color="red"
+                      label="Delete"
+                      @click="deletebarberbtn(index)"
+                    />
+                    <q-dialog v-model="deletebarber" persistent>
+                      <q-card>
+                        <q-card-section class="row items-center">
+                          <q-avatar
+                            icon="warning"
+                            color="red"
+                            text-color="white"
+                          />
+                          <span class="q-ml-sm"
+                            >You are deleting this barber</span
+                          >
+                        </q-card-section>
+
+                        <q-card-actions align="right">
+                          <q-btn
+                            flat
+                            label="Cancel"
+                            color="black"
+                            v-close-popup
+                          />
+                          <q-btn
+                            flat
+                            label="Confirm"
+                            color="red"
+                            v-close-popup
+                            @click="confirmbarber()"
+                          />
+                        </q-card-actions>
+                      </q-card>
+                    </q-dialog>
+                  </div>
+                </div>
               </div>
-
-
-              <div class="col-6 q-pt-lg justify-center">
-                <div>
-                  <h class="text-weight-bold">Name :</h>&nbsp;&nbsp;{{ barberfirstname }} {{ barberlastname }} <br />
-                </div>
-                <div>
-                  <h class="text-weight-bold">Number :</h>&nbsp;&nbsp;{{ barbertelno }}
-                </div>
-                <div>
-                  <q-btn rounded class="approvebtn" color="black" label="Edit" />
-                </div>
-                 <div>
-                  <q-btn rounded class="approvebtn" color="red" label="Delete" />
-                </div>
-                
-
-              </div>
-
-            </div>
-          </q-card> -->
-          <!-- ------------------------------------------------------------------------ -->
+            </q-card>
+            <!-- ------------------------------------------------------------------------ -->
+          </div>
         </q-tab-panel>
 
         <q-tab-panel name="customer">
           <div class="text-h8">Customer Request</div>
+          <div class="row">
+            <q-card
+              class="bg-grey-2 q-ma-md barbercard col-5"
+              v-for="(data, index) in customerprofilepic"
+              :key="index"
+            >
+              <div class="row start justifly-center">
+                <div class="col-6 q-pa-lg">
+                  <q-img class="show" :src="data" />
+                </div>
+
+                <div class="col-6 q-pt-lg justify-center">
+                  <h class="text-weight-bold">Name </h>
+                  <!-- <br /> -->
+                  &nbsp;&nbsp;{{ customername[index] }}
+                  <br />
+                  <h class="text-weight-bold">Email </h>
+                  <!-- <br /> -->
+                  &nbsp;&nbsp;{{ customeremail[index] }}
+                  <br />
+                  <h class="text-weight-bold">ID </h>
+                  &nbsp;&nbsp;{{ customerid[index] }}
+                  <br />
+                  <div>
+                    <q-btn
+                      rounded
+                      class="approvebtn"
+                      color="black"
+                      label="Edit"
+                      @click="editcustomer(customeremail[index])"
+                    />
+                  </div>
+                  <div>
+                    <q-btn
+                      rounded
+                      class="approvebtn"
+                      color="red"
+                      label="Delete"
+                      @click="deletecustomerbtn(index)"
+                    />
+                    <q-dialog v-model="deletecustomer" persistent>
+                      <q-card>
+                        <q-card-section class="row items-center">
+                          <q-avatar
+                            icon="warning"
+                            color="red"
+                            text-color="white"
+                          />
+                          <span class="q-ml-sm"
+                            >You are deleting this customer</span
+                          >
+                        </q-card-section>
+
+                        <q-card-actions align="right">
+                          <q-btn
+                            flat
+                            label="Cancel"
+                            color="black"
+                            v-close-popup
+                          />
+                          <q-btn
+                            flat
+                            label="Confirm"
+                            color="red"
+                            v-close-popup
+                            @click="confirmcustomer"
+                          />
+                        </q-card-actions>
+                      </q-card>
+                    </q-dialog>
+
+                  </div>
+                </div>
+              </div>
+            </q-card>
+          </div>
           <!-- ------------------------------------------------------------------------- -->
-          <q-card class="bg-grey-2 q-ma-md barbercard">
-            <div class="row start justifly-center">
-              <div class="col-6 q-pa-lg">
-                <q-img class="show" :src="customerprofilepic" />
-              </div>
-
-              <div class="col-6 q-pt-lg justify-center">
-                <h class="text-weight-bold">Name </h>
-                <br />
-                &nbsp;&nbsp;{{ customername }}
-                <br />
-                <h class="text-weight-bold">Email </h>
-                <br />
-                &nbsp;&nbsp;{{ customeremail }}
-                <div>
-                  <q-btn rounded class="approvebtn" color="black" label="Edit" />
-                </div>
-                 <div>
-                  <q-btn rounded class="approvebtn" color="red" label="Delete" />
-                </div>
-              </div>
-              
-
-              <!-- </q-card> -->
-            </div>
-          </q-card>
         </q-tab-panel>
       </q-tab-panels>
     </q-card>
@@ -114,7 +210,11 @@
 </template>
 
 <script>
+import AdminHeader from "components/AdminHeader.vue"; 
 export default {
+  components: {
+    AdminHeader
+  },
   data() {
     return {
       show: [],
@@ -126,11 +226,15 @@ export default {
       barberlastname: [],
       barbertelno: [],
       barberprofilepic: [],
-      barberid: "",
-      customerprofilepic: "",
-      customername: "",
-      customeremail: "",
-      barberdata: {barberprofilepic:[], barberfirstname: [],barberlastname: [],barbertelno: []},
+      barberid: [],
+      customerid: [],
+      customerprofilepic: [],
+      customername: [],
+      customeremail: [],
+      deletebarber: false,
+      deletecustomer: false,
+      selectedbarber: "",
+      selectedcustomer: "",
     };
   },
   methods: {
@@ -154,17 +258,12 @@ export default {
         .get()
         .then((querySnapshot) => {
           querySnapshot.forEach((doc) => {
+            this.barberprofilepic.push(doc.data().profilepic);
             this.barberfirstname.push(doc.data().firstname);
             this.barberlastname.push(doc.data().lastname);
-            this.barberprofilepic.push(doc.data().profilepic);
             this.barbertelno.push(doc.data().telno);
-
-            this.barberdata.barberprofilepic.push(this.barberprofilepic);
-            this.barberdata.barberfirstname.push(this.barberfirstname);
-            this.barberdata.barberlastname.push(this.barberlastname);
-            this.barberdata.barbertelno.push(this.barbertelno);
-            this.barberid = doc.id;
-            console.log(this.barberdata);
+            this.barberid.push(doc.id);
+            // console.log("All barber id : ",this.barberid);
           });
         });
     },
@@ -174,23 +273,76 @@ export default {
         .get()
         .then((querySnapshot) => {
           querySnapshot.forEach((doc) => {
-            this.customername = doc.data().CName;
-            // this.barberlastname = doc.data().lastname;
-            this.customerprofilepic = doc.data().URL;
-            this.customeremail = doc.data().CMail;
-            // this.barberid = doc.id;
+            this.customername.push(doc.data().CName);
+            this.customerprofilepic.push(doc.data().URL);
+            this.customeremail.push(doc.data().CMail);
+            this.customerid.push(doc.id);
+            // console.log(customerid);
           });
+            // console.log(customerid);
+
         });
     },
-    logout(){
-      console.log("Logout");
-      this.$router.push({
-        name: "loginadmin",
-      });
+    // logout() {
+    //   console.log("Logout");
+    //   this.$router.push({
+    //     name: "loginadmin",
+    //   });
+    // },
+    editbarber(barbertelno){
+      console.log("Go to edit barber page");
+      this.$store.commit("EDITBARBER", barbertelno)
+    },
+    deletebarberbtn(index){
+      console.log(index);
+      this.deletebarber = true;
+      this.selectedbarber = this.barberid[index]
+
+
+    },
+    deletecustomerbtn(index){
+      console.log(index);
+      this.deletecustomer = true;
+      this.selectedcustomer = this.customerid[index]
+      // console.log(this.selectedcustomer, "HAHAHA");
+
+
+
+    },
+    editcustomer(customeremail){
+       console.log("Go to edit customer page");
+       this.$store.commit("EDITCUSTOMER", customeremail)
+
+    },
+    confirmbarber(){
+      console.log("Deleting", this.selectedbarber);
+        this.$firestore
+        .collection("barber")
+        .doc(this.selectedbarber)
+        .delete()
+        .then(function() {
+            console.log("Document successfully deleted!");
+          }).catch(function(error) {
+            console.error("Error removing document: ", error);
+          });
+    },
+    confirmcustomer(){
+        console.log("Deleting", this.selectedcustomer);
+        this.$firestore
+        .collection("customer")
+        .doc(this.selectedcustomer)
+        .delete()
+        .then(function() {
+            console.log("Document successfully deleted!");
+          }).catch(function(error) {
+            console.error("Error removing document: ", error);
+          });
+
     }
+
   },
   mounted() {
-    this.getlogo();
+    // this.getlogo();
     this.getbarber();
     this.getcustomer();
   },
@@ -208,10 +360,9 @@ export default {
   margin-top: 10%;
   width: 40%;
 }
-.logout{
+.logout {
   color: white;
   padding-top: 33px;
   text-decoration: underline;
-
 }
 </style>

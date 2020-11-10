@@ -105,10 +105,16 @@ const routes = [
         meta: { authRequired: true },
       },
       {
-        path: "test",
-        name: "testbarber",
-        component: () => import("pages/barber/test.vue"),
-        meta: { authRequired: false },
+        path: "addportfolio",
+        name: "addportfoliobarber",
+        component: () => import("pages/barber/addportfolio.vue"),
+        meta: { authRequired: true },
+      },
+      {
+        path: "upcoming",
+        name: "upcoming",
+        component: () => import("pages/barber/upcoming.vue"),
+        meta: { authRequired: true },
       }
     
       
@@ -130,7 +136,19 @@ const routes = [
         name: "mainadmin",
         component: () => import("pages/admin/main.vue"),
         // meta: { authRequired: false },
-      }   
+      },
+      {
+        path: "editbarber",
+        name: "editbarber",
+        component: () => import("pages/admin/editbarber.vue"),
+        // meta: { authRequired: false },
+      },
+      {
+        path: "editcustomer",
+        name: "editcustomer",
+        component: () => import("pages/admin/editcustomer.vue"),
+        // meta: { authRequired: false },
+      }       
      
     ]
   },

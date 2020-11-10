@@ -48,21 +48,26 @@ export default {
       });
     },
     portfolio() {
-      console.log("Go to edit portfolio page");
+      console.log("Go to portfolio page");
       this.$router.push({
         name: "portfoliobarber",
+        params: {tab: 'portfolio'}
+
       });
     },
     upcoming() {
-      console.log("Go to edit upcoming page");
+      console.log("Go to upcoming page");
       this.$router.push({
-        name: "",
+        name: "upcoming",
+        params: {tab: 'upcoming'}
+
       });
     },
     editprofile() {
       console.log("Go to edit profile page");
       this.$router.push({
         name: "profilebarber",
+        params: {tab: 'profile'}        
       });
     },
   }

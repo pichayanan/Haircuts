@@ -64,10 +64,8 @@ export default {
           profilepic: this.profilepic,
           registed: true,
           barberid: "",
-          operationday: [false,false,false,false,false,false,false],
+          dayoff: [],
           operationtime: [false,false,false,false,false,false,false,false,false,false,false,false,false],
-          startdate: "",
-          enddate: "",
         })
         .then((docRef) => {
           console.log("Document written with ID: ", docRef.id);
@@ -98,7 +96,7 @@ export default {
         .then((querySnapshot) => {
           querySnapshot.forEach((doc) => {
             console.log(doc.id, " => ", doc.data());
-              let registdata = {
+            let registdata = {
             firstname: doc.data().firstname,
             lastname: doc.data().lastname,
             telno: doc.data(),
@@ -108,7 +106,6 @@ export default {
             if (doc.data().registed == true) {
               this.$router.push({
                 name: "mainbarber",
-                // params: { telno: this.phoneNumber}
               });
             }
           });
