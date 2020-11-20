@@ -40,6 +40,24 @@
         label="Sign in with Facebook"
       />
     </div>
+    <div class="row justify-center">
+      <div class="linee">______________________________</div>
+    </div> 
+    
+    <div class="row justify-center q-pt-xl">
+      <q-btn
+        @click="barber"
+        color="white"
+        size="md"
+        class="q-px-lg"
+        rounded
+        text-color="black"
+        label="Sign in as a barber"
+      />
+    </div>
+    <div class="row work justify-center text-white q-pt-md">
+      <div>WORK WITH US</div>
+    </div> 
   </q-page>
 </template>
 
@@ -47,10 +65,16 @@
 export default {
   data() {
     return {
-      logo: ""
+      logo: "",
     };
   },
   methods: {
+    barber(){
+      this.$router.push({
+      name: "loginbarber"
+  });
+    },
+    
     btnGG() {
       var provider = new this.$firebase.auth.GoogleAuthProvider();
       this.$firebase
@@ -101,12 +125,15 @@ export default {
   color: rgb(253, 253, 253);
 }
 div.logingg {
-  margin-top: 50%;
+  margin-top: 30%;
  
 }
 div.loginfb {
   margin-top: 10%;
   
+}
+.work{
+  font-size:60%;
 }
 /* .background-image {
   /* background-image: url(../../images/login.png); 
@@ -116,10 +143,8 @@ div.loginfb {
   height: 200%;
 } */
 
-/* .linee {
-  position: absolute;
+.linee {
+  padding-top: 5%;
   color: white;
-  
-  bottom: 490px;
-} */
+}
 </style>

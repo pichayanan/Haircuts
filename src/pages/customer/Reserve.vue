@@ -1,17 +1,13 @@
 <template>
   <q-page class="bg-grey-2">
-    {{ model }}
     <q-toolbar class="bg-grey-2 text-dark">
       <q-btn flat round dense icon="keyboard_backspace" @click="back" />
-     
     </q-toolbar>
 
     <q-card class="bg-grey-2 q-pa-sm q-ma-sm row col-11 ">
       <div class=" col-5 start justifly-center">
         <q-img class="show" :src="this.$store.state.customertest.bpic" />
       </div>
-
-      <!-- <q-card class="text-h7 bg-grey-3 detailcard"> -->
 
       <div class="col-5 q-pt-md justify-center">
         <h class="text-weight-bold">Artist </h>
@@ -28,31 +24,27 @@
     </q-card>
 
     <!-- test -->
-    <div class="q-pa-xl justify-center">
-      <!-- <div class="q-pa-xl justify-center">
-        <q-badge color="teal"> Model: {{ model1 }} </q-badge> 
-      </div> 
-     <div class="q-pb-sm">
-        <q-badge color="purple" text-color="white">
-          Mask: dddd, MMM D, YYYY
-        </q-badge>
-       </div>  -->
-
+    <div class="row q-pa-md justify-center">
       <q-date
+        v-model="model"
         color="dark"
         text-color="white"
-        v-model="parts"
-        :events="testoper"
-        mask="dddd, MMM D, YYYY"
-        @click="lastUpdate(model1)"
+        :options="optionsFn"
+        :events="eventsFn"
+        :event-color="'orange'"
       ></q-date>
     </div>
+    <div class=" q-px-lg q-py-md">
+      <q-btn color="orange" round size="xs"> </q-btn>
+      <h8>&nbsp; Closed days</h8>
+    </div>
+
     <div class="row justify-center">
       <q-btn
         unelevated
         rounded
         color="dark"
-        @click="selecttime(model1)"
+        @click="selecttime(model)"
         label="Select section"
       ></q-btn>
     </div>
@@ -69,111 +61,128 @@ export default {
   },
   data() {
     return {
+      date: "",
       model: "",
       model1: "",
       Fnameb: "",
       Lnameb: "",
       location: "",
       propic: "",
-      // options: ["sunday"],
+      startdate: "",
+      enddate: "",
       operationday: "",
-      parts: [
-        "2020/10/01",
-        "2020/10/05",
-        "2020/10/06",
-        "2020/10/09",
-        "2020/10/23"
-      ]
+      parts: {},
+      dayy: ""
     };
   },
-
   methods: {
-    getdata() {
+    optionsFn(model) {
+      return model >= this.startdate && model <= this.enddate;
+    },
+    async getdata() {
       let Bid = "";
-      console.log("show :", this.$store.state.customertest.bname);
-      this.$firestore
+      let sdate;
+      let edate;
+      // console.log("show :", this.$store.state.customertest.bname);
+      let querySnapshot = await this.$firestore
         .collection("barber")
         .where("firstname", "==", this.$store.state.customertest.bname)
-        .get()
-        .then(querySnapshot => {
-          querySnapshot.forEach(doc => {
-            // doc.data() is never undefined for query doc snapshots
-            console.log(doc.id, " => ", doc.data());
-            Bid = doc.data().barberid;
-            this.Fnameb = doc.data().firstname;
-            console.log(this.Fnameb);
-            this.Lnameb = doc.data().lastname;
+        .get();
 
-            console.log(this.Lnameb);
-            this.location = doc.data().location;
-            this.propic = doc.data().profilepic;
-            this.operationday = doc.data().operationday;
-            console.log(this.operationday);
-            // this.testoper();
-          });
-        });
-    },
-    testoper(date) {
-      let day = [
-        "sunday",
-        "monday",
-        "tuesday",
-        "wednesday",
-        "thursday",
-        "friday",
-        "saturday"
-      ];
-      for (let i = 0; i < this.operationday.length; i++) {
-        // console.log("pppp: ", this.model1);
-        if (this.operationday[i] === true) {
-          // console.log("ooop");
-        } else {
-          let parts = "";
-          for (let x = 1; x <= 31; x++) {
-            // console.log(x);
-            if (x < 10) {
-              parts += `2020/01/0${x}_`;
-            } else {
-              parts += `2020/01/${x}_`;
-            }
-          }
-          let test1 = parts.split("_");
-          // console.log(test1.length);
-          for (let x = 0; x < test1.length; x++) {
-            let test2 = test1[x].split("/");
-            // console.log(test2);
-          }
-          return day[2] != "20";
-          // this.parts = this.model1.split("/");
-          // console.log(this.parts[0]);
-          // return this.parts;
-          // return this.parts === day[i];
-          // console.log("pppppp");
-        }
-      }
+      querySnapshot.forEach(doc => {
+        console.log(doc.id, " => ", doc.data());
+        Bid = doc.data().barberid;
+        this.Fnameb = doc.data().firstname;
+        this.Lnameb = doc.data().lastname;
+        this.location = doc.data().location;
+        this.propic = doc.data().profilepic;
+        this.operationday = doc.data().dayoff;
+        sdate = doc.data().operationperiod[0];
+        edate = doc.data().operationperiod[1];
+        this.operationtime = doc.data().operationtime;
+      });
+      let sdate1 = sdate.split("-");
+
+      this.startdate = sdate1[0] + "/" + sdate1[1] + "/" + sdate1[2];
+      let edate1 = edate.split("-");
+      this.enddate = edate1[0] + "/" + edate1[1] + "/" + edate1[2];
+      console.log("++++++++", sdate1[2]);
+      console.log("++++++++", edate1[2]);
+      // console.log("++++++++", this.enddate);
+    //  -------------------------------------------------------
+    //  let x = 0;
+
+    //   for (let i = sdate1[2]; i < edate1[2]; i++) {
+    //     x++;
+
+    //     let now = moment(this.startdate)
+    //       .add(x, "day")
+    //       .format("YYYY/MM/DD");
+    //     console.log("-------------", now);
+    //     this.operationtime 
+    //     console.log(this.operationtime);
+    //      this.$firestore
+    //     .collection("Timetable")
+    //     .add({
+    //       barberF: this.$store.state.customertest.bname,
+    //       Date:now,
+    //       Time:this.operationtime,
+    //     })
+    //   }
+      // ------------------------------------------------------
     },
     lastUpdate(data) {
-      console.log(data);
       moment.locale("en");
-      // this.model = moment(data).format("LL");
-      this.model1 = moment(data).format("LLLL");
-      console.log(this.model1);
-      let test = this.model1.split(",");
-      console.log("testtt: ", test[0]);
+      this.model = moment(data).format("YYYY,MM,DD");
+
+      this.model1 = this.model;
+
+      let tt1 = moment(this.model).format("LLLL");
+
+      let test = this.model.split(",");
+      console.log("testtt: ", test); // wednesday
+      this.dayy = test[0] + "/" + test[1] + "/" + test[2];
+    },
+    eventsFn(model) {
+      for (let i = 0; i < this.operationday.length; i++) {
+        if (model === this.operationday[i]) {
+          return true;
+        }
+      }
     },
     back() {
       this.$router.push({
         name: "DetailsCustomer"
       });
     },
-    selecttime(model1) {
-      this.$store.commit("creserve", model1);
+
+    selecttime(date) {
+      let check = this.test(date);
+      if (check === true) {
+        this.$q.notify({
+          position: "top",
+          message: "Our barber is not available. Please select another!",
+          color: "warning"
+        });
+      } else {
+        this.$store.commit("creserve", date);
+      }
+    },
+    test(date) {
+      for (let i = 0; i < this.operationday.length; i++) {
+        if (date == this.operationday[i]) {
+          let check = true;
+          return check;
+        } else {
+          let check = false;
+        }
+      }
     }
   },
-
   mounted() {
     this.lastUpdate(Date.now());
     this.getdata();
+    this.gendate();
   }
 };
 </script>

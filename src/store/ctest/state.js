@@ -12,9 +12,10 @@ export default function() {
         cname: "",
         type: "",
         bpic: "",
-
+        selectT: "",
         face: [],
-        facetype: []
+        facetype: [],
+        // timeTable: ""
             //
     }
 }

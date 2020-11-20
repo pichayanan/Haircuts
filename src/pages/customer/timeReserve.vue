@@ -4,67 +4,71 @@
       <q-btn flat round dense icon="keyboard_backspace" @click="back">
         <!-- <q-badge floating color="red">2</q-badge> -->
       </q-btn>
-      
     </q-toolbar>
     <!-- --------------Header--------------- -->
     <q-card class="bg-white blackcard">
       <div class="row">
-      <div class=" col-5 start justifly-center">
-        
+        <div class=" col-5 start justifly-center">
           <q-img class="show" :src="this.$store.state.customertest.bpic" />
         </div>
 
         <!-- <q-card class="text-h7 bg-grey-3 detailcard"> -->
-
         <div class="col-5 q-pt-md justify-center">
           <h class="text-weight-bold">Artist </h>
           <br />
-          &nbsp;&nbsp;{{ this.$store.state.customertest.bname }} {{ this.$store.state.customertest.lname }}
+          &nbsp;&nbsp;{{ this.$store.state.customertest.bname }}
+          {{ this.$store.state.customertest.lname }}
           <br />
           <h class="text-weight-bold ">place </h>
           <br />
           &nbsp;&nbsp;{{ this.$store.state.customertest.location }}
         </div>
-        </div>
+      </div>
       <!-- <q-card class="bg-dark"> -->
-      <div class="reserve row justify-start">
-        <div class="q-pa-md q-gutter-sm">
-          <!-- <br /> -->
-          <br />
-          <div class="row justify-center">
-            <q-btn class="timebtn"
-              v-for="(data, index) in times"
-              :key="index"
-              :color="btnColour"
-              text-color="black"
-              :label="data.time"
-              @click="dialog = true"
-            />
-          </div>
-          <q-dialog v-model="dialog">
-            <q-card>
-              <div class="col-5 justify-start q-px-md text-h6 spacing">
-                <!-- {{time}} -->
-              </div>
-              <q-card-section class="row items-center q-gutter-sm">
-                <q-btn no-caps label="Open menu" color="primary"> </q-btn>
-                <q-btn
-                  no-caps
-                  label="Close"
-                  color="primary"
-                  v-close-popup
-                ></q-btn>
-              </q-card-section>
-            </q-card>
-          </q-dialog>
-          <br />
-          <br />
+
+      <div class="row ">
+        <q-btn color="grey-3" text-color="black" class="btn-fixed-width">{{
+          this.$store.state.customertest.cselect
+        }}</q-btn>
+      </div>
+      <div class="row">
+        <div
+          class="col-4 q-py-sm q-pl-sm"
+          v-for="(Stime, index) in obj"
+          :key="index"
+        >
+          <q-btn
+            v-if="operationtime[index] == true"
+            class="choosetime"
+            @click="test(index,Stime.lable)"
+          >
+            {{ Stime.lable }}
+          </q-btn>
+          <q-btn
+            v-else
+            class="choosetime bg-red"
+    
+          >
+            {{ Stime.lable }}
+          </q-btn>
         </div>
       </div>
+      <div class=" q-px-md q-py-md">
+        <q-btn color="red" round size="xs"> </q-btn>
+        <h8>&nbsp; Unavaliable time</h8>
+      </div>
     </q-card>
-    <div class="haircut row">
-      <div class="text-h6 col-5 text-center"><h5 class="whitetext">HAIRCUTS</h5>
-        <!-- <br />HAIRCUTS -->
+
+    <div class="row justify-center">
+      <div class=" q-pa-lg">
+        <q-btn
+          unelevated
+          rounded
+          color="white"
+          text-color="black"
+          label="confirm"
+          @click="confirm(selecttime)"
+        ></q-btn>
       </div>
     </div>
     <tool />
@@ -74,91 +78,168 @@
 <script>
 import tool from "components/tool.vue";
 export default {
-  components: {
-    tool
+      
+      components: {
+tool
   },
   data() {
     return {
       date: "2020/09/04",
-     
-       dialog: false,
-      times: [],
-      status: [],
-    
+  
+      
+      timeTableid: "",
+      selecttime: "",
+      operationtime: [],
+      complete: false,
+      obj: [
+        {
+          lable: "9 AM",
+          status: ""
+        },
+        {
+          lable: "10 AM",
+          status: ""
+        },
+        {
+          lable: "11 AM",
+
+          status: ""
+        },
+        {
+          lable: "12 PM",
+
+          status: ""
+        },
+        {
+          lable: "1 PM",
+
+          status: ""
+        },
+        {
+          lable: "2 PM",
+
+          status: ""
+        },
+        {
+          lable: "3 PM",
+
+          status: ""
+        },
+        {
+          lable: "4 PM",
+
+          status: ""
+        },
+        {
+          lable: "5 PM",
+
+          status: ""
+        },
+        {
+          lable: "6 PM",
+
+          status: ""
+        },
+        {
+          lable: "7 PM",
+
+          status: ""
+        },
+        {
+          lable: "8 PM",
+
+          status: ""
+        },
+        {
+          lable: "9 PM",
+
+          status: ""
+        }
+      ]
     };
   },
-  computed: {
-    btnColour() {
-      console.log("color  = "+this.status[0])
-      if (this.status[0] == true) {
-        return "red";
-
-      } else {
-        return "white";
-      }
-    },
-  },
   methods: {
-    editprofile(){
-      console.log("Edit profile")
-       this.$router.push({
-            name: "profilebarber",
-          });
+    test(index,lable) {
+      this.selecttime = lable;
+      // this.$q.notify({
+      //     position: "top",
+      //     message: "You have chosen "+this.selecttime,
+      //     color: "warning"
+      //   });
+      
+      console.log(this.selecttime);
+      
+    //  this.operationtime[index] = !this.operationtime[index] 
+     this.$set(this.operationtime, index, false) 
+      console.log("**********",this.operationtime);
+         
+         this.$firestore
+        .collection("Timetable")
+        .doc(this.timeTableid)
+        .update({
+          Time: this.operationtime,
+          
+        })
+        
+        
+        
+        
+     
     },
-    back(){
-      this.$router.push({
-            name: "ReserveCustomer"
-          });
-    },
-    gettimetable() {
-      console.log("getting timetable");
+    confirm(time) {
       this.$firestore
-        .collection("timetable")
-        .where("telno", "==", "+66123456789")
-        .get()
-        .then((querySnapshot) => {
-          querySnapshot.forEach((doc) => {
-            this.times = doc.data().info;
-          });
-          
-          
-        });
+        .collection("reservation")
+        .add({
+          barberF: this.$store.state.customertest.bname,
+          barberL: this.$store.state.customertest.lname,
+          customerName:this.$store.state.customertest.cname,
+          price: this.$store.state.customertest.price,
+          location: this.$store.state.customertest.location,
+          date: this.$store.state.customertest.cselect,
+          time: time,
+          haircutName: this.$store.state.customertest.type,
+          typeId: this.$store.state.customertest.id,
+          phone: this.$store.state.customertest.telno,
+          complete: this.complete,
+          cmail: this.$firebase.auth().currentUser.email,
+
+        })
+        .then(
+          this.$store.commit("cTimereserve",time )
+         
+        )
+        
+    },
+    back() {
+      this.$router.push({
+        name: "ReserveCustomer"
+      });
     },
     getdata() {
-      console.log("getting timetable");
       this.$firestore
-        .collection("timetable")
-        .where("telno", "==", this.$firebase.auth().currentUser.phoneNumber)
+        .collection("Timetable")
+        .where("Date", "==", this.$store.state.customertest.cselect)
         .get()
-        .then((querySnapshot) => {
-          querySnapshot.forEach((doc) => {
-            
-            this.times = doc.data().info;
-            console.log(this.times);
-            
+        .then(querySnapshot => {
+          querySnapshot.forEach(async doc => {
+            await this.test1(doc.data().Time);
+                  this.timeTableid = doc.id;
+                  console.log("/////////////",this.timeTableid);
+            // this.operationtime = doc.data().operationtime;
+            // this.statusC(this.operationtime);
           });
           // this.insertid(this.barberid);
+          // console.log(this.operationtime);
         });
-
-        // this.$firestore
-        // .collection("timetable")
-        // .where("info", test, "010")
-        // .orderBy("info", "asc")
-        // .get()
-        // .then((querySnapshot) => {
-        //   querySnapshot.forEach((doc) => {
-            
-        //     this.times = doc.data().info;
-          
-        //   });
-        // });
-
-
+      // czjvjsodvjsdjmc;
     },
+    test1(operation) {
+     this.operationtime = operation;
+    }
   },
   mounted() {
-     this.getdata();
-  },
+    this.getdata();
+  }
 };
 </script>
 
@@ -176,9 +257,7 @@ export default {
   padding-left: 20px;
   color: black;
 }
-.portfolio {
-  padding-top: 5px;
-}
+
 .photos {
   margin-left: 10px;
 }
@@ -194,5 +273,20 @@ export default {
 }
 .whitetext {
   color: white;
+}
+.choosetime {
+  width: 80%;
+  height: 90%;
+}
+
+.bgColor {
+  /* color: aquamarine; */
+  background-color: red;
+}
+
+.btn-fixed-width {
+  width: 320px;
+  margin-top: 6%;
+  margin-bottom: 6%;
 }
 </style>

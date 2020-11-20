@@ -44,7 +44,7 @@
         <q-tab-panel name="Male">
           <!-- ----------------------------------men haircuts-------------------------------------- -->
           <div class="q-pa-lg row items-start q-gutter-xl">
-            <q-card class="my-card" v-for="(men, index) in show" :key="index"  @click="Mainbtn(men.haircutname, men.haircuttype)"
+            <q-card class="my-card" v-for="(men, index) in show" :key="index"  @click="Mainbtn(men.haircutname, men.haircuttype,Name)"
                   >
               
                 <q-img class="sizeimg" :src="men.photo"></q-img>
@@ -66,7 +66,7 @@
           <!-- ----------------------------------female haircuts-------------------------------------- -->
           <div class="q-pa-lg row items-start q-gutter-xl">
             <!-- <q-card class="my-card" v-for="(women, index) in picW" :key="index"> -->
-            <q-card class="my-card" v-for="(women, index) in show" :key="index" @click="Mainbtn(women.haircutname, women.haircuttype)">
+            <q-card class="my-card" v-for="(women, index) in show" :key="index" @click="Mainbtn(women.haircutname, women.haircuttype,Name)">
               <!-- <q-img class="sizeimg" :src="picW[index]"> </q-img> -->
               <q-img class="sizeimg" :src="women.photo"> </q-img>
 
@@ -106,6 +106,7 @@
 <script>
 import tool from "components/tool.vue";
 export default {
+  
   components: {
     tool
   },
@@ -114,7 +115,8 @@ export default {
       slide: 1,
       autoplay: true,
       tab: "Male",
-      show: []
+      show: [],
+      Name: ""
     };
   },
   methods: {
@@ -140,12 +142,25 @@ export default {
             this.show.push(doc.data());
             console.log(this.show);
           });
-        });
+        })
+        .then(() => {
+          this.$firestore
+            .collection("customer")
+            .where("CMail", "==",this.$firebase.auth().currentUser.email )
+            .get()
+            .then(querySnapshot => {
+              querySnapshot.forEach(doc => {
+                // doc.data() is never undefined for query doc snapshots
+                console.log(doc.id, " => ", doc.data());
+                this.Name = doc.data().CName;
+              });
+            });
+        })
     },
   
-    Mainbtn(haircutname, haircuttype) {
-      console.log(haircutname, haircuttype);
-      this.$store.commit("cmain", { haircutname, haircuttype });
+    Mainbtn(haircutname, haircuttype ,Name) {
+      // console.log(haircutname, haircuttype, this.Name);
+      this.$store.commit("cmain", { haircutname, haircuttype ,Name });
     }
   },
   mounted() {

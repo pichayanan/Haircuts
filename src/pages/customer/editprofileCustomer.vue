@@ -17,7 +17,7 @@
           class="absolute all-pointer-events"
           size="32px"
           name="camera_alt"
-          color="grey2"
+          color="grey-2"
           style="bottom: 6px; right: 9px"
         >
           <q-tooltip>
@@ -173,7 +173,6 @@ export default {
         });
     },
     async editprofile(CName) {
-      this.$store.commit("cedit", CName);
       this.$q.loading.show();
       const image = this.url;
       this.url = await uploadProfile(image);

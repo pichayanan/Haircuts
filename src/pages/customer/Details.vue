@@ -94,6 +94,8 @@
         @click="reserve(Fnameb,Lnameb,price,location,telno,propic)"
       ></q-btn>
     </div>
+    <br>
+    
 
     <tool />
   </q-page>
