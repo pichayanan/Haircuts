@@ -38,7 +38,7 @@
       <h class="text-weight-bold">FACE TYPE</h>
     </div>
     <div class="row">
-      <div class="col-2" v-for="(test, index) in obj" :key="index">
+      <div class="col-2 justify-start  " v-for="(test, index) in obj" :key="index">
         <q-img
           class="test112"
           :style="`background-image: url(${test.pic});`"
@@ -253,8 +253,8 @@ export default {
 
 <style>
 .test112 {
-  height: 100px;
-  width: 100px;
+  height: 80px;
+  width: 60px;
   background-size: contain;
   background-repeat: no-repeat;
 }
