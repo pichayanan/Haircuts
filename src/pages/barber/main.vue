@@ -9,8 +9,8 @@
 
       <div class="col-6 q-mt-md q-mr-md q-ml-md">
         <div class="row text-weight-bold username" style="font-size: 1.5rem">
-          {{ firstname }} {{ lastname }} &nbsp;
-        </div>
+          {{ firstname }} {{ lastname }} 
+        </div><br>
         <div class="row text-caption text-weight-thin">
           <q-icon name="location_on" />
           {{ location }}
@@ -204,11 +204,42 @@ export default {
       );
       this.operationperiod = [];
       this.operationperiod.push(this.startdate, this.enddate);
-      this.$firestore.collection("barber").doc(this.barberid).update({
+      this.$firestore
+      .collection("barber")
+      .doc(this.barberid)
+      .update({
         dayoff: this.dayoff,
         operationtime: this.operationtime,
         operationperiod: this.operationperiod,
       });
+      
+      let splitstartdate = this.startdate.split("/");
+      let splitenddate = this.enddate.split("/");
+      let splitstartdate2 = splitstartdate[0].split("-");
+      let splitenddate2 = splitenddate[0].split("-");
+      
+      console.log("Split start date", splitstartdate2);
+      console.log("Split end date", splitenddate2);
+
+
+      let x = 0;
+      for (let i = splitstartdate2[2]; i< splitenddate2[2]; i++){
+        x++
+        
+        let now  = moment(this.startdate)
+         .add(x, "day")
+         .format("YYYY/MM/DD")
+         console.log("Now", now);
+         this.$firestore
+         .collection("Timetable")
+         .add({
+           barberF: this.firstname,
+           Date: now,
+           Time: this.operationtime,
+         })
+
+      }
+
     },
   },
 

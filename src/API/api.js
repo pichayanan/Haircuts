@@ -30,3 +30,25 @@ export async function uploadProfile(file) {
   console.log("imageURL: ", imageURL);
   return imageURL;
 }
+
+export async function uploadBarberProfile(file) {
+  const storageRef = firebase.storage().ref();
+  const imageRef = storageRef.child(`profileB/profilepic/${Date.now()}.jpg`);
+  console.log("file: ", file);
+  await imageRef.put(file, { contentType: file.type });
+  let downloadURL = await imageRef.getDownloadURL();
+  const imageURL = downloadURL;
+  console.log("imageURL: ", imageURL);
+  return imageURL;
+}
+
+export async function uploadImage(file) {
+  const storageRef = firebase.storage().ref();
+  const imageRef = storageRef.child(`media/images/${Date.now()}.jpg`);
+  console.log("file: ", file);
+  await imageRef.put(file, { contentType: file.type });
+  let downloadURL = await imageRef.getDownloadURL();
+  const imageURL = downloadURL;
+  console.log("imageURL: ", imageURL);
+  return imageURL;
+}

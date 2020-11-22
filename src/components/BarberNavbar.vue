@@ -24,11 +24,12 @@
         <q-tab name="upcoming" label="Upcoming" @click="upcoming"/>
         <q-tab name="profile" label="Profile" @click="editprofile" />
       </q-tabs>
+
     </q-footer>
 
-    <q-page-container>
+    <!-- <q-page-container>
       <q-page class="q-pa-md"> </q-page>
-    </q-page-container>
+    </q-page-container> -->
   </div>
 </template>
 
@@ -51,7 +52,7 @@ export default {
       console.log("Go to portfolio page");
       this.$router.push({
         name: "portfoliobarber",
-        params: {tab: 'portfolio'}
+        // params: {tab: 'portfolio'}
 
       });
     },
@@ -59,7 +60,7 @@ export default {
       console.log("Go to upcoming page");
       this.$router.push({
         name: "upcoming",
-        params: {tab: 'upcoming'}
+        // params: {tab: 'upcoming'}
 
       });
     },
@@ -67,7 +68,7 @@ export default {
       console.log("Go to edit profile page");
       this.$router.push({
         name: "profilebarber",
-        params: {tab: 'profile'}        
+        // params: {tab: 'profile'}        
       });
     },
   }

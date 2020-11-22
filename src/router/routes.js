@@ -87,6 +87,12 @@ const routes = [
         meta: { authRequired: true }
       },
       {
+        path: "waiting",
+        name: "waitingbarber",
+        component: () => import("pages/barber/waiting.vue"),
+        meta: { authRequired: true }
+      },
+      {
         path: "main",
         name: "mainbarber",
         component: () => import("pages/barber/main.vue"),

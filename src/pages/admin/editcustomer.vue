@@ -23,7 +23,7 @@
             <q-input  v-model="customername" label="Name *"></q-input>
             <q-input  v-model="customerbirthday" label="Birthday *"></q-input>
             <!-- <q-input  v-model="customeremail" label="Email"></q-input> -->
-            <q-input  v-model="customergender" label="Gender"></q-input>
+            <q-input  v-model="customergender" disable label="Gender"></q-input>
             </div>
             
 
@@ -114,17 +114,16 @@ export default {
 .profilepic {
   margin-top: 80px;
   margin-left: 120px;
-  /* margin-bottom: 10px; */
   width: 200px;
   height: 200px;
 }
 .description{
-    /* margin-top: 20px; */
-    margin-left: 120px;
-    margin-bottom: 100px;
+    margin-left: 110px;
+    margin-bottom: 50px;
 }
 .form{
-    margin-top: 200px;
+    margin-top: 150px;
     margin-bottom: 30px;
 }
+
 </style>

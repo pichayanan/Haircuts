@@ -62,10 +62,11 @@ export default {
           email: this.email,
           location: this.location,
           profilepic: this.profilepic,
-          registed: true,
+          registed: false,
           barberid: "",
           dayoff: [],
           operationtime: [false,false,false,false,false,false,false,false,false,false,false,false,false],
+          // approve: false,
         })
         .then((docRef) => {
           console.log("Document written with ID: ", docRef.id);
@@ -106,6 +107,10 @@ export default {
             if (doc.data().registed == true) {
               this.$router.push({
                 name: "mainbarber",
+              });
+            }else if(doc.data().registed == false){
+              this.$router.push({
+                name: "waitingbarber",
               });
             }
           });

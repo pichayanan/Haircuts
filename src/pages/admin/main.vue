@@ -126,7 +126,7 @@
 
         <q-tab-panel name="customer">
           <div class="text-h8">Customer Request</div>
-          <div class="row">
+          <div class="row  justify-center">
             <q-card
               class="bg-grey-2 q-ma-md barbercard col-5"
               v-for="(data, index) in customerprofilepic"

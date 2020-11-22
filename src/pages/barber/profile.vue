@@ -14,10 +14,28 @@
 
     <div class="row justify-center headbox">
       <q-item-section avatar class>
-        <q-avatar class="profilepic row text-center">
+        <!-- <q-avatar class="profilepic row text-center">
           <img :src="profilepic" />
-        </q-avatar>
-        <u class="row changeprofile" caption>Change Picture</u>
+        </q-avatar> -->
+        <q-avatar class="profilepic">
+        <image-file-picker
+          class="profilepic"
+          :src="profilepic"
+          @imageSelected="imageSelected"
+        />
+        <q-icon
+          class="absolute all-pointer-events"
+          size="32px"
+          name="camera_alt"
+          color="red"
+          style="bottom: 6px; right: 9px"
+        >
+          <q-tooltip>
+            Change Picture
+          </q-tooltip>
+        </q-icon>
+      </q-avatar>
+        <!-- <u class="row changeprofile" caption>Change Picture</u> -->
       </q-item-section>
     </div>
 
@@ -52,8 +70,13 @@
 
 <script>
 import BarberNavbar from "components/BarberNavbar.vue";
+import { uploadBarberProfile } from "../../API/api";
+import firebaseUploader from "components/FirebaseUploader.vue";
+import ImageFilePicker from "components/ImageFilePicker.vue";
 export default {
   components: {
+    firebaseUploader,
+    ImageFilePicker,
     BarberNavbar,
   },
   data() {
@@ -96,9 +119,14 @@ export default {
         });
      
     },
-    editprofile() {
+    async editprofile() {
       console.log("updateData");
       console.log(this.firstname);
+
+      const image = this.profilepic;
+      this.profilepic = await uploadBarberProfile(image);
+      console.log("OK CAN! :", this.profilepic);
+
       this.$firestore
         .collection("barber")
         .doc(this.id)
@@ -151,6 +179,9 @@ export default {
            
           });
     },
+    imageSelected(base64){
+      this.profilepic = base64;
+    }
 
     
   },

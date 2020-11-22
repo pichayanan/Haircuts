@@ -18,8 +18,11 @@
             <div class="row justify-center q-gutter-xl form" style="full-width">
             <q-input  v-model="barberfirstname" label="Firstname *"></q-input>
             <q-input  v-model="barberlastname" label="Lastname *"></q-input>
-            <q-input  v-model="barbertelno" label="Mobile"></q-input>
+            <q-input  v-model="barbertelno" disable label="Mobile"></q-input>
             <q-input  v-model="location" label="Location"></q-input>
+            </div>
+            <div class="row justify-center q-pt-xl">
+              <q-toggle v-model="registed" label="Approve" />
             </div>
             
 
@@ -53,6 +56,7 @@ export default {
       barberprofilepic: "",
       barberid: "",
       location: "",
+      registed: false,
     };
   },
   methods: {
@@ -83,6 +87,7 @@ export default {
             this.barbertelno = doc.data().telno;
             this.location = doc.data().location;
             this.barberid = doc.id;
+            this.registed = doc.data().registed;
           });
         });
     },
@@ -100,6 +105,7 @@ export default {
         lastname: this.barberlastname,
         telno: this.barbertelno,
         location: this.location,
+        registed: this.registed,
       });
         console.log("Data save");
     }
