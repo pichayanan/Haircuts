@@ -7,7 +7,9 @@
     <div class="row justify-center headbox">
       <q-item-section avatar>
         <q-avatar class="profilepic row">
-          <img src="https://img.freepik.com/free-vector/cartoon-pug-dog-prisoner-costume-with-sign-illustration_41984-336.jpg?size=338&ext=jpg" />
+          <img
+            src="https://img.freepik.com/free-vector/cartoon-pug-dog-prisoner-costume-with-sign-illustration_41984-336.jpg?size=338&ext=jpg"
+          />
         </q-avatar>
       </q-item-section>
     </div>
@@ -17,6 +19,7 @@
         <q-radio dark v-model="gender" val="Male" label="Male"></q-radio>
         <q-radio dark v-model="gender" val="Female" label="Female"></q-radio>
         <q-radio dark v-model="gender" val="LGBT" label="LGBT"></q-radio>
+
       </div>
     </div>
     <div class="textfix">Phuket, Thailand</div>
@@ -36,7 +39,8 @@
 export default {
   data() {
     return {
-      gender:"",
+      barberid: "",
+      gender: "",
       firstname: "",
       lastname: "",
       email: "",
@@ -47,7 +51,7 @@ export default {
   methods: {
     saveData(profilepic) {
       console.log("saveData");
-      console.log(this.gender);
+      // this.barberid = doc.id;
       this.$firestore
         .collection("barber")
         .add({
@@ -58,24 +62,61 @@ export default {
           email: this.email,
           location: this.location,
           profilepic: this.profilepic,
+          registed: true,
+          barberid: "",
         })
         .then((docRef) => {
           console.log("Document written with ID: ", docRef.id);
+          let registdata = {
+            firstname: this.firstname,
+            lastname: this.lastname,
+            telno: this.$firebase.auth().currentUser.phoneNumber,
+            profilepic: this.profilepic,
+          }
+          this.$store.commit("REGISTER", registdata )
           this.$router.push({
             name: "mainbarber",
             params: {
-              pic: profilepic
-            }
+              pic: profilepic,
+            },
           });
+          
         })
         .catch((error) => {
           console.error("Error adding document: ", error);
         });
     },
+    check() {
+      this.$firestore
+        .collection("barber")
+        .where("telno", "==", this.$router.currentRoute.params.telno)
+        .get()
+        .then((querySnapshot) => {
+          querySnapshot.forEach((doc) => {
+            console.log(doc.id, " => ", doc.data());
+              let registdata = {
+            firstname: doc.data().firstname,
+            lastname: doc.data().lastname,
+            telno: doc.data(),
+            profilepic: doc.data().profilepic,
+          }
+            this.$store.commit("REGISTER", registdata )
+            if (doc.data().registed == true) {
+              this.$router.push({
+                name: "mainbarber",
+                // params: { telno: this.phoneNumber}
+              });
+            }
+          });
+        })
+        .catch((error) => {
+          console.log("Error getting documents: ", error);
+        });
+    },
   },
   mounted() {
-    // this.fullName = this.$firebase.auth().currentUser.displayName;
-    // this.URL = this.$firebase.auth().currentUser.photoURL;
+    console.log(this.$router.currentRoute.params.telno);
+    this.check();
   },
 };
 </script>

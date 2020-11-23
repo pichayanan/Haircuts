@@ -1,10 +1,10 @@
 <template>
-  <q-page class="bg-dark">
-    <div class="col-3"></div>
-    <div class="col-6">
+  <q-page class="bg-dark test">
+    
+    <div class="justify-center col-6 col-lg-6 col-md-6 col-sm-6 q-pt-lg row ">
       <q-img class="firstpage" :src="logo" :ratio="1" />
     </div>
-    <div class="col-3"></div>
+    
     <!-- Hello logo -->
     <!-- <div class="login">
       <q-btn
@@ -38,7 +38,7 @@ export default {
       console.log("logo");
       this.$firestore
         .collection("logo")
-        .where("name", "==", "logo")
+        .where("name", "==", "logo-text-white")
         .get()
         .then(querySnapshot => {
           querySnapshot.forEach(doc => {
@@ -60,7 +60,22 @@ export default {
 </script>
 
 <style>
-/* div.login {
+.test{
+  padding: 70% 0 ;
+}
+@media screen and (min-width: 375px) {
+  .test {
+    padding: 60% 0 ;
+
+  }
+}
+@media screen and (min-width: 1024px) {
+  .test {
+    padding: 25% 0% ;
+
+  }
+}
+/* div.login {d
   position: absolute;
   width: 350px;
   left: 150px;
@@ -70,14 +85,15 @@ export default {
   width: 200px;
 }
 
-.signin {
+.bg {
   color: white;
   font-size: 100%;
 }*/
-
 .firstpage {
-  position: absolute;
-  bottom: 20%;
-  width: 100%;
+  /* position: absolute;
+  margin-left: 15%;
+  margin-top: 75%; */
+  width: 250px;
+  height: 150px;
 }
 </style>

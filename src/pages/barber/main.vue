@@ -1,165 +1,295 @@
 <template>
-  <q-page class="bg-dark">
-    <!-- --------------Header--------------- -->
-
-    <q-item class="row header">
-      <q-item-section avatar class="col-3">
+  <q-page class="bg-white">
+    <div class="row header bg-white q-mt-md">
+      <div avatar class="col-3">
         <q-avatar class="profilepicture">
           <img :src="profilepic" />
         </q-avatar>
-      </q-item-section>
-
-      <q-item-section class="col-7">
-        <div class="col-6 text-h6 text-weight-bold username">{{ firstname}}</div>
-        <!-- <q-item-label class="row" caption>฿400</q-item-label> -->
-      </q-item-section>
-
-      <div class="col-2 text-grey q-gutter-md edit" style="font-size: 2em">
-        <q-icon @click="editprofile" name="create" />
       </div>
-    </q-item>
 
-    <q-card class="bg-white blackcard">
-      <div class="reservehead justify-center row">
-        <div class="text-h6 col-5 text-center">
-          <br />RESERVATION
+      <div class="col-8">
+        <div class="row text-weight-bold username" style="font-size: 1.5rem">
+          {{ firstname }} {{ lastname }} &nbsp;
         </div>
-        <div class="q-pa-md col-7" style="max-width: 300px">
-          <q-input v-model="date" mask="date" :rules="['date']">
-            <template v-slot:append>
-              <q-icon name="event" class="cursor-pointer">
-                <q-popup-proxy ref="qDateProxy" transition-show="scale" transition-hide="scale">
-                  <q-date v-model="date" class="bg-grey-10 text-white">
-                    <div class="row items-center justify-end">
-                      <q-btn v-close-popup label="Close" color="primary" flat />
-                    </div>
-                  </q-date>
-                </q-popup-proxy>
-              </q-icon>
-            </template>
-          </q-input>
+        <div class="row text-caption text-weight-thin">
+          <q-icon name="location_on" />
+          {{ location }}
         </div>
       </div>
-      <!-- <q-card class="bg-dark"> -->
-      <div class="reserve row justify-center">
-        <div class="q-pa-md q-gutter-sm">
-          <u class="text">MORNING</u>
-          <!-- <br /> -->
-          <br />
-          <div class="row">
-            <q-btn class="reserve" outline style="color: black;" label="  9 AM" />
-            <q-btn class="reserve" outline style="color: black;" label="10 AM" />
-            <q-btn class="reserve" outline style="color: black;" label="11 AM" />
-            <q-btn class="reserve" outline style="color: black;" label="12 PM" />
-          </div>
-          <br />
-          <u class="text">AFTERNOON</u>
-          <br />
-          <br />
-          <div class="row">
-            <q-btn class="reserve" outline style="color: black;" label="  1 PM" />
-            <q-btn class="reserve" outline style="color: black;" label="  2 PM" />
-            <q-btn class="reserve" outline style="color: black;" label="  3 PM" />
-            <q-btn class="reserve" outline style="color: black;" label="  4 PM" />
-          </div>
-          <div class="row">
-            <q-btn class="reserve" outline style="color: black;" label="  5 PM" />
-            <q-btn class="reserve" outline style="color: black;" label="  6 PM" />
-            <q-btn class="reserve" outline style="color: black;" label="  7 PM" />
-            <q-btn class="reserve" outline style="color: black;" label="  8 PM" />
-          </div>
-          <br />
-        </div>
-      </div>
-    </q-card>
-    <div class="haircut row">
-      <div class="text-h6 col-5 text-center"><h5 class="whitetext">HAIRCUTS</h5>
-        <!-- <br />HAIRCUTS -->
+      <div class="col-1">
+        <q-icon @click="editprofile" name="create" size="sm" />
       </div>
     </div>
+    <div class="reservehead justify-center row">
+      <div class="text-h6 col-5 text-center"><br />RESERVATION</div>
+      <div class="q-pa-md col-7" style="max-width: 400px">
+        <q-input v-model="date" mask="date" :rules="['date']">
+          <template v-slot:append>
+            <q-icon name="event" class="" color="blue">
+              <q-popup-proxy
+                ref="qDateProxy"
+                transition-show="scale"
+                transition-hide="scale"
+              >
+                <q-date v-model="date" class="bg-grey-10 text-white">
+                  <div class="row items-center justify-end">
+                    <q-btn v-close-popup label="Close" color="primary" flat />
+                  </div>
+                </q-date>
+              </q-popup-proxy>
+            </q-icon>
+          </template>
+        </q-input>
+      </div>
+    </div>
+
+    <q-card class="bg-grey-2 reservecard">
+      <div class="reserve row justify-center">
+        <div class="q-pa-md q-gutter-sm">
+          <h6 class="text text-weight-bold">SELECT TIME</h6>
+
+          <div class="row justify-center">
+            <q-btn class="timebtn"
+              v-for="(data, index) in times"
+              :key="index"
+              :color="btnColour"
+              text-color="black"
+              :label="data.time"
+              @click="dialog = true"
+            />
+          </div>
+          <q-dialog v-model="dialog">
+            <q-card>
+              <div class="col-5 justify-start q-px-md text-h6 spacing">
+                <!-- {{time}} -->
+              </div>
+              <q-card-section class="row items-center q-gutter-sm">
+                <q-btn no-caps label="Open menu" color="primary"> </q-btn>
+                <q-btn
+                  no-caps
+                  label="Close"
+                  color="primary"
+                  v-close-popup
+                ></q-btn>
+              </q-card-section>
+            </q-card>
+          </q-dialog>
+        </div>
+        <br />
+        <!-- <h6 class="text text-weight-bold">AFTERNOON</h6>
+        <div class="row">
+          <q-btn
+            v-for="(time, index) in afternoon"
+            :key="index"
+            class="reserve"
+            color="white"
+            text-color="black"
+            :label="time"
+          />
+          <br />
+        </div> -->
+      </div>
+    </q-card>
+
+    <div class="haircut row">
+      <div class="text-h6 col-5 text-center">
+        <h5 class="whitetext">HAIRCUTS</h5>
+      </div>
+    </div>
+    <!-- {{ status }} -->
     <div class="row portfolio">
       <q-card class="photos my-card col-4">
         <q-img src="https://cdn.quasar.dev/img/avatar2.jpg" basic>
           <div class="absolute-bottom text-subtitle2 text-center">Undercut</div>
         </q-img>
       </q-card>
-      <q-card class="photos my-card col-4">
-        <q-img src="https://cdn.quasar.dev/img/avatar2.jpg" basic>
-          <div class="absolute-bottom text-subtitle2 text-center">Undercut</div>
-        </q-img>
-      </q-card>
       <div class="photos col-3 addbutton">
-        <q-icon size="80px" name="add_circle_outline" />
+        <q-icon
+          size="80px"
+          name="add_circle_outline"
+          color="black"
+          @click="addportfolio"
+        />
       </div>
     </div>
   </q-page>
 </template>
 
 <script>
+import moment from "moment";
 export default {
   data() {
     return {
-      date: "2020/09/04",
+      date: "",
       firstname: "",
       lastname: "",
-      profilepic:"",
+      profilepic: "",
+      telno: "",
+      barberid: "",
+      location: "",
+      photos: [],
+      // morning: ["9 AM", "10 AM", "11 AM", "12 PM"],
+      // afternoon: [
+      //   "1 PM",
+      //   "2 PM",
+      //   "3 PM",
+      //   "4 PM",
+      //   "5 PM",
+      //   "6 PM",
+      //   "7 PM",
+      //   "8 PM",
+      // ],
+      dialog: false,
+      times: [],
+      status: [],
+      // status1: true,
+      // index: "",
     };
   },
+  computed: {
+    btnColour() {
+      console.log("color  = "+this.status[0])
+      if (this.status[0] == true) {
+        return "red";
+
+      } else {
+        return "white";
+      }
+    },
+  },
   methods: {
-    editprofile(){
-      console.log("Edit profile")
-       this.$router.push({
-            name: "profilebarber",
-          });
+    lastUpdate(data) {
+      console.log(data);
+      moment.locale("en");
+      this.model = moment(data).format("LL");
+      this.date = moment(data).format("dddd, MMM D, YYYY");
+      console.log(this.date);
+    },
+    editprofile() {
+      console.log("Go to edit profile page");
+      this.$router.push({
+        name: "profilebarber"
+      });
     },
     getdata() {
+      console.log(this.$firebase.auth().currentUser.phoneNumber);
       this.$firestore
         .collection("barber")
+        .where("telno", "==", this.$firebase.auth().currentUser.phoneNumber)
         .get()
         .then(querySnapshot => {
           querySnapshot.forEach(doc => {
             // doc.data() is never undefined for query doc snapshots
-            console.log(doc.id, " => ", doc.data().firstname);
+            // console.log(doc.id, " => ", doc.data());
+            // console.log(doc.id, " => ", doc.data().firstname);
+            this.$store.commit("MAIN", doc.id);
             this.firstname = doc.data().firstname;
-            console.log(doc.id, " => ", doc.data().profilepic);
+            this.lastname = doc.data().lastname;
             this.profilepic = doc.data().profilepic;
-            // this.lastname = doc.data().lastname;
+            this.location = doc.data().location;
+            this.barberid = doc.id;
+          });
+          this.insertid(this.barberid);
+        });
+    },
 
+    gettimetable() {
+      console.log("getting timetable");
+      this.$firestore
+        .collection("timetable")
+        .where("telno", "==", this.$firebase.auth().currentUser.phoneNumber)
+        .get()
+        .then((querySnapshot) => {
+          querySnapshot.forEach((doc) => {
+            this.times = doc.data().info;
+          });
+          // console.log("This is info: ", this.times);
+          // console.log("This is info: ", this.times.length);
+          for (let i = 0; i < this.times.length; i++) {
+            this.status.push(this.times[i].status);
+          }
+          console.log("status is: " + this.status);
+          // this.insertid(this.barberid);
+        });
+    },
+    insertid(id) {
+      console.log("INSERT BARBER ID : " + id + " TO FIREBASE");
+      this.$firestore
+        .collection("barber")
+        .doc(this.barberid)
+        .update({
+          barberid: this.barberid
+        })
+        .then(docRef => {})
+        .catch(error => {
+          console.error("Error adding document: ", error);
+        });
+    },
+    getportfolio() {
+      console.log("portfolio");
+      this.$firestore
+        .collection("portfolio")
+        .where("barberid", "==", this.barberid)
+        .get()
+        .then(querySnapshot => {
+          querySnapshot.forEach(doc => {
+            this.photos.push(doc.data().photos[0]);
+
+            this.id.push(doc.id);
           });
         });
-     
+      console.log(this.photos);
     },
+    addportfolio() {
+      console.log("Add portfolio page page");
+      this.$router.push({
+        name: "portfoliobarber"
+      });
+    }
   },
 
   mounted() {
-     this.getdata();
-     this.firstname = this.$firebase.auth().currentUser.firstname;
-     this.profilepic = this.$firebase.auth().currentUser.profilepic;
-
+    this.getdata();
+    this.getportfolio();
+    this.profilepic = this.$firebase.auth().currentUser.profilepic;
+    this.firstname = this.$firebase.auth().currentUser.firstname;
+    this.telno = this.$store.state.example.telno;
+    this.lastUpdate(Date.now());
+    this.gettimetable();
+    // this.btnColour();
   },
 };
 </script>
 
 <style>
+.timebtn{
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-bottom: 10px; 
+}
+.testColor1 {
+  background-color: blue;
+}
+.testColor2 {
+  background-color: white;
+}
 .profilepicture {
-  width: 70px;
-  height: 70px;
+  width: 80px;
+  height: 80px;
 }
 .reserve {
-  /* padding-left: 20px; */
   margin-right: 5px;
 }
 .reservehead {
-  margin-top: 10px;
+  padding-top: 10px;
   margin-left: 20px;
   color: black;
 }
 .edit {
-  /* margin-right: 5px; */
-  margin-top: 15px;
+  padding-top: 15px;
 }
 .portfolio {
-  margin-top: 5px;
+  padding-top: 5px;
 }
 .photos {
   margin-left: 10px;
@@ -169,11 +299,15 @@ export default {
   margin-top: 40px;
 }
 .header {
-  padding-top: 30px;
-  margin-left: 5px;
-}
-.blackcard {
+  /* padding-top: 30px;
+  margin-left: 10px; */
   margin-top: 30px;
+  margin-right: 15px;
+  margin-left: 15px;
+}
+.reservecard {
+  /* margin-top: 20px; */
+  padding-top: 10px;
   margin-right: 15px;
   margin-left: 15px;
 }
@@ -181,12 +315,19 @@ export default {
   color: black;
 }
 .whitetext {
-  color: white;
+  color: black;
 }
 .username {
-  /* margin-top: 5%; */
-  color: whitesmoke;
-  /* text-align: center; */
-  font-size: 150%;
+  color: black;
+  font-size: 100%;
+  /* padding-top: 10px; */
+}
+.textfix {
+  color: black;
+  font-size: 80%;
+  text-align: center;
+}
+.text-caption {
+  color: grey;
 }
 </style>
