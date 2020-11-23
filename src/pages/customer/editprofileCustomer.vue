@@ -1,10 +1,5 @@
 <template>
   <q-page class="bg-dark">
-    <!-- <q-toolbar class="bg text-white">
-      <q-btn flat round dense icon="keyboard_backspace" @click="back">
-        <q-badge floating color="red">2</q-badge> 
-      </q-btn>
-    </q-toolbar> -->
     <div></div>
     <div class="row justify-center template">
       <q-avatar class="changepic">
@@ -25,35 +20,17 @@
           </q-tooltip>
         </q-icon>
       </q-avatar>
-
-      <!-- <image-file-picker
-           @imageSelected="imageSelected" 
-           :src="url" /> -->
-
-      <!-- <q-file
-          borderless
-          label-color="orange"
-          v-model="model"
-          label="Borderless"
-          @click="imageSelected(model)"
-          bg-color="green"
-        ></q-file>
-        <q-file>
-          <u class="row changeprofile" @imageSelected="imageSelected" caption>
-            Change Picture
-          </u></q-file
-        > -->
-      <!-- <u class="row changeprofile" @click="changepic" caption
-          >Change Picture</u
-        > -->
     </div>
 
-    <div
-      class="justify-center q-gutter-md form text-white"
-      style="max-width: 300px"
-    >
-      <q-input dark v-model="CName" label="Firstname Lastname *"></q-input>
+    <div class="justify-center q-gutter-md form text-white row q-pa-lg">
       <q-input
+        class="col-12 col-md-5 col-sm-5"
+        dark
+        v-model="CName"
+        label="Firstname Lastname *"
+      ></q-input>
+      <q-input
+        class="col-12 col-md-5  col-sm-5"
         dark
         :readonly="readonly"
         :disable="disable"
@@ -61,23 +38,17 @@
         label="Email"
       ></q-input>
     </div>
-    <div
-      class="justify-center q-gutter-md form text-white"
-      style="max-width: 300px"
-    >
+    <div class="justify-center q-gutter-md form text-white row q-pa-lg">
       <q-input
+        class="col-12 col-md-5  col-sm-5"
         dark
         :readonly="readonly"
         :disable="disable"
         v-model="CBirthday"
         label="Birthday"
       ></q-input>
-    </div>
-    <div
-      class="justify-center q-gutter-md form text-white"
-      style="max-width: 300px"
-    >
       <q-input
+        class="col-12 col-md-5  col-sm-5"
         dark
         :readonly="readonly"
         :disable="disable"
@@ -265,7 +236,7 @@ export default {
 }
 .form {
   padding-top: 20px;
-  margin-left: 5%;
+  /* margin-left: 5%; */
   color: white;
 }
 .savebutton {

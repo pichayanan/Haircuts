@@ -1,10 +1,10 @@
 <template>
   <q-page class="bg-dark">
-    <div class="row justify-center">
-      <div class="textFrist">
+    <div class=" justify-center">
+      <div class="textFrist row justify-center">
         Welcome to HAIRCUTS
       </div>
-      <div class="textSec">
+      <div class="textSec row justify-center">
         Improve your style to get more attention
       </div>
     </div>
@@ -85,7 +85,7 @@ export default {
           CBirthday: this.date,
           CMail: this.$firebase.auth().currentUser.email,
           registed: true,
-          favorite: []
+          favorite: [""]
         })
         .then(docRef => {
           console.log("Document written with ID: ", docRef.id);
@@ -127,9 +127,10 @@ export default {
 </script>
 
 <style>
+@media screen and (min-width: 375px) {
 .textFrist {
   color: whitesmoke;
-  margin-top: 15%;
+  padding-top: 15%;
   font-size: 150%;
 }
 .textSec {
@@ -169,5 +170,98 @@ export default {
 .Bday {
   margin-top: 9%;
   margin-left: 6%;
+}
+}
+@media screen and (min-width: 1024px) {
+  .textFrist {
+  color: whitesmoke;
+  padding-top: 9%;
+
+  font-size: 200%;
+}
+.textSec {
+  color: rgba(189, 184, 184, 0.692);
+  
+  
+  font-size: 110%;
+}
+.profilepic {
+  margin-bottom: 10px;
+  width: 120px;
+  height: 120px;
+}
+.headbox {
+  padding-top: 30px;
+}
+.changeprofile {
+  margin-left: 16%;
+  color: whitesmoke;
+}
+.username {
+  margin-top: 5%;
+  color: whitesmoke;
+  text-align: center;
+  font-size: 150%;
+}
+.gender {
+  margin-top: 2%;
+}
+.textfix {
+  color: whitesmoke;
+  font-size: 80%;
+  text-align: center;
+}
+.birthday {
+  margin-left: 35%;
+}
+.Bday {
+  margin-top: 6%;
+  margin-left: 6%;
+}
+}
+@media screen and (max-width: 320px) {
+  .textFrist {
+  color: whitesmoke;
+  padding-top: 15%;
+  font-size: 100%;
+}
+.textSec {
+  color: rgba(189, 184, 184, 0.692);
+  margin-top: 3%;
+  font-size: 90%;
+}
+.profilepic {
+  margin-bottom: 10px;
+  width: 100px;
+  height: 100px;
+}
+.headbox {
+  padding-top: 30px;
+}
+.changeprofile {
+  margin-left: 16%;
+  color: whitesmoke;
+}
+.username {
+  margin-top: 5%;
+  color: whitesmoke;
+  text-align: center;
+  font-size: 120%;
+}
+.gender {
+  margin-top: 2%;
+}
+.textfix {
+  color: whitesmoke;
+  font-size: 80%;
+  text-align: center;
+}
+.birthday {
+  margin-left: 5%;
+}
+.Bday {
+  margin-top: 5%;
+  margin-left: -1%;
+}
 }
 </style>

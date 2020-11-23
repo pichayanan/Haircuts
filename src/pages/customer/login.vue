@@ -1,11 +1,11 @@
 <template>
   <q-page class="bg-dark">
-    <div class="row justify-center q-px-xl">
+    <div class="row justify-center q-px-xl col-12 col-md-12 col-sm-12">
       <q-img class="logoH" :src="logo" :ratio="1" />
     </div>
     <br />
 
-    <div class="row positionsignin justify-center q-px-sm">
+    <div class="row positionsignin justify-center q-px-sm col-12 col-md-12 col-sm-12">
    
           LET'S GET YOUR NEW LOOK
         
@@ -26,18 +26,6 @@
         text-color="white"
         label="Sign in with Google"
         @click="btnGG"
-      />
-    </div>
-
-    <div class="row loginfb justify-center q-px-md">
-      <q-btn
-        icon="ion-logo-facebook"
-        color="blue-6"
-        size="md"
-        class="q-px-sm"
-        rounded
-        text-color="white"
-        label="Sign in with Facebook"
       />
     </div>
     <div class="row justify-center">
@@ -128,10 +116,7 @@ div.logingg {
   margin-top: 30%;
  
 }
-div.loginfb {
-  margin-top: 10%;
-  
-}
+
 .work{
   font-size:60%;
 }
@@ -146,5 +131,77 @@ div.loginfb {
 .linee {
   padding-top: 5%;
   color: white;
+}
+@media screen and (min-width: 768px) {
+  .logoH {
+  margin-top: 20%;
+  width: 170px;
+  height: 170px;
+}
+
+div.logingg {
+  margin-top: 10%;
+ 
+}
+div.loginfb {
+  margin-top: 10%;
+  
+}
+.work{
+  font-size:60%;
+}
+
+.linee {
+  padding-top: 5%;
+  color: white;
+}
+}
+@media screen and (min-width: 414px) {
+  .logoH {
+  margin-top: 30%;
+  width: 170px;
+  height: 170px;
+}
+
+div.logingg {
+  margin-top: 10%;
+ 
+}
+div.loginfb {
+  margin-top: 10%;
+  
+}
+.work{
+  font-size:60%;
+}
+
+.linee {
+  padding-top: 5%;
+  color: white;
+}
+}
+@media screen and (min-width: 1024px) {
+  .logoH {
+  margin-top: 15%;
+  width: 170px;
+  height: 170px;
+}
+
+div.logingg {
+  margin-top: 10%;
+ 
+}
+div.loginfb {
+  margin-top: 10%;
+  
+}
+.work{
+  font-size:60%;
+}
+
+.linee {
+  padding-top: 5%;
+  color: white;
+}
 }
 </style>

@@ -8,12 +8,12 @@
     <!-- --------------Header--------------- -->
     <q-card class="bg-white blackcard">
       <div class="row">
-        <div class=" col-5 start justifly-center">
+        <div class=" col-5  row start justify-center">
           <q-img class="show" :src="this.$store.state.customertest.bpic" />
         </div>
 
         <!-- <q-card class="text-h7 bg-grey-3 detailcard"> -->
-        <div class="col-5 q-pt-md justify-center">
+        <div class="col-5  q-pt-md justify-center">
           <h class="text-weight-bold">Artist </h>
           <br />
           &nbsp;&nbsp;{{ this.$store.state.customertest.bname }}
@@ -179,12 +179,7 @@ tool
         .update({
           Time: this.operationtime,
           
-        })
-        
-        
-        
-        
-     
+        }) 
     },
     confirm(time) {
       this.$firestore
@@ -248,15 +243,8 @@ tool
   width: 70px;
   height: 70px;
 }
-.reserve {
-  /* padding-left: 20px; */
-  padding-right: 5px;
-}
-.reservehead {
-  padding-top: 10px;
-  padding-left: 20px;
-  color: black;
-}
+
+
 
 .photos {
   margin-left: 10px;
@@ -288,5 +276,40 @@ tool
   width: 320px;
   margin-top: 6%;
   margin-bottom: 6%;
+}
+@media screen and (min-width: 1024px) {
+  .profilepicture {
+  width: 70px;
+  height: 70px;
+}
+
+.blackcard {
+  margin-top: 0%;
+  margin-right: 15px;
+  margin-left: 15px;
+  
+  padding-left: 3%;
+}
+.text {
+  color: black;
+}
+.whitetext {
+  color: white;
+}
+.choosetime {
+  width: 80%;
+  height: 90%;
+}
+
+.bgColor {
+  /* color: aquamarine; */
+  background-color: red;
+}
+
+.btn-fixed-width {
+  width: 320px;
+  margin-top: 6%;
+  margin-bottom: 6%;
+}
 }
 </style>

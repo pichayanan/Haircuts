@@ -1,7 +1,7 @@
 <template>
-  <q-page class="bg-dark">
+  <q-page class="bg-dark test">
     
-    <div class=" justify-center">
+    <div class="justify-center col-6 col-lg-6 col-md-6 col-sm-6 q-pt-lg row ">
       <q-img class="firstpage" :src="logo" :ratio="1" />
     </div>
     
@@ -60,7 +60,22 @@ export default {
 </script>
 
 <style>
-/* div.login {
+.test{
+  padding: 70% 0 ;
+}
+@media screen and (min-width: 375px) {
+  .test {
+    padding: 60% 0 ;
+
+  }
+}
+@media screen and (min-width: 1024px) {
+  .test {
+    padding: 25% 0% ;
+
+  }
+}
+/* div.login {d
   position: absolute;
   width: 350px;
   left: 150px;
@@ -75,9 +90,9 @@ export default {
   font-size: 100%;
 }*/
 .firstpage {
-  position: absolute;
+  /* position: absolute;
   margin-left: 15%;
-  margin-top: 75%;
+  margin-top: 75%; */
   width: 250px;
   height: 150px;
 }

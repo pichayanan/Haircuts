@@ -2,13 +2,14 @@
   <q-page>
     <div class="q-xs">
       <q-carousel
+      class="caro"
         animated
         v-model="slide"
         arrows
         navigation
         infinite
         :autoplay="autoplay"
-        height="200px"
+        
       >
         <q-carousel-slide
           :name="1"
@@ -170,9 +171,54 @@ export default {
 </script>
 
 <style>
+.caro{
+height: 200px
+}
+
 .my-card {
   margin-left: 10%;
   width: 40%;
   background-color: black;
+}
+@media screen and (max-width: 320px) {
+  .caro{
+height: 100px
+}
+.my-card {
+  margin-left: 10%;
+  width: 40%;
+  background-color: black;
+}
+}
+@media screen and (max-width: 375px) {
+  .caro{
+height: 100px
+}
+.my-card {
+  margin-left: 10%;
+  width: 40%;
+  background-color: black;
+}
+}
+@media screen and (min-width: 768px) {
+  .caro{
+height: 300px
+}
+.my-card {
+  margin-left: 10%;
+  width: 40%;
+  background-color: black;
+}
+}
+@media screen and (min-width: 1024px) {
+  .caro{
+height: 300px
+}
+.my-card {
+  margin-left: 10%;
+  width: 40%;
+  
+  background-color: black;
+}
 }
 </style>

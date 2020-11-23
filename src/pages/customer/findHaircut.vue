@@ -46,8 +46,8 @@
             :src="data.photos"
           />
           <q-card-actions align="left">
-            <h>Price : {{price[index]}} ฿</h>
-             &nbsp;
+            <h>Price : {{ price[index] }} ฿</h>
+            &nbsp;
             <q-btn
               v-if="hasfav(data.id) == true"
               align="right"
@@ -56,16 +56,16 @@
               icon="favorite"
               color="red"
               size="md"
-              @click="hasfav(data.id)"
+              @click="favlist(data.id)"
             ></q-btn>
-             <q-btn
+            <q-btn
               v-else
               align="right"
               flat
               round
               icon="favorite"
               size="md"
-              @click="hasfav(data.id)"
+              @click="favlist(data.id)"
             ></q-btn>
           </q-card-actions>
         </q-card>
@@ -111,7 +111,7 @@ export default {
   data() {
     return {
       cusid: "",
-      fav: [],
+      fav: null,
       ratingModel: [],
       search: "",
       photos: [],
@@ -174,7 +174,7 @@ export default {
                 // doc.data() is never undefined for query doc snapshots
                 console.log(doc.id, " => ", doc.data());
                 this.customerid = doc.id;
-                this.fav.push(doc.data().favorite);
+                this.fav = doc.data().favorite;
               });
               // this.getlist();
             });
@@ -246,19 +246,56 @@ export default {
     //         })
 
     //     },
+    async favlist(id) {
+      console.log(id);
+      let list = this.fav;
+      let check = await this.test(list, id);
+      console.log(check);
+      if (check.checks === true) {
+        
+        this.fav.splice(check.index, 1);
+        // list;
+        console.log("....", this.fav);
+        this.updatelist(this.fav);
+
+      } else {
+        this.fav.push(id);
+        console.log("----", this.fav);
+        this.updatelist(this.fav);
+      }
+      console.log(check);
+    },
+    test(list, id) {
+      for (let i = 0; i < list.length; i++) {
+        let datalist = list[i];
+        if (datalist == id) {
+          const isDeleteNumber = element => element == id;
+          let index = list.findIndex(isDeleteNumber);
+          return { checks: true, index: index };
+        }
+      }
+      return { checks: false };
+    },
+    updatelist(up) {
+      console.log(up);
+      this.$firestore
+        .collection("customer")
+        .doc(this.customerid)
+        .update({
+          favorite: up
+        });
+    },
     hasfav(id) {
       console.log("id", id);
       console.log("this fav ", this.fav);
-      
-      for(let i=0;i<=this.fav.length;i++){
-        console.log("if ",this.fav[i]);
-        if(this.fav[i] == id){
-          
-     return true
-        }
 
+      for (let i = 0; i <= this.fav.length; i++) {
+        // console.log("if ", this.fav[i]);
+        if (this.fav[i] == id) {
+          return true;
+        }
       }
-      return false
+      return false;
     },
     pic(id) {
       console.log(id);
@@ -288,5 +325,23 @@ export default {
 
 .filter {
   size: 150%;
+}
+
+@media screen and (max-width: 1024px) {
+  .search {
+  padding: 5%;
+}
+.cardfav {
+  width: 100%;
+}
+
+.sizeimg1 {
+  width: 100%;
+  height: 400px;
+}
+
+.filter {
+  size: 150%;
+}
 }
 </style>

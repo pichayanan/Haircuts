@@ -32,31 +32,32 @@
       <div class="row justify-center">
         <h>BARBER INFO</h>
       </div>
-      <div class="row q-py-sm  ">
-        <div>
+      <div class="row q-py-sm btext ">
+        <div class="row">
           <h
             >Barber name :&nbsp;
             {{ this.$store.state.customertest.bname }} &nbsp;
             {{ this.$store.state.customertest.lname }}</h
           >
         </div>
-        <div>
+        <div class="row">
           <h>Location :&nbsp; {{ this.$store.state.customertest.location }} </h>
         </div>
-        <div>
+        <br>
+        <div class="row">
           <h>Contact :&nbsp; {{ this.$store.state.customertest.telno }} </h>
         </div>
       </div>
       <div class="row justify-center q-py-sm">
         <h>CUSTOMER INFO</h>
       </div>
-      <div class="row q-py-sm  ">
-        <div>
+      <div class="row q-py-sm ctext ">
+        <div class="row">
           <h
             >Customer name :&nbsp; {{ this.$store.state.customertest.cname }}</h
           >
         </div>
-        <div>
+        <div class="row">
           <h>Haircut type :&nbsp; {{ this.$store.state.customertest.type }}</h>
         </div>
       </div>
@@ -64,7 +65,7 @@
         ------------------------------------------------------------------
       </div>
       <div class="row justify-end q-pt-lg q-pr-md">
-        <div>
+        <div class="row">
           <h
             >Price :&nbsp; {{ this.$store.state.customertest.price }} &nbsp;
             Baht</h
@@ -118,6 +119,24 @@ export default {
 </script>
 
 <style>
+@media screen and (min-width: 768px) {
+.billcard {
+  margin-top: 10%;
+  margin-right: 20px;
+  margin-left: 20px;
+  padding-top: 8%;
+  padding-left: 3%;
+  padding-bottom: 20%;
+}
+.text {
+  font-size: 20px;
+}
+.billpic {
+  width: 150px;
+  height: 80px;
+}
+
+}
 .billcard {
   margin-top: 10%;
   margin-right: 20px;

@@ -277,4 +277,30 @@ export default {
   padding-left: 35%;
   padding-top: 5%;
 }
+@media screen and (min-width: 768px) {
+  .test112 {
+  height: 120px;
+  width: 150px;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+.sizeimg2 {
+  height: 300px;
+  width: 200px;
+ margin-left: 70px;
+ 
+}
+.show {
+  height: 250px;
+  width: 200px;
+  margin-left: 10%;
+}
+.feature {
+  padding-top: 0%;
+}
+.check {
+  padding-left: 35%;
+  padding-top: 5%;
+}
+}
 </style>
