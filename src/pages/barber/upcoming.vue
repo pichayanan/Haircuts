@@ -30,7 +30,7 @@
           </div>
         </div>
         <div class="col-4 q-py-md">
-              <q-btn rounded color="primary" label="Complete" @click="complete(index)"/>
+              <q-btn rounded color="primary" label="Complete"  class="q-mt-md completebtn" @click="complete(index)"/>
               <q-btn rounded color="red" label="Cancel" class="q-mt-md cancelbtn" @click="cancelcustomerbtn(index)" />
               <q-dialog v-model="cancelcustomer" persistent>
                       <q-card>
@@ -182,6 +182,9 @@ export default {
 
 <style>
 .cancelbtn{
+  width: 90%;
+}
+.completebtn{
   width: 90%;
 }
 </style>

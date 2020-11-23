@@ -7,39 +7,10 @@
     </q-toolbar>
 
     <div class="justify-center row q-pt-md q-gutter-md">
-      <div class="col-5 col-md" v-for="(photo, index) in photoURL" :key="index">
-        <image-file-picker
-          :src="photo"
-          @imageSelected="imageSelected"
-        />
+      <div class="col-5 col-md" v-for="(photo, count) in photoURL" :key="count">
+        <image-file-picker :src="photo" @imageSelected="imageSelected(count)" />
       </div>
-      <!-- <div class="col-5 col-md">
-        <image-file-picker
-          :src="photoURL[0]"
-          @imageSelected="imageSelected"
-        />
-      </div>
-      <div class="col-5 col-md">
-        <image-file-picker
-          :src="photoURL[1]"
-          @imageSelected="imageSelected"
-        />
-      </div>
-      <div class="col-5 col-md">
-        <image-file-picker
-          :src="photoURL[2]"
-          @imageSelected="imageSelected"
-        />
-      </div>
-      <div class="col-5 col-md">
-        <image-file-picker
-          :src="photoURL[3]"
-          @imageSelected="imageSelected"
-        />
-      </div> -->
-
     </div>
-
 
     <div class="justify-start q-px-md text-h6 spacing">Face Type</div>
     <div class="row">
@@ -59,7 +30,12 @@
         Haircut Type
       </div>
       <div class="col-7">
-        <q-select standout="bg-grey-6 text-white" v-model="haircuttype" :options="hairoptions" label="" />
+        <q-select
+          standout="bg-grey-6 text-white"
+          v-model="haircuttype"
+          :options="hairoptions"
+          label=""
+        />
       </div>
 
       <div class="col-5 text-subsitle2 justify-start q-px-md text-h6 spacing">
@@ -77,9 +53,15 @@
       </div> -->
     </div>
     <div class="row justify-center">
-      <q-btn class="text-black addbtn" rounded color="white" label="ADD" @click="addportfolio" />
+      <q-btn
+        class="text-black addbtn"
+        rounded
+        color="white"
+        label="ADD"
+        @click="addportfolio"
+      />
     </div>
-  <BarberNavbar/>
+    <BarberNavbar />
   </q-page>
 </template>
 
@@ -88,7 +70,7 @@ import BarberNavbar from "components/BarberNavbar.vue";
 import { uploadImage } from "../../API/api";
 import firebaseUploader from "components/FirebaseUploader";
 import ImageFilePicker from "components/ImageFilePicker.vue";
-
+// import noimage from "../../assets/noimage.jpg";
 
 export default {
   components: {
@@ -99,18 +81,11 @@ export default {
   data() {
     return {
       geturl: [],
-      text: ["Front","RIGHT","BACK","LEFT"],
-      photoURL: [
-        "https://icon-library.com/images/add-picture-icon/add-picture-icon-16.jpg",
-        "https://icon-library.com/images/add-picture-icon/add-picture-icon-16.jpg",
-        "https://icon-library.com/images/add-picture-icon/add-picture-icon-16.jpg",
-        "https://icon-library.com/images/add-picture-icon/add-picture-icon-16.jpg",
-        ],
-      // photoURL: [],
-      // URL1: "https://icon-library.com/images/add-picture-icon/add-picture-icon-16.jpg",
-      // URL2: "https://icon-library.com/images/add-picture-icon/add-picture-icon-16.jpg",
-      // URL3: "https://icon-library.com/images/add-picture-icon/add-picture-icon-16.jpg",
-      // URL4: "https://icon-library.com/images/add-picture-icon/add-picture-icon-16.jpg",
+      text: ["Front", "RIGHT", "BACK", "LEFT"],
+      photoURL: ["https://firebasestorage.googleapis.com/v0/b/haircuts-10a55.appspot.com/o/noimage.jpg?alt=media&token=6a325844-65b1-4f4f-a92b-d042e1380ca3", 
+                 "https://firebasestorage.googleapis.com/v0/b/haircuts-10a55.appspot.com/o/noimage.jpg?alt=media&token=6a325844-65b1-4f4f-a92b-d042e1380ca3", 
+                 "https://firebasestorage.googleapis.com/v0/b/haircuts-10a55.appspot.com/o/noimage.jpg?alt=media&token=6a325844-65b1-4f4f-a92b-d042e1380ca3", 
+                 "https://firebasestorage.googleapis.com/v0/b/haircuts-10a55.appspot.com/o/noimage.jpg?alt=media&token=6a325844-65b1-4f4f-a92b-d042e1380ca3"],
       obj: [
         {
           pic:
@@ -152,10 +127,24 @@ export default {
       price: "",
       // tag: "",
       facetype: "",
-      haircuttype:"",
-      hairoptions: [ 
-        '001 BUZZ CUT', '002 FRINGE CUT', '003 CREW CUT', '004 POMPADOUR', '005 SIDE PARTED', '006 UNDERCUT (MEN)', '007 FAUX HAWK', '008 QUIFF CUT', 
-        '009 SHAVED CUT', '010 BUN', '011 UNDERCUT (WOMEN)', '012 BANGS', '013 LAYER', '014 MEDIUM', '015 BOB', '016 LONG'
+      haircuttype: "",
+      hairoptions: [
+        "001 BUZZ CUT",
+        "002 FRINGE CUT",
+        "003 CREW CUT",
+        "004 POMPADOUR",
+        "005 SIDE PARTED",
+        "006 UNDERCUT (MEN)",
+        "007 FAUX HAWK",
+        "008 QUIFF CUT",
+        "009 SHAVED CUT",
+        "010 BUN",
+        "011 UNDERCUT (WOMEN)",
+        "012 BANGS",
+        "013 LAYER",
+        "014 MEDIUM",
+        "015 BOB",
+        "016 LONG",
       ],
     };
   },
@@ -172,50 +161,56 @@ export default {
           });
         });
     },
-    imageSelected(base64, index) {
-      this.photoURL[index] = base64;
-    // this.URL1 = base64;
-    // this.URL2 = base64;
-    // this.URL3 = base64;
-    // this.URL4 = base64;
- 
+    imageSelected(base64, count) {
+      console.log(count);
+      this.photoURL[count] = base64;
     },
-    async addportfolio(){
-       
-      const image1 = this.photoURL[0];
-      const image2 = this.photoURL[1];
-      const image3 = this.photoURL[2];
-      const image4 = this.photoURL[3];
-
-      this.photoURL = await uploadImage(image1, image2, image3, image4);
-      // this.URL1 = await uploadImage(image);
-      // this.URL2 = await uploadImage(image);
-      // this.URL3 = await uploadImage(image);
-      // this.URL4 = await uploadImage(image);
-
-      // this.photoURL.push(this.URL1,this.URL2,this.URL3,this.URL4);
+    async addportfolio() {
+      try {
+        // upload product photo to firebase storage
+        for (let index = 0; index < this.photoURL.length; index++) {
+          const image = this.photoURL[index];
+          if (image === "https://firebasestorage.googleapis.com/v0/b/haircuts-10a55.appspot.com/o/noimage.jpg?alt=media&token=6a325844-65b1-4f4f-a92b-d042e1380ca3") {
+            console.log(image);
+          } else if (typeof image === "string") {
+            this.photoURL[index] = image;
+            console.log("string found");
+          } else {
+            this.photoURL[index] = await uploadImage(image);
+            console.log("upload Image");
+          }
+        }
+      } catch (error) {
+        this.$q.loading.hide();
+        this.$q.notify({
+          color: "warning",
+          position: "top",
+          message: error.message,
+          icon: "report_problem",
+        });
+      }
       console.log("OK CAN! :", this.photoURL);
 
-       let splitoptions = this.haircuttype.split(" ");
-       console.log("adding", splitoptions[0]);
-       console.log(this.facetype);
-       console.log(photoUrl)
+      let splitoptions = this.haircuttype.split(" ");
+      console.log("adding", splitoptions[0]);
+      console.log(this.facetype);
+      console.log(this.photoURL);
       this.$firestore
         .collection("portfolio")
         .add({
-          photos : photoUrl,
+          photos: this.photoURL,
           // facetype : this.obj.name,
           haircuttype: splitoptions[0],
-          barberid : this.barberid,
+          barberid: this.barberid,
           price: this.price,
           // tag: this.tag
         })
         .then((docRef) => {
           console.log("Document written with ID: ", docRef.id);
-           console.log("Go to portfolio page");
-           this.$router.push({
-                  name: "portfoliobarber",
-             });
+          console.log("Go to portfolio page");
+          this.$router.push({
+            name: "portfoliobarber",
+          });
         })
         .catch((error) => {
           console.error("Error adding document: ", error);

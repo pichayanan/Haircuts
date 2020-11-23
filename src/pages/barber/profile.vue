@@ -39,7 +39,7 @@
       </q-item-section>
     </div>
 
-    <div class="justify-center q-gutter-md form text-black" style="max-width: 300px">
+    <div class="row justify-center q-gutter-md form" style="max-width: 100%">
       <q-input  v-model="firstname" label="Firstname *"></q-input>
       <q-input  v-model="lastname" label="Lastname *"></q-input>
       <q-input  :readonly="readonly" :disable="disable" v-model="telno" label="Mobile"></q-input>
@@ -214,7 +214,7 @@ export default {
 }
 .form {
   padding-top: 20px;
-  margin-left: 5%;
+  /* margin-left: 5%; */
   color: black;
 }
 .savebutton {
