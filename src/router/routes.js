@@ -72,7 +72,6 @@ const routes = [
       },
     ]
   },
-
   {
     path: "/barber",
     component: () => import("layouts/Barber.vue"),
@@ -97,6 +96,12 @@ const routes = [
         meta: { authRequired: true }
       },
       {
+        path: "waiting",
+        name: "waitingbarber",
+        component: () => import("pages/barber/waiting.vue"),
+        meta: { authRequired: true }
+      },
+      {
         path: "main",
         name: "mainbarber",
         component: () => import("pages/barber/main.vue"),
@@ -112,7 +117,19 @@ const routes = [
         path: "portfolio",
         name: "portfoliobarber",
         component: () => import("pages/barber/portfolio.vue"),
-        meta: { authRequired: true }
+        meta: { authRequired: true },
+      },
+      {
+        path: "addportfolio",
+        name: "addportfoliobarber",
+        component: () => import("pages/barber/addportfolio.vue"),
+        meta: { authRequired: true },
+      },
+      {
+        path: "upcoming",
+        name: "upcoming",
+        component: () => import("pages/barber/upcoming.vue"),
+        meta: { authRequired: true },
       }
     ]
   },
@@ -132,7 +149,20 @@ const routes = [
         name: "mainadmin",
         component: () => import("pages/admin/main.vue")
         // meta: { authRequired: false },
-      }
+      },
+      {
+        path: "editbarber",
+        name: "editbarber",
+        component: () => import("pages/admin/editbarber.vue"),
+        // meta: { authRequired: false },
+      },
+      {
+        path: "editcustomer",
+        name: "editcustomer",
+        component: () => import("pages/admin/editcustomer.vue"),
+        // meta: { authRequired: false },
+      }       
+     
     ]
   },
 

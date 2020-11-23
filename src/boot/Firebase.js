@@ -3,6 +3,7 @@ import "firebase/firestore";
 import "firebase/storage";
 import "firebase/messaging";
 import firebaseConfig from "../../Firebase.conf";
+import "firebase/messaging";
 
 export default ({ Vue }) => {
   Firebase.initializeApp(firebaseConfig);

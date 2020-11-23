@@ -1,28 +1,45 @@
 <template>
   <q-page class="bg-grey-2">
 
-     <q-toolbar class="bg-grey-7 text-white">
+     <!-- <q-toolbar class="bg-grey-7 text-white">
       <q-btn flat round dense icon="keyboard_backspace" @click="back">
-        <!-- <q-badge floating color="red">2</q-badge> -->
       </q-btn>
       <q-toolbar-title style="">
         PROFILE
       </q-toolbar-title>
 
-    </q-toolbar>
+    </q-toolbar> -->
 
 
 
     <div class="row justify-center headbox">
       <q-item-section avatar class>
-        <q-avatar class="profilepic row text-center">
+        <!-- <q-avatar class="profilepic row text-center">
           <img :src="profilepic" />
-        </q-avatar>
-        <u class="row changeprofile" caption>Change Picture</u>
+        </q-avatar> -->
+        <q-avatar class="profilepic">
+        <image-file-picker
+          class="profilepic"
+          :src="profilepic"
+          @imageSelected="imageSelected"
+        />
+        <q-icon
+          class="absolute all-pointer-events"
+          size="32px"
+          name="camera_alt"
+          color="red"
+          style="bottom: 6px; right: 9px"
+        >
+          <q-tooltip>
+            Change Picture
+          </q-tooltip>
+        </q-icon>
+      </q-avatar>
+        <!-- <u class="row changeprofile" caption>Change Picture</u> -->
       </q-item-section>
     </div>
 
-    <div class="justify-center q-gutter-md form text-black" style="max-width: 300px">
+    <div class="row justify-center q-gutter-md form" style="max-width: 100%">
       <q-input  v-model="firstname" label="Firstname *"></q-input>
       <q-input  v-model="lastname" label="Lastname *"></q-input>
       <q-input  :readonly="readonly" :disable="disable" v-model="telno" label="Mobile"></q-input>
@@ -47,11 +64,21 @@
     <div class="row justify-center logout">
       <q-btn color="red" text-color="white" class @click="logoutbutton" label="LOGOUT" />
     </div>
+    <BarberNavbar/>
   </q-page>
 </template>
 
 <script>
+import BarberNavbar from "components/BarberNavbar.vue";
+import { uploadBarberProfile } from "../../API/api";
+import firebaseUploader from "components/FirebaseUploader.vue";
+import ImageFilePicker from "components/ImageFilePicker.vue";
 export default {
+  components: {
+    firebaseUploader,
+    ImageFilePicker,
+    BarberNavbar,
+  },
   data() {
     return {
       profilepic:"",
@@ -92,9 +119,14 @@ export default {
         });
      
     },
-    editprofile() {
+    async editprofile() {
       console.log("updateData");
       console.log(this.firstname);
+
+      const image = this.profilepic;
+      this.profilepic = await uploadBarberProfile(image);
+      console.log("OK CAN! :", this.profilepic);
+
       this.$firestore
         .collection("barber")
         .doc(this.id)
@@ -147,6 +179,9 @@ export default {
            
           });
     },
+    imageSelected(base64){
+      this.profilepic = base64;
+    }
 
     
   },
@@ -179,7 +214,7 @@ export default {
 }
 .form {
   padding-top: 20px;
-  margin-left: 5%;
+  /* margin-left: 5%; */
   color: black;
 }
 .savebutton {

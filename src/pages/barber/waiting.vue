@@ -1,9 +1,10 @@
 <template>
-  <q-page class="bg-dark row">
-    <q-img class="fixed-center row" :src="logo" :ratio="1" />
+  <q-page class="bg-dark row justify-center ">
+    <q-img class=" row logo" :src="logo" :ratio="1" />
     <!-- Hello logo -->
-    <div class="tag row">
-      <h class="text">Start working with us</h>
+    <div class="tag row justify-center">
+      <h class="text">Please Wait</h>
+       <h class="text">For Our Approval </h>
     </div>
   </q-page>
 </template>
@@ -19,7 +20,7 @@ export default {
       console.log("logo");
       this.$firestore
         .collection("logo")
-        .where("name", "==", "logo")
+        .where("name", "==", "logo-white")
         .get()
         .then(querySnapshot => {
           querySnapshot.forEach(doc => {
@@ -36,25 +37,23 @@ export default {
 };
 </script>
 <style>
-.login {
-  position: absolute;
-  bottom: 30%;
-  left: 40%;
-  width: 100px;
+.logo {
+  height: 200px;
+  width: 200px;
+  margin-top: 100px;
 }
 .absolute-bottom {
   width: 200px;
 }
 .text {
   color: white;
-  font-size: 100%;
+  font-size: 150%;
   /* text-align: center; */
   
 }
 .tag{
   position: absolute;
   bottom: 20%;
-  left: 30%;
   width: 200px;
 }
 </style>

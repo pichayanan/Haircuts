@@ -62,8 +62,11 @@ export default {
           email: this.email,
           location: this.location,
           profilepic: this.profilepic,
-          registed: true,
+          registed: false,
           barberid: "",
+          dayoff: [],
+          operationtime: [false,false,false,false,false,false,false,false,false,false,false,false,false],
+          // approve: false,
         })
         .then((docRef) => {
           console.log("Document written with ID: ", docRef.id);
@@ -94,7 +97,7 @@ export default {
         .then((querySnapshot) => {
           querySnapshot.forEach((doc) => {
             console.log(doc.id, " => ", doc.data());
-              let registdata = {
+            let registdata = {
             firstname: doc.data().firstname,
             lastname: doc.data().lastname,
             telno: doc.data(),
@@ -104,7 +107,10 @@ export default {
             if (doc.data().registed == true) {
               this.$router.push({
                 name: "mainbarber",
-                // params: { telno: this.phoneNumber}
+              });
+            }else if(doc.data().registed == false){
+              this.$router.push({
+                name: "waitingbarber",
               });
             }
           });
