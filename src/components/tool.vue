@@ -38,7 +38,7 @@ export default {
     },
     notification() {
        this.$router.push({
-        name: "upcoming"
+        name: "upcomingc"
       });
     },
     

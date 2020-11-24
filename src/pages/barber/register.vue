@@ -77,6 +77,7 @@ export default {
             profilepic: this.profilepic,
           }
           this.$store.commit("REGISTER", registdata )
+          this.check();
           this.$router.push({
             name: "mainbarber",
             params: {

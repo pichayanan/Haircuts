@@ -65,8 +65,8 @@ const routes = [
         meta: { authRequired: true },
 
       },{
-        path: "upcoming",
-        name: "upcoming",
+        path: "upcomingc",
+        name: "upcomingc",
         component: () => import("pages/customer/upcoming.vue"),
         meta: { authRequired: true },
       },
