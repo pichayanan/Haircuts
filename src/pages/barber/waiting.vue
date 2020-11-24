@@ -79,10 +79,6 @@ export default {
           console.log("Error");
         });
 
-      this.$router.push({
-            name: "loginbarber",
-           
-          });
     }
   },
   mounted() {
