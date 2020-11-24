@@ -327,7 +327,7 @@ export default {
   size: 150%;
 }
 
-@media screen and (max-width: 1024px) {
+@media screen and (min-width: 1024px) {
   .search {
   padding: 5%;
 }

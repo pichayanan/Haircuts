@@ -4,7 +4,7 @@
       <div>Upcoming Event</div>
     </q-toolbar>
       <q-card
-      class="bg-white  q-mx-md  barbercard col-5"
+      class="bg-white  q-mx-md  barbercard col-5 q-ma-md"
       v-for="(data, index) in BarberFname"
       :key="index"
     >
@@ -30,6 +30,7 @@
         
       </div>
     </q-card>
+    
   <tool/>
   </q-page>
 </template>
