@@ -56,11 +56,26 @@ export default {
           //   this.approve == "Waiting";
           //   console.log("Status : ", this.approve);
           // }
+          console.log("Insert : ", this.id);
+          this.insertid(this.id);
           
         });
       
       
      
+    },
+    insertid(id) {
+      console.log("INSERT BARBER ID : " + id + " TO FIREBASE");
+      this.$firestore
+        .collection("barber")
+        .doc(this.id)
+        .update({
+          barberid: this.id,
+        })
+        .then((docRef) => {})
+        .catch((error) => {
+          console.error("Error adding document: ", error);
+        });
     },
     signout(){
       this.$firebase
@@ -79,10 +94,6 @@ export default {
           console.log("Error");
         });
 
-      this.$router.push({
-            name: "loginbarber",
-           
-          });
     }
   },
   mounted() {
