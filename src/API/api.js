@@ -43,12 +43,10 @@ export async function uploadBarberProfile(file) {
 }
 
 export async function uploadImage(file) {
-  console.log("====>>> ",file);
   const storageRef = firebase.storage().ref();
   const imageRef = storageRef.child(`media/images/${Date.now()}.jpg`);
   await imageRef.put(file, { contentType: file.type });
   let downloadURL = await imageRef.getDownloadURL();
   const imageURL = downloadURL;
-  console.log("imageURL: ", imageURL);
   return imageURL;
 }
