@@ -79,7 +79,7 @@ export default {
           this.$store.commit("REGISTER", registdata )
           this.check();
           this.$router.push({
-            name: "mainbarber",
+            name: "waitingbarber",
             params: {
               pic: profilepic,
             },
