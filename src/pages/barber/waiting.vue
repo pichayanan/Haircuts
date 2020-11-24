@@ -3,8 +3,9 @@
     <q-img class=" row logo" :src="logo" :ratio="1" />
     <!-- Hello logo -->
     <div class="tag row justify-center">
-      <h class="text">Please Wait</h>
-       <h class="text">For Our Approval </h>
+       <h class="text full-width">Please Wait For Our Approval</h>
+       <h7 class="text full-width">Status : {{registed}}</h7> 
+       <q-btn rounded class="full-width" color="white text-black" @click="signout" label="LOGIN AGAIN" />
     </div>
   </q-page>
 </template>
@@ -12,7 +13,10 @@
 export default {
   data() {
     return {
-      logo: ""
+      logo: "",
+      id: "",
+      registed: "",
+      approve: ""
     };
   },
   methods: {
@@ -29,10 +33,61 @@ export default {
             this.logo = doc.data().logo;
           });
         });
+    },
+    getdata() {
+      console.log(this.$firebase.auth().currentUser.phoneNumber);
+      this.$firestore
+        .collection("barber")
+        .where("telno", "==", this.$firebase.auth().currentUser.phoneNumber)
+        .get()
+        .then(querySnapshot => {
+          querySnapshot.forEach(doc => {
+
+            this.registed = doc.data().registed;
+            console.log("Registed : ", this.registed);       
+            this.id = doc.id;
+
+          });
+          // if(this.registed == "true"){
+          //   this.approve = "approve";
+          //   console.log("Status : ", this.approve);
+
+          // }else if(this.registed == "false"){
+          //   this.approve == "Waiting";
+          //   console.log("Status : ", this.approve);
+          // }
+          
+        });
+      
+      
+     
+    },
+    signout(){
+      this.$firebase
+        .auth()
+        .signOut()
+        .then(function () {
+          // Sign-out successful.
+          console.log("Sign-out successful");
+          this.$router.push({
+            name: "loginbarber",
+           
+          });
+        })
+        .catch(function (error) {
+          // An error happened.
+          console.log("Error");
+        });
+
+      this.$router.push({
+            name: "loginbarber",
+           
+          });
     }
   },
   mounted() {
     this.getlogo();
+    this.getdata();
   }
 };
 </script>
@@ -47,13 +102,14 @@ export default {
 }
 .text {
   color: white;
-  font-size: 150%;
+  font-size: 100%;
+  margin-bottom: 10%;
   /* text-align: center; */
   
 }
 .tag{
   position: absolute;
-  bottom: 20%;
+  bottom: 30%;
   width: 200px;
 }
 </style>

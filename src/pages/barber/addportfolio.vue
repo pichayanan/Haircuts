@@ -90,7 +90,6 @@ import BarberNavbar from "components/BarberNavbar.vue";
 import { uploadImage } from "../../API/api";
 import firebaseUploader from "components/FirebaseUploader";
 import ImageFilePicker from "components/ImageFilePicker2.vue";
-// import noimage from "../../assets/noimage.jpg";
 
 export default {
   components: {
