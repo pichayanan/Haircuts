@@ -13,17 +13,16 @@
 
 <script>
 export default {
-  props: ["src"],
-  // props: {
-  //   src: {
-  //     type: String,
-  //     required: true,
-  //   },
-  //   index: {
-  //     type: Number,
-  //     required: true,
-  //   },
-  // },
+  props: {
+    src: {
+      type: String,
+      required: true,
+    },
+    index: {
+      type: Number,
+      required: true,
+    },
+  },
   data() {
     return {
       files: null,
@@ -36,14 +35,13 @@ export default {
       this.$refs.fileInput.pickFiles();
     },
     imageSelected(file) {
-      // this.$emit("imageSelected", file);
       this.$emit("imageSelected", file, this.index);
 
       this.fileReader.readAsDataURL(file);
       this.fileReader.onload = (e) => {
         const base64 = e.target.result;
         this.preview = base64;
-        this.$emit("base64ImageSelected", base64);
+        this.$emit("base64ImageSelected", base64, this.index);
       };
     },
   },

@@ -7,9 +7,29 @@
     </q-toolbar>
 
     <div class="justify-center row q-pt-md q-gutter-md">
-      <div class="col-5 col-md" v-for="(photo, count) in photoURL" :key="count">
-        <image-file-picker :src="photo" @imageSelected="imageSelected(count)" />
+      <div class="col-5 col-md">
+        <image-file-picker
+          :src="photoURL[0]"
+          :index="0"
+          @imageSelected="imageSelected"
+        />
       </div>
+      <div class="col-5 col-md" v-for="n in 4" :key="`xs-${n}`">
+        <div class="my-content">
+          <image-file-picker
+            :src="photoURL[n]"
+            :index="n"
+            @imageSelected="imageSelected"
+          />
+        </div>
+      </div>
+      <!-- <div class="col-5 col-md" v-for="(photo, count) in photoURL" :key="count">
+        {{ photo }}
+        <image-file-picker
+          :src="photo"
+          @imageSelected="imageSelected(photo)"
+        />
+      </div> -->
     </div>
 
     <div class="justify-start q-px-md text-h6 spacing">Face Type</div>
@@ -69,7 +89,7 @@
 import BarberNavbar from "components/BarberNavbar.vue";
 import { uploadImage } from "../../API/api";
 import firebaseUploader from "components/FirebaseUploader";
-import ImageFilePicker from "components/ImageFilePicker.vue";
+import ImageFilePicker from "components/ImageFilePicker2.vue";
 // import noimage from "../../assets/noimage.jpg";
 
 export default {
@@ -82,10 +102,12 @@ export default {
     return {
       geturl: [],
       text: ["Front", "RIGHT", "BACK", "LEFT"],
-      photoURL: ["https://firebasestorage.googleapis.com/v0/b/haircuts-10a55.appspot.com/o/noimage.jpg?alt=media&token=6a325844-65b1-4f4f-a92b-d042e1380ca3", 
-                 "https://firebasestorage.googleapis.com/v0/b/haircuts-10a55.appspot.com/o/noimage.jpg?alt=media&token=6a325844-65b1-4f4f-a92b-d042e1380ca3", 
-                 "https://firebasestorage.googleapis.com/v0/b/haircuts-10a55.appspot.com/o/noimage.jpg?alt=media&token=6a325844-65b1-4f4f-a92b-d042e1380ca3", 
-                 "https://firebasestorage.googleapis.com/v0/b/haircuts-10a55.appspot.com/o/noimage.jpg?alt=media&token=6a325844-65b1-4f4f-a92b-d042e1380ca3"],
+      photoURL: [
+        "https://firebasestorage.googleapis.com/v0/b/haircuts-10a55.appspot.com/o/noimage.jpg?alt=media&token=6a325844-65b1-4f4f-a92b-d042e1380ca3",
+        "https://firebasestorage.googleapis.com/v0/b/haircuts-10a55.appspot.com/o/noimage.jpg?alt=media&token=6a325844-65b1-4f4f-a92b-d042e1380ca3",
+        "https://firebasestorage.googleapis.com/v0/b/haircuts-10a55.appspot.com/o/noimage.jpg?alt=media&token=6a325844-65b1-4f4f-a92b-d042e1380ca3",
+        "https://firebasestorage.googleapis.com/v0/b/haircuts-10a55.appspot.com/o/noimage.jpg?alt=media&token=6a325844-65b1-4f4f-a92b-d042e1380ca3",
+      ],
       obj: [
         {
           pic:
@@ -170,14 +192,18 @@ export default {
         // upload product photo to firebase storage
         for (let index = 0; index < this.photoURL.length; index++) {
           const image = this.photoURL[index];
-          if (image === "https://firebasestorage.googleapis.com/v0/b/haircuts-10a55.appspot.com/o/noimage.jpg?alt=media&token=6a325844-65b1-4f4f-a92b-d042e1380ca3") {
-            console.log(image);
+          if (
+            image ===
+            "https://firebasestorage.googleapis.com/v0/b/haircuts-10a55.appspot.com/o/noimage.jpg?alt=media&token=6a325844-65b1-4f4f-a92b-d042e1380ca3"
+          ) {
+            console.log("ooooooo =>> ", image);
           } else if (typeof image === "string") {
             this.photoURL[index] = image;
             console.log("string found");
           } else {
             this.photoURL[index] = await uploadImage(image);
-            console.log("upload Image");
+            console.log("upload Image index", this.photoURL[index]);
+            console.log("upload Image", this.photoURL);
           }
         }
       } catch (error) {
@@ -189,7 +215,6 @@ export default {
           icon: "report_problem",
         });
       }
-      console.log("OK CAN! :", this.photoURL);
 
       let splitoptions = this.haircuttype.split(" ");
       console.log("adding", splitoptions[0]);
@@ -215,6 +240,7 @@ export default {
         .catch((error) => {
           console.error("Error adding document: ", error);
         });
+      console.log("OK CAN! :", this.photoURL);
     },
     back() {
       console.log("back");
