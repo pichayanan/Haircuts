@@ -141,23 +141,23 @@ export default {
             this.enddate = doc.data().operationperiod[1];
           });
 
-          this.insertid(this.barberid);
+          // this.insertid(this.barberid);
         });
     },
 
-    insertid(barberid) {
-      console.log("INSERT BARBER ID : " + barberid + " TO FIREBASE");
-      this.$firestore
-        .collection("barber")
-        .doc(this.barberid)
-        .update({
-          barberid: this.barberid,
-        })
-        .then((docRef) => {})
-        .catch((error) => {
-          console.error("Error adding document: ", error);
-        });
-    },
+    // insertid(barberid) {
+    //   console.log("INSERT BARBER ID : " + barberid + " TO FIREBASE");
+    //   this.$firestore
+    //     .collection("barber")
+    //     .doc(this.barberid)
+    //     .update({
+    //       barberid: this.barberid,
+    //     })
+    //     .then((docRef) => {})
+    //     .catch((error) => {
+    //       console.error("Error adding document: ", error);
+    //     });
+    // },
     getportfolio() {},
     addportfolio() {
       console.log("Add portfolio page page");
