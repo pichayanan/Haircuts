@@ -40,7 +40,7 @@
           :style="`background-image: url(${data.pic});`"
         ></q-img>
         <div class="check">
-          <q-radio dense v-model="data.name" :val="data.check"></q-radio>
+          <q-checkbox v-model="facetype" :val="data.name"></q-checkbox>
         </div>
       </div>
     </div>
@@ -147,7 +147,7 @@ export default {
       ],
       price: "",
       // tag: "",
-      facetype: "",
+      facetype: [],
       haircuttype: "",
       hairoptions: [
         "001 BUZZ CUT",
@@ -223,7 +223,7 @@ export default {
         .collection("portfolio")
         .add({
           photos: this.photoURL,
-          // facetype : this.obj.name,
+          facetype : this.facetype,
           haircuttype: splitoptions[0],
           barberid: this.barberid,
           price: this.price,

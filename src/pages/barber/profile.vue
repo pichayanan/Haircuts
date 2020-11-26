@@ -140,10 +140,10 @@ export default {
         })
         .then((docRef) => {
           // console.log("Document written with ID: ", docRef.id);
-          // this.$router.push({
-          //   name: "profilebarber",
+          this.$router.push({
+            name: "mainbarber",
            
-          // });
+          });
         })
         .catch((error) => {
           console.error("Error adding document: ", error);

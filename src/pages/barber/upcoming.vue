@@ -160,14 +160,16 @@ export default {
     },
     confirmcancel(){
       console.log("You want to cancel ",this.selectedreservation)
-      //  this.$firestore.collection("reservation")
-      //   .doc(this.selectedreservation)
-      //   .delete()
-      //   .then(function() {
-      //       console.log("Document successfully deleted!");
-      //     }).catch(function(error) {
-      //       console.error("Error removing document: ", error);
-      //     });
+       this.$firestore.collection("reservation")
+        .doc(this.selectedreservation)
+        .delete()
+        .then(function() {
+            console.log("Document successfully deleted!");
+          }).catch(function(error) {
+            console.error("Error removing document: ", error);
+          });
+
+          
         
     }
   },
