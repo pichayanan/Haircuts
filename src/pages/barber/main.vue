@@ -12,8 +12,8 @@
           {{ firstname }} {{ lastname }} 
         </div><br>
         <div class="row text-caption text-weight-thin">
-          <q-icon name="location_on" />
-          {{ location }}
+          <q-icon name="location_on" />{{ location }}
+          
         </div>
       </div>
     </q-card>
