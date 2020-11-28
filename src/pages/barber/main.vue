@@ -8,12 +8,12 @@
       </div>
 
       <div class="col-6 q-mt-md q-mr-md q-ml-md">
-        <div class="row text-weight-bold username" style="font-size: 1.5rem">
+        <div class="row text-weight-bold username" style="font-size: 1rem">
           {{ firstname }} {{ lastname }} 
         </div><br>
         <div class="row text-caption text-weight-thin">
-          <q-icon name="location_on" />
-          {{ location }}
+          <q-icon name="location_on" />{{ location }}
+          
         </div>
       </div>
     </q-card>
@@ -60,7 +60,6 @@
 <script>
 import moment from "moment";
 import BarberNavbar from "components/BarberNavbar.vue";
-
 export default {
   components: {
     BarberNavbar,
@@ -91,7 +90,6 @@ export default {
       PM9: false,
       operationperiod: [],
       operationtime: [],
-
     };
   },
   computed: {},
@@ -140,11 +138,9 @@ export default {
             this.startdate = doc.data().operationperiod[0];
             this.enddate = doc.data().operationperiod[1];
           });
-
           // this.insertid(this.barberid);
         });
     },
-
     // insertid(barberid) {
     //   console.log("INSERT BARBER ID : " + barberid + " TO FIREBASE");
     //   this.$firestore
@@ -185,7 +181,6 @@ export default {
         this.PM9
       );
       console.log("Operation period:", this.startdate, "until", this.enddate);
-
       this.operationtime = [];
       this.operationtime.push(
         this.AM9,
@@ -220,8 +215,6 @@ export default {
       
       console.log("Split start date", splitstartdate2);
       console.log("Split end date", splitenddate2);
-
-
       let x = 0;
       for (let i = splitstartdate2[2]; i< splitenddate2[2]; i++){
         x++
@@ -237,12 +230,9 @@ export default {
            Date: now,
            Time: this.operationtime,
          })
-
       }
-
     },
   },
-
   mounted() {
     this.getdata();
     this.getportfolio();

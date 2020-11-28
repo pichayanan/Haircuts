@@ -106,7 +106,17 @@ export default {
         telno: this.barbertelno,
         location: this.location,
         registed: this.registed,
-      });
+        })
+        .then((docRef) => {
+          console.log("Data save");
+          this.$router.push({
+            name: "mainadmin",
+           
+          });
+        })
+        .catch((error) => {
+          console.error("Error adding document: ", error);
+        });
         console.log("Data save");
     }
   },

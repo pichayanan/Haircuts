@@ -11,30 +11,28 @@
                 <img :src="customerprofilepic" />
               </q-avatar>
               <div class="description row justify-center">
-                  <!-- <u class="row justify-center" caption>Customer</u> -->
-                  <br><h6>{{customeremail}}</h6>
+                <!-- <u class="row justify-center" caption>Customer</u> -->
+                <br />
+                <h6>{{ customeremail }}</h6>
               </div>
-              
             </q-item-section>
           </div>
         </div>
         <div class="col-8">
-            <div class="row justify-center q-gutter-xl form" style="full-width">
-            <q-input  v-model="customername" label="Name *"></q-input>
-            <q-input  v-model="customerbirthday" label="Birthday *"></q-input>
+          <div class="row justify-center q-gutter-xl form" style="full-width">
+            <q-input v-model="customername" label="Name *"></q-input>
+            <q-input v-model="customerbirthday" label="Birthday *"></q-input>
             <!-- <q-input  v-model="customeremail" label="Email"></q-input> -->
-            <q-input  v-model="customergender" disable label="Gender"></q-input>
-            </div>
-            
-
+            <q-input v-model="customergender" disable label="Gender"></q-input>
+          </div>
         </div>
       </div>
     </q-card>
     <div class="row justify-center q-mt-md q-gutter-md">
-            <q-btn color="red" label="Back" @click="cancel" />
-            <q-btn color="primary" label="Save" @click="editcustomer" />
+      <q-btn color="red" label="Back" @click="cancel" />
+      <q-btn color="primary" label="Save" @click="editcustomer" />
     </div>
-    </q-page>
+  </q-page>
 </template>
 
 <script>
@@ -46,13 +44,12 @@ export default {
   },
   data() {
     return {
-      
-     customername:"",
-     customerbirthday:"",
-     customerprofilepic:"",
-     customergender:"",
-     customeremail:"",
-     customerid:"",
+      customername: "",
+      customerbirthday: "",
+      customerprofilepic: "",
+      customergender: "",
+      customeremail: "",
+      customerid: "",
     };
   },
   methods: {
@@ -92,16 +89,25 @@ export default {
         name: "mainadmin",
       });
     },
-    editcustomer(){
-        this.$firestore.collection("customer")
+    editcustomer() {
+      this.$firestore
+        .collection("customer")
         .doc(this.customerid)
         .update({
-        CName: this.customername,
-        CBirthday: this.customerbirthday,
-
-      });
-        console.log("Data save");
-    }
+          CName: this.customername,
+          CBirthday: this.customerbirthday,
+        })
+        .then((docRef) => {
+          console.log("Data save");
+          this.$router.push({
+            name: "mainadmin",
+          });
+        })
+        .catch((error) => {
+          console.error("Error adding document: ", error);
+        });
+      console.log("Data save");
+    },
   },
   mounted() {
     this.getlogo();
@@ -117,13 +123,12 @@ export default {
   width: 200px;
   height: 200px;
 }
-.description{
-    margin-left: 110px;
-    margin-bottom: 50px;
+.description {
+  margin-left: 110px;
+  margin-bottom: 50px;
 }
-.form{
-    margin-top: 150px;
-    margin-bottom: 30px;
+.form {
+  margin-top: 150px;
+  margin-bottom: 30px;
 }
-
 </style>

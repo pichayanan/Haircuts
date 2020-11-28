@@ -9,20 +9,20 @@
               :key="index"
             >
               <div class="row justify-center">
-                <div class="col-7 q-pa-md row justify-center">
+                <div class="col-6 q-pa-md row justify-center">
                   <q-img class="imgsize" :src="data" />
                 </div>
 
-                <div class="col-5 q-pt-lg">
+                <div class="col-6 q-pt-lg">
                   <div>
                     <h class="text-weight-bold">Haircut type :</h>&nbsp;&nbsp;{{ haircuttype[index] }}
                   </div>
                   <div>
                     <h class="text-weight-bold">Price :</h>&nbsp;&nbsp;{{price[index]}}
                   </div>
-                  <div>
-                    <h class="text-weight-bold">Face type :</h>&nbsp;&nbsp;
-                    <h class="text-body2" v-for="(list, count) in facetype[index]" :key="count">{{list}}&nbsp;</h>
+                  <div class="list">
+                    <h class="text-weight-bold ">Face type :</h>&nbsp;&nbsp;
+                    <div class="text-body2" v-for="(list, count) in facetype[index]" :key="count">{{list}}&nbsp;</div>
                   </div> 
                 </div>
               </div>
@@ -103,8 +103,12 @@ export default {
 
 <style>
 .imgsize{
-  width: 110px;
-  height: 110px;
+  width: 150px;
+  height: 150px;
+  margin-top: 10%;
+}
+.list{
+  margin-bottom: 10%;
 }
 
 </style>

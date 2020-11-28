@@ -32,7 +32,7 @@
       <div class="row justify-center">
         <h>BARBER INFO</h>
       </div>
-      <div class="row q-py-sm btext ">
+      <div class="q-py-sm btext ">
         <div class="row">
           <h
             >Barber name :&nbsp;

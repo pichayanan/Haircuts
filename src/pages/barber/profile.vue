@@ -35,7 +35,7 @@
           </q-tooltip>
         </q-icon>
       </q-avatar>
-        <!-- <u class="row changeprofile" caption>Change Picture</u> -->
+        <u class="row changeprofile" caption>Change Picture</u>
       </q-item-section>
     </div>
 
@@ -140,10 +140,10 @@ export default {
         })
         .then((docRef) => {
           // console.log("Document written with ID: ", docRef.id);
-          // this.$router.push({
-          //   name: "profilebarber",
+          this.$router.push({
+            name: "mainbarber",
            
-          // });
+          });
         })
         .catch((error) => {
           console.error("Error adding document: ", error);

@@ -81,7 +81,7 @@
                   <div>
                     <q-btn
                       rounded
-                      class="approvebtn"
+                      class="deletebtn"
                       color="red"
                       label="Delete"
                       @click="deletebarberbtn(index)"
@@ -161,7 +161,7 @@
                   <div>
                     <q-btn
                       rounded
-                      class="approvebtn"
+                      class="deletebtn"
                       color="red"
                       label="Delete"
                       @click="deletecustomerbtn(index)"
@@ -359,6 +359,11 @@ export default {
 .approvebtn {
   margin-top: 10%;
   width: 40%;
+}
+.deletebtn {
+  width: 40%;
+  margin-top: 5%;
+  margin-bottom: 10%;
 }
 .logout {
   color: white;

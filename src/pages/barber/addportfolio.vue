@@ -40,7 +40,7 @@
           :style="`background-image: url(${data.pic});`"
         ></q-img>
         <div class="check">
-          <q-radio dense v-model="data.name" :val="data.check"></q-radio>
+          <q-checkbox v-model="facetype" :val="data.name"></q-checkbox>
         </div>
       </div>
     </div>
@@ -90,7 +90,6 @@ import BarberNavbar from "components/BarberNavbar.vue";
 import { uploadImage } from "../../API/api";
 import firebaseUploader from "components/FirebaseUploader";
 import ImageFilePicker from "components/ImageFilePicker2.vue";
-
 export default {
   components: {
     BarberNavbar,
@@ -147,7 +146,7 @@ export default {
       ],
       price: "",
       // tag: "",
-      facetype: "",
+      facetype: [],
       haircuttype: "",
       hairoptions: [
         "001 BUZZ CUT",
@@ -214,7 +213,6 @@ export default {
           icon: "report_problem",
         });
       }
-
       let splitoptions = this.haircuttype.split(" ");
       console.log("adding", splitoptions[0]);
       console.log(this.facetype);
@@ -223,7 +221,7 @@ export default {
         .collection("portfolio")
         .add({
           photos: this.photoURL,
-          // facetype : this.obj.name,
+          facetype : this.facetype,
           haircuttype: splitoptions[0],
           barberid: this.barberid,
           price: this.price,
@@ -256,8 +254,8 @@ export default {
 
 <style>
 .facetyperow {
-  height: 100px;
-  width: 100px;
+  height: 80px;
+  width: 60px;
   background-size: contain;
   background-repeat: no-repeat;
 }

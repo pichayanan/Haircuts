@@ -87,7 +87,6 @@ export default {
       reservationid: [],
       selectedreservation: "",
       cancelcustomer: false,
-
     };
   },
   methods: {
@@ -106,13 +105,9 @@ export default {
             this.price.push(doc.data().price);
             this.date.push(doc.data().date);
             this.time.push(doc.data().time);
-
           console.log(doc.data().customerName);
-
-
           });
           console.log(this.reservationid);
-
           
         })
     },
@@ -144,30 +139,26 @@ export default {
         .doc(this.reservationid[index])
         .update({
         complete: true,
-
       });
         console.log("Update completed");
-
     },
      cancelcustomerbtn(index){
       console.log(index);
       this.cancelcustomer = true;
       this.selectedreservation = this.reservationid[index]
       // console.log(this.selectedcustomer, "HAHAHA");
-
-
-
     },
     confirmcancel(){
       console.log("You want to cancel ",this.selectedreservation)
-      //  this.$firestore.collection("reservation")
-      //   .doc(this.selectedreservation)
-      //   .delete()
-      //   .then(function() {
-      //       console.log("Document successfully deleted!");
-      //     }).catch(function(error) {
-      //       console.error("Error removing document: ", error);
-      //     });
+       this.$firestore.collection("reservation")
+        .doc(this.selectedreservation)
+        .delete()
+        .then(function() {
+            console.log("Document successfully deleted!");
+          }).catch(function(error) {
+            console.error("Error removing document: ", error);
+          });
+          
         
     }
   },
@@ -175,7 +166,6 @@ export default {
     this.getbarber();
     this.getdata();
      }
-
 }
   
 </script>
