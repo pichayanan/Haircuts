@@ -8,7 +8,7 @@
       </div>
 
       <div class="col-6 q-mt-md q-mr-md q-ml-md">
-        <div class="row text-weight-bold username" style="font-size: 1.5rem">
+        <div class="row text-weight-bold username" style="font-size: 1rem">
           {{ firstname }} {{ lastname }} 
         </div><br>
         <div class="row text-caption text-weight-thin">

@@ -256,8 +256,8 @@ export default {
 
 <style>
 .facetyperow {
-  height: 100px;
-  width: 100px;
+  height: 80px;
+  width: 60px;
   background-size: contain;
   background-repeat: no-repeat;
 }

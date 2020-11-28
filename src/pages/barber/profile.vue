@@ -35,7 +35,7 @@
           </q-tooltip>
         </q-icon>
       </q-avatar>
-        <!-- <u class="row changeprofile" caption>Change Picture</u> -->
+        <u class="row changeprofile" caption>Change Picture</u>
       </q-item-section>
     </div>
 
