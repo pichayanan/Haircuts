@@ -1,6 +1,6 @@
 <template>
-  <q-page class="bg-grey-2">
-    <q-toolbar class="bg-grey-2 text-dark">
+  <q-page class="bg-grey-3">
+    <q-toolbar class="bg-grey-3 text-dark">
       <q-btn flat round dense icon="keyboard_backspace" @click="back" />
     </q-toolbar>
 

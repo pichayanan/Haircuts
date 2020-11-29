@@ -207,6 +207,7 @@ tool
       this.$firestore
         .collection("Timetable")
         .where("Date", "==", this.$store.state.customertest.cselect)
+        .where("barberF","==",this.$store.state.customertest.bname)
         .get()
         .then(querySnapshot => {
           querySnapshot.forEach(async doc => {

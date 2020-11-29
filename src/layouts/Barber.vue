@@ -27,37 +27,37 @@ export default {
 
   // },
   mounted() {
-    this.$messaging
-      .requestPermission()
-      .then(() => {
-        console.log("Permission granted");
-      })
-      .catch(() => {
-        console.log("Error permission");
-      });
+  //   this.$messaging
+  //     .requestPermission()
+  //     .then(() => {
+  //       console.log("Permission granted");
+  //     })
+  //     .catch(() => {
+  //       console.log("Error permission");
+  //     });
 
-    this.$messaging
-      .getToken({ vapidKey: "BGUFPPM728Nxe5fBA5wlQbofDNrjRqCjc6FXaqsEHRNkumskO6FoBcsc1Qwnb7m28MU-1aSHo_IQQleiFqDCooQ" })
-      .then((currentToken) => {
-        if (currentToken) {
-           console.log(currentToken);
-        } else {
-          // Show permission request.
-          console.log(
-            "No registration token available. Request permission to generate one."
-          );
+  //   this.$messaging
+  //     .getToken({ vapidKey: "BGUFPPM728Nxe5fBA5wlQbofDNrjRqCjc6FXaqsEHRNkumskO6FoBcsc1Qwnb7m28MU-1aSHo_IQQleiFqDCooQ" })
+  //     .then((currentToken) => {
+  //       if (currentToken) {
+  //          console.log(currentToken);
+  //       } else {
+  //         // Show permission request.
+  //         console.log(
+  //           "No registration token available. Request permission to generate one."
+  //         );
          
-        }
-      })
-      .catch((err) => {
-        console.log("An error occurred while retrieving token. ", err);
+  //       }
+  //     })
+  //     .catch((err) => {
+  //       console.log("An error occurred while retrieving token. ", err);
 
-      });
+  //     });
 
-      this.$messaging.onMessage((payload) => {
-          console.log("Message recieved", payload);
-          this.alert= true;
-      })
+  //     this.$messaging.onMessage((payload) => {
+  //         console.log("Message recieved", payload);
+  //         this.alert= true;
+  //     })
   },
-};
+}
 </script>

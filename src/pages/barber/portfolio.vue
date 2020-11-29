@@ -49,6 +49,7 @@ export default {
       facetype: [],
       price: [],
       tag: [],
+      portfolioid: "",
     };
   },
   methods: {
@@ -82,10 +83,27 @@ export default {
                 this.facetype.push(doc.data().facetype);
                 this.price.push(doc.data().price);
                 this.tag.push(doc.data().tag);
+                this.portfolioid = doc.id;
               });
+              console.log("Insert : ", this.portfolioid);
+              this.insertid(this.portfolioid);
+              
             });
           console.log("Photo url : ", this.photos);
           console.log("Haircut type : ", this.haircuttype);
+        });
+    },
+    insertid(portfolioid) {
+      console.log("INSERT PORTFOLIO ID : " + portfolioid + " TO FIREBASE");
+      this.$firestore
+        .collection("portfolio")
+        .doc(this.portfolioid)
+        .update({
+          portfolioid: this.portfolioid,
+        })
+        .then((docRef) => {})
+        .catch((error) => {
+          console.error("Error adding document: ", error);
         });
     },
     add(){

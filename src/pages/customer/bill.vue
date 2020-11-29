@@ -43,7 +43,6 @@
         <div class="row">
           <h>Location :&nbsp; {{ this.$store.state.customertest.location }} </h>
         </div>
-        <br>
         <div class="row">
           <h>Contact :&nbsp; {{ this.$store.state.customertest.telno }} </h>
         </div>

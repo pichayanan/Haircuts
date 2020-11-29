@@ -70,6 +70,12 @@ const routes = [
         component: () => import("pages/customer/upcoming.vue"),
         meta: { authRequired: true },
       },
+      {
+        path: "favorite",
+        name: "favorite",
+        component: () => import("pages/customer/favorite.vue"),
+        meta: { authRequired: true },
+      },
     ]
   },
   {
