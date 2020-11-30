@@ -17,7 +17,7 @@
         icon="notifications_active"
         @click="notification"
       ></q-tab>
-      <q-tab name="setting" icon="person_add" @click="edit"> </q-tab>
+      <q-tab name="setting" icon="person" @click="edit"> </q-tab>
     </q-tabs>
   </q-footer>
 </template>
