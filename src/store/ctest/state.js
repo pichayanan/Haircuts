@@ -15,7 +15,7 @@ export default function() {
         selectT: "",
         face: [],
         facetype: [],
-        // timeTable: ""
+        index: ""
             //
     }
 }

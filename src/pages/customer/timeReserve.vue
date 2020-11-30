@@ -162,16 +162,17 @@ tool
     test(index,lable) {
       this.selecttime = lable;
       console.log(this.selecttime);
-     this.$set(this.operationtime, index, false) 
-      console.log("**********",this.operationtime);
+      this.$store.commit("Timereserve", index )
+    //  this.$set(this.operationtime, index, false) 
+    //   console.log("**********",this.operationtime);
          
-         this.$firestore
-        .collection("Timetable")
-        .doc(this.timeTableid)
-        .update({
-          Time: this.operationtime,
+    //      this.$firestore
+    //     .collection("Timetable")
+    //     .doc(this.timeTableid)
+    //     .update({
+    //       Time: this.operationtime,
           
-        }) 
+    //     }) 
         this.confirm(lable);
     },
     confirm(time) {

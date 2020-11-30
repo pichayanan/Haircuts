@@ -44,6 +44,13 @@ export function creserve(state, reserve) {
     name: "TimereserveCustomer"
   });
 }
+export function Timereserve(state, ctime) {
+  console.log(ctime);
+  state.index = ctime;
+  // state.timeTable = time;
+  
+ 
+}
 export function cTimereserve(state, time) {
   console.log(time);
   state.selectT = time;

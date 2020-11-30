@@ -85,7 +85,7 @@ export default {
           CBirthday: this.date,
           CMail: this.$firebase.auth().currentUser.email,
           registed: true,
-          favorite: [""]
+          favorite: [""],
         })
         .then(docRef => {
           console.log("Document written with ID: ", docRef.id);

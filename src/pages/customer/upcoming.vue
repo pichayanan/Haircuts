@@ -10,7 +10,7 @@
     >
       <div class="row start justifly-center">
 
-        <div class="col-7 q-pa-md ">
+        <div class="col-8 q-pa-md ">
           <div>
             <h class="text-weight-bold">Barber :</h>&nbsp;{{data }} &nbsp;{{ BarberLname[index]}} <br />
           </div>
@@ -27,7 +27,7 @@
             <h class="text-weight-bold">time :</h>&nbsp;&nbsp;{{ time[index]}}, {{ date[index]}}<br />
           </div>
         </div>
-        <div class="col-4 q-py-md">
+        <div class="col-3 q-py-lg q-pt-lg">
               <q-btn rounded color="red" label="Cancel" class="q-mt-md cancelbtn" @click="cancelcustomerbtn(index)" />
               <q-dialog v-model="cancelcustomer" persistent>
                       <q-card>
@@ -85,6 +85,7 @@ export default {
       location: [],
       selectedreservation: "",
       cancelcustomer: false,
+      
 
     };
   },
