@@ -1,8 +1,12 @@
 <template>
   <q-page class="bg-dark">
     <div class="row justify-center">
-      <div class="headtext">Welcome to HAIRCUTS</div>
-      <div class="quote">Improve your experience on your dream job</div>
+      <div class="row headtext justify-center">Welcome to HAIRCUTS</div>
+      <!-- <div class="row quote justify-center">Improve your experience on your dream job</div> -->
+    </div>
+    <div class="row justify-center">
+      <!-- <div class="row headtext justify-center">Welcome to HAIRCUTS</div> -->
+      <div class="row quote justify-center">Improve your experience on your dream job</div>
     </div>
     <div class="row justify-center headbox">
       <q-item-section avatar>
@@ -24,9 +28,11 @@
     </div>
     <div class="textfix">Phuket, Thailand</div>
 
-    <div class="justify-center q-gutter-md form text-white row" style="max-width: 300px">
-      <q-input dark class="col-6" v-model="firstname" label="Firstname *"></q-input>
-      <q-input dark class="col-6" v-model="lastname" label="Lastname *"></q-input>
+    <div class="row justify-center q-gutter-md form text-white" style="">
+      <div>
+          <q-input dark class="col-6" v-model="firstname" label="Firstname *"></q-input>
+          <q-input dark class="col-6" v-model="lastname" label="Lastname *"></q-input>
+      </div>     
     </div>
 
     <div class="row justify-center savebutton">
@@ -77,7 +83,6 @@ export default {
             profilepic: this.profilepic,
           }
           this.$store.commit("REGISTER", registdata )
-          this.check();
           this.$router.push({
             name: "waitingbarber",
             params: {
@@ -131,12 +136,12 @@ export default {
 <style>
 .headtext {
   color: whitesmoke;
-  margin-top: 15%;
+  margin-top: 50px;
   font-size: 150%;
 }
 .quote {
   color: rgba(189, 184, 184, 0.692);
-  margin-top: 3%;
+  margin-top: 10px;
   font-size: 90%;
 }
 .profilepic {
@@ -170,7 +175,7 @@ export default {
 }
 .form {
   padding-top: 20px;
-  margin-left: 5%;
+  /* margin-left: 5%; */
   color: white;
 }
 </style>

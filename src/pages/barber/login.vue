@@ -24,11 +24,13 @@
 
         <q-tab-panels v-model="tab" animated>
           <q-tab-panel name="mobile">
-            <div class="text-h8">Please put your phone number</div>
+            <div class="text-h8">Please put your phone number </div>
             <!-- ----------------------------------input phone number-------------------------------------- -->
             <!-- test -->
-            <div class="mobile justify-center text-center">
+            <div class="mobile row justify-center text-center">
+              <h7 class="col-2 country">+66 : </h7>
               <q-input
+                class="col-10"
                 clearable
                 filled
                 color="black"
@@ -209,5 +211,8 @@ export default {
 }
 .confirmbutton {
   text-align: center;
+}
+.country{
+  margin-top: 20px;
 }
 </style>

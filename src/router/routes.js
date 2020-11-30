@@ -90,11 +90,11 @@ const routes = [
       //   meta: { authRequired: false }
       // },
       {
-        path: "",
+        path: "login",
         name: "loginbarber",
         component: () => import("pages/barber/login.vue"),
         meta: { authRequired: false }
-      },
+      }, 
       {
         path: "register",
         name: "registerbarber",
@@ -112,7 +112,7 @@ const routes = [
         name: "mainbarber",
         component: () => import("pages/barber/main.vue"),
         meta: { authRequired: true }
-      },
+      } ,
       {
         path: "profile",
         name: "profilebarber",
@@ -137,6 +137,8 @@ const routes = [
         component: () => import("pages/barber/upcoming.vue"),
         meta: { authRequired: true },
       }
+    
+      
     ]
   },
   {
@@ -145,15 +147,15 @@ const routes = [
     // meta: { authRequired: false },
     children: [
       {
-        path: "",
+        path: "login",
         name: "loginadmin",
-        component: () => import("pages/admin/login.vue")
+        component: () => import("pages/admin/login.vue"),
         // meta: { authRequired: false },
       },
       {
         path: "main",
         name: "mainadmin",
-        component: () => import("pages/admin/main.vue")
+        component: () => import("pages/admin/main.vue"),
         // meta: { authRequired: false },
       },
       {
