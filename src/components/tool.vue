@@ -7,13 +7,17 @@
       v-model="tab"
     >
       <q-tab name="home" icon="home" @click="home"> </q-tab>
-      
+       <q-tab
+        name="favorite"
+        icon="favorite"
+        @click="favorite"
+      ></q-tab>
       <q-tab
         name="notification"
         icon="notifications_active"
         @click="notification"
       ></q-tab>
-      <q-tab name="setting" icon="person_add" @click="edit"> </q-tab>
+      <q-tab name="setting" icon="person" @click="edit"> </q-tab>
     </q-tabs>
   </q-footer>
 </template>
@@ -31,6 +35,11 @@ export default {
         name: "EditprofileCustomer"
       });
     },
+    favorite() {
+      this.$router.push({
+        name: "favorite"
+      });
+    },
     home() {
       this.$router.push({
         name: "Maincustomer"
@@ -38,7 +47,7 @@ export default {
     },
     notification() {
        this.$router.push({
-        name: "upcoming"
+        name: "upcomingc"
       });
     },
     

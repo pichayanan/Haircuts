@@ -4,8 +4,12 @@ export default function () {
     firstname: "",
     lastname: "",
     profilepic:"",
-    id: ""
+    id: "",
+
+    telnoA: "",
+    emailA: "",
 
     //
   }
+  
 }

@@ -1,22 +1,24 @@
 <template>
-  <q-page class="bg-dark">
-    <q-toolbar class="bg-dark justify-center text-white bar q-pa-md ">
+  <q-page class="bg-grey-2">
+    <q-toolbar class="bg-white justify-center text-black bar q-pa-md q-mb-md ">
       <div>Upcoming Event</div>
     </q-toolbar>
-      <q-card
-      class="bg-white  q-mx-md  barbercard col-5 q-ma-md"
-      v-for="(data, index) in BarberFname"
+    <q-card
+      class="bg-white q-mb-md q-mr-md q-ml-md barbercard col-5"
+      v-for="(data, index) in customername"
       :key="index"
     >
       <div class="row start justifly-center">
 
-        <div class="col-7 q-pa-md ">
+        <div class="col-8 q-pa-md ">
           <div>
-            <h class="text-weight-bold">Barber :</h>&nbsp;{{data }} &nbsp;{{ BarberLname[index]}} <br />
+            <h class="text-weight-bold">Customer :</h>&nbsp;&nbsp;{{
+              data
+            }}<br />
           </div>
           <div>
-            <h class="text-weight-bold">Location :</h>&nbsp;&nbsp;{{
-              location[index]
+            <h class="text-weight-bold">Haircut type :</h>&nbsp;&nbsp;{{
+              haircuttype[index]
             }}<br />
           </div>
           <div>
@@ -28,6 +30,7 @@
           </div>
         </div>
         <div class="col-4 q-py-md">
+              <q-btn rounded color="primary" label="Complete"  class="q-mt-md completebtn" @click="complete(index)"/>
               <q-btn rounded color="red" label="Cancel" class="q-mt-md cancelbtn" @click="cancelcustomerbtn(index)" />
               <q-dialog v-model="cancelcustomer" persistent>
                       <q-card>
@@ -58,65 +61,92 @@
                           />
                         </q-card-actions>
                       </q-card>
-              </q-dialog>
+                    </q-dialog>
         </div>
-        
       </div>
     </q-card>
-    
-  <tool/>
+    <BarberNavbar />
   </q-page>
 </template>
 
 <script>
-import tool from "components/tool.vue";
+import BarberNavbar from "components/BarberNavbar.vue";
 export default {
-     components: {
-    tool
-  },data (){
+  components: {
+    BarberNavbar,
+  },
+  data() {
     return {
-      reservationid: [],
-      BarberFname: [],
-      BarberLname: [],
+      barberid: "",
+      customername: [],
       haircuttype: [],
       price: [],
       date: [],
       time: [],
-      location: [],
+      customerprofilepic: [],
+      reservationid: [],
       selectedreservation: "",
       cancelcustomer: false,
-
     };
   },
   methods: {
-      getdata() {
-    // console.log("this is", this.$firebase.auth().currentUser.email);
+    getdata() {
+      // console.log("This is : ", this.$firebase.auth().currentUser.phoneNumber, " using");
       this.$firestore
         .collection("reservation")
-        .where("cmail", "==", this.$firebase.auth().currentUser.email)
+        .where("phone", "==", this.$firebase.auth().currentUser.phoneNumber )
+        .where("complete","==", false)
         .get()
         .then((querySnapshot) => {
           querySnapshot.forEach((doc) => {
             this.reservationid.push(doc.id);
-            this.BarberFname.push(doc.data().barberF);
-            this.BarberLname.push(doc.data().barberL);
+            this.customername.push(doc.data().customerName);
             this.haircuttype.push(doc.data().haircutName);
             this.price.push(doc.data().price);
             this.date.push(doc.data().date);
             this.time.push(doc.data().time);
-            this.location.push(doc.data().location);
+          console.log(doc.data().customerName);
           });
+          console.log(this.reservationid);
           
         })
     },
-    cancelcustomerbtn(index){
+    getbarber() {
+      this.$firestore
+        .collection("reservation")
+        .get()
+        .then((querySnapshot) => {
+          querySnapshot.forEach((doc) => {
+            this.barberid = doc.id;
+          });
+          // console.log("This is : ", this.barberid, " using");
+        })
+    },
+    getcustomer() {
+      this.$firestore
+        .collection("customer")
+        .where("CName", "==", this.customername)
+        .get()
+        .then((querySnapshot) => {
+          querySnapshot.forEach((doc) => {
+            this.customerprofilepic.push(doc.data().URL)
+          });
+        })
+    },
+    complete(index){
+      console.log(this.reservationid[index])
+       this.$firestore.collection("reservation")
+        .doc(this.reservationid[index])
+        .update({
+        complete: true,
+      });
+        console.log("Update completed");
+    },
+     cancelcustomerbtn(index){
       console.log(index);
       this.cancelcustomer = true;
       this.selectedreservation = this.reservationid[index]
       // console.log(this.selectedcustomer, "HAHAHA");
-
-
-
     },
     confirmcancel(){
       console.log("You want to cancel ",this.selectedreservation)
@@ -128,19 +158,23 @@ export default {
           }).catch(function(error) {
             console.error("Error removing document: ", error);
           });
-
           
         
     }
   },
-  mounted() {
-   this.getdata();
-  }
+    mounted() {
+    this.getbarber();
+    this.getdata();
+     }
 }
+  
 </script>
 
 <style>
-.bar{
-  font-size: 18px;
+.cancelbtn{
+  width: 90%;
+}
+.completebtn{
+  width: 90%;
 }
 </style>

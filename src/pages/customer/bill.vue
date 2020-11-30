@@ -32,7 +32,7 @@
       <div class="row justify-center">
         <h>BARBER INFO</h>
       </div>
-      <div class="row q-py-sm btext ">
+      <div class="q-py-sm btext ">
         <div class="row">
           <h
             >Barber name :&nbsp;
@@ -43,7 +43,6 @@
         <div class="row">
           <h>Location :&nbsp; {{ this.$store.state.customertest.location }} </h>
         </div>
-        <br>
         <div class="row">
           <h>Contact :&nbsp; {{ this.$store.state.customertest.telno }} </h>
         </div>

@@ -1,6 +1,6 @@
 <template>
-  <q-page class="bg-grey-2">
-    <q-toolbar class="bg-grey-2 text-black">
+  <q-page class="bg-grey-3">
+    <q-toolbar class="bg-grey-3 text-black">
       <q-btn flat round dense icon="keyboard_backspace" @click="back">
         <!-- <q-badge floating color="red">2</q-badge> -->
       </q-btn>
@@ -103,7 +103,6 @@
 
 <script>
 import tool from "components/tool.vue";
-
 export default {
   components: {
     tool
@@ -171,7 +170,6 @@ export default {
     reserve(Fnameb,lnameb,price,location,telno,propic) {
       // console.log("lplpl: ", oop);
       // conlog.log(this.Fnameb);
-
       this.$store.commit("cdetail",{Fnameb,lnameb,price,location,telno,propic} );
     },
     getdata() {

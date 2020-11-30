@@ -59,7 +59,7 @@
       </div>
     </q-card>
 
-    <div class="row justify-center">
+    <!-- <div class="row justify-center">
       <div class=" q-pa-lg">
         <q-btn
           unelevated
@@ -70,7 +70,7 @@
           @click="confirm(selecttime)"
         ></q-btn>
       </div>
-    </div>
+    </div> -->
     <tool />
   </q-page>
 </template>
@@ -161,15 +161,7 @@ tool
   methods: {
     test(index,lable) {
       this.selecttime = lable;
-      // this.$q.notify({
-      //     position: "top",
-      //     message: "You have chosen "+this.selecttime,
-      //     color: "warning"
-      //   });
-      
       console.log(this.selecttime);
-      
-    //  this.operationtime[index] = !this.operationtime[index] 
      this.$set(this.operationtime, index, false) 
       console.log("**********",this.operationtime);
          
@@ -180,6 +172,7 @@ tool
           Time: this.operationtime,
           
         }) 
+        this.confirm(lable);
     },
     confirm(time) {
       this.$firestore
@@ -214,6 +207,7 @@ tool
       this.$firestore
         .collection("Timetable")
         .where("Date", "==", this.$store.state.customertest.cselect)
+        .where("barberF","==",this.$store.state.customertest.bname)
         .get()
         .then(querySnapshot => {
           querySnapshot.forEach(async doc => {

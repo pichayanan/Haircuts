@@ -78,7 +78,6 @@ import tool from "components/tool.vue";
 import { uploadProfile } from "../../API/api";
 import firebaseUploader from "components/FirebaseUploader.vue";
 import ImageFilePicker from "components/ImageFilePickerC.vue";
-
 export default {
   components: {
     tool
@@ -148,7 +147,6 @@ export default {
       const image = this.url;
       this.url = await uploadProfile(image);
       console.log("ได้แล้วนะ :", this.url);
-
       this.$firestore
         .collection("customer")
         .doc(this.getID)
@@ -191,7 +189,6 @@ export default {
     ImageFilePicker,
     tool
   },
-
   async mounted() {
     await this.getdata();
     console.log("finised getdata");
