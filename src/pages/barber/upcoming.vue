@@ -5,7 +5,7 @@
     </q-toolbar>
     <q-card
       class="bg-white q-mb-md q-mr-md q-ml-md barbercard col-5"
-      v-for="(data, index) in customername"
+      v-for="(data, index) in reservationid"
       :key="index"
     >
       <div class="row start justifly-center">
@@ -13,7 +13,7 @@
         <div class="col-8 q-pa-md ">
           <div>
             <h class="text-weight-bold">Customer :</h>&nbsp;&nbsp;{{
-              data
+              customername[index]
             }}<br />
           </div>
           <div>
@@ -30,8 +30,8 @@
           </div>
         </div>
         <div class="col-4 q-py-md">
-              <q-btn rounded color="primary" label="Complete"  class="q-mt-md completebtn" @click="complete(index)"/>
-              <q-btn rounded color="red" label="Cancel" class="q-mt-md cancelbtn" @click="cancelcustomerbtn(index)" />
+              <q-btn rounded color="primary" label="Complete"  class="q-mt-md completebtn" @click="complete(data)"/>
+              <q-btn rounded color="red" label="Cancel" class="q-mt-md cancelbtn" @click="cancelcustomerbtn(data)" />
               <q-dialog v-model="cancelcustomer" persistent>
                       <q-card>
                         <q-card-section class="row items-center">
@@ -91,6 +91,14 @@ export default {
   },
   methods: {
     getdata() {
+      this.reservationid = [];
+      this.customername= [];
+      this.haircuttype= [];
+      this.price= [];
+      this.date= [];
+      this.time= [];
+      this.customerprofilepic= [];
+      this.reservationid= [];
       // console.log("This is : ", this.$firebase.auth().currentUser.phoneNumber, " using");
       this.$firestore
         .collection("reservation")
@@ -105,11 +113,12 @@ export default {
             this.price.push(doc.data().price);
             this.date.push(doc.data().date);
             this.time.push(doc.data().time);
-          console.log(doc.data().customerName);
+          // console.log(doc.data().customerName);
           });
-          console.log(this.reservationid);
+          // console.log(this.reservationid);
           
         })
+
     },
     getbarber() {
       this.$firestore
@@ -120,7 +129,7 @@ export default {
             this.barberid = doc.id;
           });
           // console.log("This is : ", this.barberid, " using");
-        })
+        });
     },
     getcustomer() {
       this.$firestore
@@ -131,21 +140,26 @@ export default {
           querySnapshot.forEach((doc) => {
             this.customerprofilepic.push(doc.data().URL)
           });
-        })
+        });
     },
-    complete(index){
-      console.log(this.reservationid[index])
+    complete(selecedid){
+      console.log(selecedid)
        this.$firestore.collection("reservation")
-        .doc(this.reservationid[index])
+        .doc(selecedid)
         .update({
         complete: true,
-      });
-        console.log("Update completed");
+        })
+        .then(()=> {
+             console.log("Update completed");
+             this.getdata();
+        });
+        
+        
     },
-     cancelcustomerbtn(index){
-      console.log(index);
+     cancelcustomerbtn(selecedid){
+      console.log(selecedid);
       this.cancelcustomer = true;
-      this.selectedreservation = this.reservationid[index]
+      this.selectedreservation = selecedid;
       // console.log(this.selectedcustomer, "HAHAHA");
     },
     confirmcancel(){
@@ -153,12 +167,12 @@ export default {
        this.$firestore.collection("reservation")
         .doc(this.selectedreservation)
         .delete()
-        .then(function() {
+        .then(()=> {
             console.log("Document successfully deleted!");
+            this.getdata();
           }).catch(function(error) {
             console.error("Error removing document: ", error);
-          });
-          
+          });          
         
     }
   },

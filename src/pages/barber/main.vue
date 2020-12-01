@@ -21,6 +21,7 @@
       <div class="text row">Select Your Operation Day</div>
       <q-input v-model="startdate" filled type="date" hint="Start date" />
       <q-input v-model="enddate" filled type="date" hint="End date" />
+      <div class="text row q-mt-md">Select Your Day Off</div>
       <div class="row justify-center q-pa-md">
         <q-date v-model="dayoff" multiple></q-date>
       </div>
@@ -231,6 +232,11 @@ export default {
            Time: this.operationtime,
          })
       }
+      this.$q.notify({
+          position: "top",
+          message: "Information saved!",
+          color: "primary"
+        });
     },
   },
   mounted() {

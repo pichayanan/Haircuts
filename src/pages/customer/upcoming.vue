@@ -5,14 +5,14 @@
     </q-toolbar>
       <q-card
       class="bg-white  q-mx-md  barbercard col-5 q-ma-md"
-      v-for="(data, index) in BarberFname"
+      v-for="(data, index) in reservationid"
       :key="index"
     >
       <div class="row start justifly-center">
 
         <div class="col-8 q-pa-md ">
           <div>
-            <h class="text-weight-bold">Barber :</h>&nbsp;{{data }} &nbsp;{{ BarberLname[index]}} <br />
+            <h class="text-weight-bold">Barber :</h>&nbsp;{{BarberFname[index] }} &nbsp;{{ BarberLname[index]}} <br />
           </div>
           <div>
             <h class="text-weight-bold">Location :</h>&nbsp;&nbsp;{{
@@ -28,7 +28,7 @@
           </div>
         </div>
         <div class="col-3 q-py-lg q-pt-lg">
-              <q-btn rounded color="red" label="Cancel" class="q-mt-md cancelbtn" @click="cancelcustomerbtn(index)" />
+              <q-btn rounded color="red" label="Cancel" class="q-mt-md cancelbtn" @click="cancelcustomerbtn(data)" />
               <q-dialog v-model="cancelcustomer" persistent>
                       <q-card>
                         <q-card-section class="row items-center">
@@ -91,6 +91,14 @@ export default {
   },
   methods: {
       getdata() {
+        this.reservationid= [];
+      this.BarberFname= [];
+      this.BarberLname= [];
+      this.haircuttype= [];
+      this.price= [];
+      this.date= [];
+      this.time= [];
+      this.location= [];
     // console.log("this is", this.$firebase.auth().currentUser.email);
       this.$firestore
         .collection("reservation")
@@ -110,10 +118,10 @@ export default {
           
         })
     },
-    cancelcustomerbtn(index){
-      console.log(index);
+    cancelcustomerbtn(selectedid){
+      console.log(selectedid);
       this.cancelcustomer = true;
-      this.selectedreservation = this.reservationid[index]
+      this.selectedreservation = selectedid;
       // console.log(this.selectedcustomer, "HAHAHA");
 
 
@@ -124,8 +132,9 @@ export default {
        this.$firestore.collection("reservation")
         .doc(this.selectedreservation)
         .delete()
-        .then(function() {
+        .then(()=> {
             console.log("Document successfully deleted!");
+            this.getdata();
           }).catch(function(error) {
             console.error("Error removing document: ", error);
           });

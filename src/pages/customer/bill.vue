@@ -72,39 +72,43 @@
         </div>
       </div>
       <div class="row justify-center q-pa-md">
-       <q-btn rounded color="red" label="Cancel" class="q-mt-md cancelbtn" @click="cancel()" /> &nbsp;
-       <q-btn rounded color="primary" label="Confirm" class="q-mt-md confirmbtn" @click="confirm()" />
-              <q-dialog v-model="cancelcustomer" persistent>
-                      <q-card>
-                        <q-card-section class="row items-center">
-                          <q-avatar
-                            icon="warning"
-                            color="red"
-                            text-color="white"
-                          />
-                          <span class="q-ml-sm"
-                            >You are cancelling this reservation</span
-                          >
-                        </q-card-section>
+        <div>
+          <q-btn
+            rounded
+            color="red"
+            label="Cancel"
+            class="q-mt-md row btn"
+            @click="cancel()"
+          />
+          <q-btn
+            rounded
+            color="primary"
+            
+            label="Confirm"
+            class="q-mt-md row btn"
+            @click="confirm()"
+          />
+          <q-dialog v-model="cancelcustomer" persistent>
+            <q-card>
+              <q-card-section class="row items-center">
+                <q-avatar icon="warning" color="red" text-color="white" />
+                <span class="q-ml-sm">You are cancelling this reservation</span>
+              </q-card-section>
 
-                        <q-card-actions align="right">
-                          <q-btn
-                            flat
-                            label="Cancel"
-                            color="black"
-                            v-close-popup
-                          />
-                          <q-btn
-                            flat
-                            label="Confirm"
-                            color="red"
-                            v-close-popup
-                            @click="confirmcancel"
-                          />
-                        </q-card-actions>
-                      </q-card>
-              </q-dialog>
+              <q-card-actions align="right">
+                <q-btn flat label="Cancel" color="black" v-close-popup />
+                <q-btn
+                  flat
+                  label="Confirm"
+                  color="red"
+                  v-close-popup
+                  @click="confirmcancel"
+                />
+              </q-card-actions>
+            </q-card>
+          </q-dialog>
         </div>
+      </div>
     </q-card>
 
     <tool />
@@ -120,10 +124,10 @@ export default {
   data() {
     return {
       logo: "",
-      Time: [],     
+      Time: [],
       cancelcustomer: false,
-      selectedbill:"",
-      timeTableid:"",
+      selectedbill: "",
+      timeTableid: ""
     };
   },
   methods: {
@@ -132,66 +136,62 @@ export default {
         name: "Maincustomer"
       });
     },
-    confirm(){
-        this.updatetimetable();
+    confirm() {
+      this.updatetimetable();
     },
-    cancel(){
-    this.cancelcustomer = true;
-
+    cancel() {
+      this.cancelcustomer = true;
     },
-    confirmcancel(){
-     console.log("You want to cancel ",this.selectedbill)
-       this.$firestore.collection("reservation")
+    confirmcancel() {
+      console.log("You want to cancel ", this.selectedbill);
+      this.$firestore
+        .collection("reservation")
         .doc(this.selectedbill)
         .delete()
         .then(function() {
-            console.log("Document successfully deleted!");
-             this.$router.push({
-             name: "Maincustomer"
-
+          console.log("Document successfully deleted!");
+          this.$router.push({
+            name: "Maincustomer"
           });
-          }).catch(function(error) {
-            console.error("Error removing document: ", error);
-          });
-        this.updatetimetable();
+        })
+        .catch(function(error) {
+          console.error("Error removing document: ", error);
+        });
+      this.updatetimetable();
     },
-    updatetimetable(){
+    updatetimetable() {
       this.$firestore
         .collection("Timetable")
         .where("barberF", "==", this.$store.state.customertest.bname)
-        .where("Date","==",this.$store.state.customertest.cselect)
+        .where("Date", "==", this.$store.state.customertest.cselect)
         .get()
         .then(querySnapshot => {
           querySnapshot.forEach(doc => {
             this.TimeC(doc.data().Time);
-            console.log("Time : ",this.Time);
+            console.log("Time : ", this.Time);
             this.timeTableid = doc.id;
-            console.log("+++",this.timeTableid);
+            console.log("+++", this.timeTableid);
             this.checkTime(this.Time);
           });
-          
-        })
-        
+        });
     },
-    TimeC(t){
-       this.Time = t;
+    TimeC(t) {
+      this.Time = t;
     },
-    checkTime(time){
-     console.log("22222",time);
-     this.$set(time, this.$store.state.customertest.index, false) 
-         this.$firestore
+    checkTime(time) {
+      console.log("22222", time);
+      this.$set(time, this.$store.state.customertest.index, false);
+      this.$firestore
         .collection("Timetable")
         .doc(this.timeTableid)
         .update({
-          Time: time,
-          
+          Time: time
         })
         .then(
           this.$router.push({
-        name: "Maincustomer"
-      })
-        ) 
-
+            name: "Maincustomer"
+          })
+        );
     },
     getdata() {
       this.$firestore
@@ -211,33 +211,47 @@ export default {
           console.log("Error getting documents: ", error);
         });
     },
-    getbill(){
-       this.$firestore
+    getbill() {
+      this.$firestore
         .collection("reservation")
         .where("barberF", "==", this.$store.state.customertest.bname)
-        .where("date","==",this.$store.state.customertest.cselect)
-        .where("time","==",this.$store.state.customertest.selectT)
+        .where("date", "==", this.$store.state.customertest.cselect)
+        .where("time", "==", this.$store.state.customertest.selectT)
         .get()
         .then(querySnapshot => {
           querySnapshot.forEach(doc => {
             // doc.data() is never undefined for query doc snapshots
-           
+
             this.selectedbill = doc.id;
-            console.log("doc id :",this.selectedbill);
+            console.log("doc id :", this.selectedbill);
           });
         });
-       
-  },
+    }
   },
   mounted() {
     this.getdata();
-    
   }
-}
+};
 </script>
 
 <style>
 @media screen and (min-width: 768px) {
+  .billcard {
+    margin-top: 10%;
+    margin-right: 20px;
+    margin-left: 20px;
+    padding-top: 8%;
+    padding-left: 3%;
+    padding-bottom: 20%;
+  }
+  .text {
+    font-size: 20px;
+  }
+  .billpic {
+    width: 150px;
+    height: 80px;
+  }
+}
 .billcard {
   margin-top: 10%;
   margin-right: 20px;
@@ -253,21 +267,7 @@ export default {
   width: 150px;
   height: 80px;
 }
-
-}
-.billcard {
-  margin-top: 10%;
-  margin-right: 20px;
-  margin-left: 20px;
-  padding-top: 8%;
-  padding-left: 3%;
-  padding-bottom: 20%;
-}
-.text {
-  font-size: 20px;
-}
-.billpic {
-  width: 150px;
-  height: 80px;
+.btn{
+  width: 120px;
 }
 </style>
